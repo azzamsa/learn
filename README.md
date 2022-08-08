@@ -5,18 +5,13 @@
 
 List of project I built for learning purpose 🧠
 
-<a href="https://azzamsa.com/support/">
-    <img alt="Sponsor me" src="https://img.shields.io/badge/Sponsor%20Me-%F0%9F%92%96-ff69b4">
-  </a>
-
 </div>
 
 ---
 
 ## Rust
 
-- [Caesar ROT13 Dioxus](https://github.com/azzamsa/caesar-dioxus) - Encrypt and decrypt your secrets using ROT13 🔐.
-- [Caesars](https://github.com/azzamsa/caesars) - Same as above, but with various frontend frameworks.
+- [Caesars](https://github.com/azzamsa/caesars) - Encrypt and decrypt your secrets using ROT13 🔐.
 - [Crabtail](https://github.com/azzamsa/crabtail) - Convert your TailwindCSS 💨 class to typed Rust 🦀.
 - [Dryip of Rust](https://github.com/azzamsa/dryip-of-rust) - Short Rust 🦀 code snippets for inspiration.
 - [Rustlings](https://github.com/azzamsa/rustlings)
@@ -30,7 +25,8 @@ List of project I built for learning purpose 🧠
 
 ## Javascript
 
-- [Pokédex Svelte](https://github.com/azzamsa/pokedex-svelte) - Browse your favorite pokemon 🐉.
+- [Pokédex Vue](https://github.com/azzamsa/pokedex-vue) - Browse your favorite pokemon 🐉.
+- [Pokédex SvelteKit](https://github.com/azzamsa/pokedex-sveltekit) - Browse your favorite pokemon 🐉.
 - [Quiz Vue](https://github.com/azzamsa/quiz-vue) - Simple quiz app 🎲. Built with Vue.js.
 
 ## Misc
@@ -41,3 +37,4 @@ List of project I built for learning purpose 🧠
 ## Archived
 
 - [Rust Backend Zoo](https://github.com/azzamsa/rust-backend-zoo) - A collection of Rust web framework boilerplate.
+- [Caesar ROT13 Dioxus](https://github.com/azzamsa/caesar-dioxus) - Encrypt and decrypt your secrets using ROT13 🔐.
