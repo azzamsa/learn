@@ -38,6 +38,7 @@ These projects are built for learning purposes. Some are implemented using diffe
 
 ### Misc
 
+- [Keywords](https://github.com/azzamsa/keywords) - Collections of language keywords 🗝.
 - [Grass](https://github.com/azzamsa/grass) - A plant that lives anywhere 🌿.
 - [Cheatsheets](https://github.com/azzamsa/cheatsheets) - My most used snippets 🧠 that are nice to share.
 
