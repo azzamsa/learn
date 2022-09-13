@@ -15,7 +15,7 @@ These projects are built for learning purposes. Some are implemented using diffe
 
 ## Projects
 
-### Rust
+### Rust 🦀
 
 - [Caesars](https://github.com/azzamsa/caesars) - Encrypt and decrypt your secrets using ROT13 🔐.
 - [Crabtail](https://github.com/azzamsa/crabtail) - Convert your TailwindCSS 💨 class to typed Rust 🦀.
@@ -24,12 +24,12 @@ These projects are built for learning purposes. Some are implemented using diffe
 - [Rust In Action Notes](https://github.com/azzamsa/rust-in-action-notes)
 - [Easy Rust Notes](https://github.com/azzamsa/easy_rust_notes)
 
-### Python
+### Python 🐍
 
 - [Learn Data Structure and Algorithm](https://github.com/azzamsa/learn-dsa) - My notes on learning DSA 🧁.
 - [Learn Scrapy](https://github.com/azzamsa/learn-scrapy) - My notes on learning Scrapy 🕷.
 
-### Javascript
+### Javascript 🖖
 
 - Pokédex
   - 🥇 [Pokédex Vue](https://github.com/azzamsa/pokedex-vue) - Browse your favorite pokemon 🐉.
@@ -46,4 +46,3 @@ These projects are built for learning purposes. Some are implemented using diffe
 
 - [Rust Backend Zoo](https://github.com/azzamsa/rust-backend-zoo) - A collection of Rust web framework boilerplate.
 - [Caesar ROT13 Dioxus](https://github.com/azzamsa/caesar-dioxus) - Encrypt and decrypt your secrets using ROT13 🔐.
-
