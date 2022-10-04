@@ -1,0 +1,34 @@
+name: Caesar (CI)
+
+on:
+  push:
+    paths:
+      -  src/caesars/**
+      - .github/workflows/caesars.yml
+  pull_request:
+    paths:
+      -  src/caesars/**
+      - .github/workflows/caesars.yml
+
+defaults:
+  run:
+    working-directory: src/caesars
+
+jobs:
+  code_quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install dprint
+        run: |
+          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
+          unzip dprint.zip
+          cp dprint ~/.cargo/bin/
+          dprint --version
+
+      - name: Check if the repository comply with the rules
+        run:  make check

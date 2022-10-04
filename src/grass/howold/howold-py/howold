@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import datetime
+from dateutil.relativedelta import relativedelta
+
+current_dt = datetime.datetime.now()
+birth_date = datetime.datetime.strptime("2000-11-28", "%Y-%m-%d")
+
+birth_date_formatted = birth_date.strftime("%A, %d %B %Y ")
+
+diff = relativedelta(current_dt, birth_date)
+
+print(f"You were born at: {birth_date_formatted}")
+print(f"Your are: {diff.years} years, {diff.months} months, {diff.days} days")

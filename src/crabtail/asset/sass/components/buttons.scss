@@ -1,0 +1,19 @@
+//==========  Buttons ==========//
+
+.btn {
+  @apply py-2 rounded bg-yellow-600 text-white font-bold shadow-lg transition duration-200;
+  &:hover {
+    @apply bg-yellow-700 shadow-xl;
+  }
+}
+
+.input {
+  @apply px-3 pb-3 w-full border-b-4 border-gray-300 border-b-4 border-gray-300 transition bg-gray-200 text-gray-700 duration-500;
+  &:focus {
+    @apply outline-none border-yellow-600;
+  }
+}
+
+.input-label {
+  @apply block text-gray-700 text-sm font-bold mb-2 ml-3;
+}

@@ -1,0 +1,27 @@
+[package]
+name = "crabtail"
+version = "0.1.0"
+authors = ["azzamsa <me@azzamsa.com>"]
+description = "Convert your TailwindCSS class to typed Rust"
+categories = ["encoding"]
+keywords = ["seed", "tailwind"]
+license = "AGPL-3.0-or-later"
+readme = "./README.md"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+#seed = "0.8.0"
+seed = { git = "https://github.com/seed-rs/seed", rev = "2eb77e8"}
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.18"
+
+[profile.release]
+lto = true
+opt-level = 'z'
+codegen-units = 1
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ['-Os']

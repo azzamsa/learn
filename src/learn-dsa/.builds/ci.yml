@@ -1,0 +1,42 @@
+image: ubuntu/18.04
+
+packages:
+  - software-properties-common
+  - python3-pip
+
+sources:
+  - https://git.sr.ht/~azzamsa/learn-dsa
+
+environment:
+  project: learn-dsa
+
+tasks:
+  - setup: |
+      cd ${project}
+
+
+      sudo add-apt-repository ppa:deadsnakes/ppa
+      sudo apt update
+      # build fails without `python3-distutils`
+      sudo apt-get install -y python3.9 python3.9-distutils
+      sudo apt-get install -y python3.10 python3.10-distutils
+
+      python3 -m pip install --user nox==2021.10.1
+      # make the path persists in the next step
+      echo export PATH="$HOME/.local/bin:$PATH" >> ~/.buildenv
+
+  - lint: |
+      cd ${project}
+
+      nox -s lint
+
+  - test: |
+      cd ${project}
+
+      nox -s test
+
+  - coverage: |
+      cd ${project}
+
+      nox -s coverage
+

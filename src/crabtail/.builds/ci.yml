@@ -1,0 +1,118 @@
+image: ubuntu/focal
+
+sources:
+  - https://git.sr.ht/~azzamsa/crabtail
+
+packages:
+  - nodejs
+  - yarn
+  # cargo-make needs these
+  - pkg-config
+  - libssl-dev
+  - unzip
+  # cypress needs these
+  - firefox
+  - xvfb
+  - libnss3
+  - libgbm-dev
+
+environment:
+  project: crabtail
+
+secrets:
+  - 1cf349b2-4fe8-4fbe-9640-a9c79b447ee1 # Netlify auth token
+  - 9db67c26-4aa9-454f-a2fd-3b126c262096 # Netlify site id
+
+tasks:
+  - setup-rust: |
+      # install rustup
+      curl https://sh.rustup.rs -sSf | sh -s -- -y
+      export PATH="$HOME/.cargo/bin:$PATH"
+
+      # install Rust stable
+      rustup install stable --profile minimal
+      rustc -V
+
+      # cargo-make
+      wget -q https://github.com/sagiegurari/cargo-make/releases/download/0.32.14/cargo-make-v0.32.14-x86_64-unknown-linux-musl.zip
+      unzip cargo-make-v0.32.14-x86_64-unknown-linux-musl.zip
+      mv cargo-make-v0.32.14-x86_64-unknown-linux-musl cargo-make
+      chmod +x cargo-make/cargo-make
+      mv cargo-make/cargo-make ~/.cargo/bin/
+      cargo make --version
+
+      # install Rust nightly
+      rustup toolchain install nightly
+      rustup component add rustfmt --toolchain nightly
+
+      # install trunk
+      wget -qO- https://github.com/thedodd/trunk/releases/download/v0.10.0/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
+      chmod +x trunk
+      cp trunk ~/.cargo/bin/
+      trunk --version
+
+      # install wasm-bindgen
+      wget -qO- https://github.com/rustwasm/wasm-bindgen/releases/download/0.2.72/wasm-bindgen-0.2.72-x86_64-unknown-linux-musl.tar.gz | tar -xzf-
+      mv wasm-bindgen-0.2.72-x86_64-unknown-linux-musl/ wasm-bindgen
+      chmod +x wasm-bindgen/wasm-bindgen
+      cp wasm-bindgen/* ~/.cargo/bin/
+      wasm-bindgen --version
+
+      # make path persistent
+      echo export PATH="$HOME/.cargo/bin:$PATH" >> ~/.buildenv
+
+  - setup-js: |
+      # install JS depedencies
+      # locally isnstalled yarn is too old
+      wget -q https://github.com/Schniz/fnm/releases/download/v1.23.1/fnm-linux.zip
+      unzip fnm-linux.zip
+      chmod +x fnm
+      cp fnm ~/.cargo/bin/
+      fnm --version
+
+      eval "$(fnm env)"
+      fnm install v14.15.4
+      fnm use v14.15.4
+      fnm default v14.15
+
+      npm install -g yarn
+      yarn --version
+
+      yarn global add npx@10.2.2 prettier@2.2.1
+      export PATH="$HOME/.yarn/bin:$PATH"
+      npx --version
+      prettier --version
+
+      # make path persistent
+      echo export PATH="$HOME/.yarn/bin:$PATH" >> ~/.buildenv
+      echo eval "$(fnm env)" >> ~/.buildenv
+      echo fnm use v14.15.4 >> ~/.buildenv
+
+  - setup: |
+      cd ${project}
+      yarn install
+
+      rustup target add wasm32-unknown-unknown
+      cargo make build_release
+
+  - test: |
+      cd ${project}
+      yarn global add cypress@6.8.0
+      yarn global add start-server-and-test@1.12.1
+      cargo make is_verified
+
+  - check_rules: |
+      cd ${project}
+      git branch --contains | grep master || echo "Build stopped. Not on master branch"
+      # complete-build is sr.ht bash function
+      git branch --contains | grep master || complete-build
+
+  - deploy: |
+      cd ${project}
+
+      set +x
+      NETLIFY_AUTH_TOKEN=$(cat ~/.NETLIFY_AUTH_TOKEN)
+      NETLIFY_SITE_ID=$(cat ~/.NETLIFY_CRABTAIL_ID)
+
+      yarn global add --unsafe-perm=true netlify-cli@3.11.0
+      netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --dir ./dist

@@ -1,0 +1,42 @@
+name: Pokedex Svelte (CI)
+
+on:
+  push:
+    paths:
+      -  src/pokedex-svelte/**
+      - .github/workflows/pokedex_svelte.yml
+  pull_request:
+    paths:
+      -  src/pokedex-svelte/**
+      - .github/workflows/pokedex_svelte.yml
+
+defaults:
+  run:
+    working-directory: src/pokedex-svelte
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dprint
+        run: |
+          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
+          unzip dprint.zip
+          cp dprint ~/.cargo/bin/
+          dprint --version
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install dependencies
+        run: |
+          pnpm i
+
+      - name: Lint
+        run: |
+          make check

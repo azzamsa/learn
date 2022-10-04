@@ -1,0 +1,111 @@
+name: Quiz Vue CI
+
+on:
+  push:
+    paths:
+      -  src/quiz-vue/**
+      - .github/workflows/quiz_vue.yml
+  pull_request:
+    paths:
+      -  src/quiz-vue/**
+      - .github/workflows/quiz_vue.yml
+
+defaults:
+  run:
+    working-directory: src/quiz-vue
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install dprint
+        run: |
+          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
+          unzip dprint.zip
+          cp dprint ~/.cargo/bin/
+          dprint --version
+
+      - name: Install
+        run: pnpm install
+
+      - name: Lint
+        run: |
+          make fmt_check
+          make lint
+
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        os: [ubuntu-latest]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
+          cache: pnpm
+          cache-dependency-path: src/quiz-vue/pnpm-lock.yaml
+
+      - run: pnpm install
+      - run: pnpm run test-unit
+
+  test-e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache
+          key: cypress-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
+          cache: pnpm
+          cache-dependency-path: src/quiz-vue/pnpm-lock.yaml
+
+      - run: pnpm install
+
+      - name: Cypress PNPM Patch
+        run: cp pnpm-lock.yaml package-lock.json
+
+      - name: Cypress
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: src/quiz-vue
+          install-command: echo
+          build: pnpm run build
+          start: npx vite --port 4173
+          spec: |
+            cypress/e2e/locale.cy.ts
+            cypress/e2e/questionLimit.cy.ts

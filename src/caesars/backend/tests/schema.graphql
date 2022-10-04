@@ -1,0 +1,34 @@
+
+type Decrypt {
+	plain: String!
+	rotation: Int!
+}
+
+type Encrypt {
+	secret: String!
+	rotation: Int!
+}
+
+
+type Health {
+	status: String!
+}
+
+
+
+type Meta {
+	build: String!
+	version: String!
+}
+
+type Query {
+	meta: Meta!
+	health: Health!
+	encrypt(plain: String!, rotation: Int!): Encrypt!
+	decrypt(secret: String!, rotation: Int!): Decrypt!
+}
+
+
+schema {
+	query: Query
+}

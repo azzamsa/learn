@@ -1,0 +1,60 @@
+#! /usr/bin/env bash
+
+help () {
+    cat << EOF
+
+Usage: make [options]
+
+Options:
+
+    verify          Make the codebase adhere to the rules
+    is_verified     Check if the codebase adhere to the rules
+
+EOF
+
+}
+
+verify () {
+    echo "::: Format with black"
+    black src/
+
+    echo "::: Lint with flake8"
+    flake8 --config src/setup.cfg src/
+
+    echo "::: Sort import with isort"
+    isort --settings-path src/setup.cfg src/
+}
+
+is_verified () {
+    echo "::: Is formatted with black"
+    black --check src/
+
+    echo "::: Is linted with flake8"
+    flake8 --config src/setup.cfg src/
+
+    echo "::: Is sorted with isort"
+    isort --settings-path src/setup.cfg src/
+
+}
+
+
+
+if [ ! -n "$1" ]
+then
+    help
+    exit
+fi
+
+while [ -n "$1" ]; do
+
+    case "$1" in
+
+        verify) verify ;;
+        is_verified) is_verified ;;
+        help) help ;;
+
+    esac
+    break
+
+done
+

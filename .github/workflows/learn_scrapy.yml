@@ -1,0 +1,61 @@
+name: Learn Scrapy (CI)
+
+on:
+  push:
+    paths:
+      -  src/learn-scrapy/**
+      - .github/workflows/learn_scrapy.yml
+  pull_request:
+    paths:
+      -  src/learn-scrapy/**
+      - .github/workflows/learn_scrapy.yml
+
+defaults:
+  run:
+    working-directory: src/learn-scrapy
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.9]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Unit tests
+        run: |
+          python -m pip install -r src/quotes_crawlspider/requirements.txt
+          cd src/quotes_crawlspider/ && scrapy check -v
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+          python-version: '3.9'
+
+    - name: Install dependencies
+      # newer black version had breaking changes
+      run: |
+        python -m pip install black==21.9b0 flake8==4.0.1 flake8-isort==4.1.1
+
+    - name: Lint
+      # currently cli is not-maintained
+      run: |
+        ./scripts/make is_verified

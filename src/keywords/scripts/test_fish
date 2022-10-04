@@ -1,0 +1,9 @@
+#!/bin/python
+import glob
+import os
+
+files = glob.glob("src/fish/*.fish")
+
+for file_ in files:
+    print(f"Testing: {file_}")
+    os.system(f"fish {file_}")

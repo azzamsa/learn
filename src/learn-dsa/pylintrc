@@ -1,0 +1,4 @@
+[MESSAGES CONTROL]
+disable=missing-docstring,
+        # trigger false error in recurusive function
+        no-else-return

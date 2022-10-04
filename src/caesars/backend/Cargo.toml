@@ -1,0 +1,43 @@
+[package]
+name = "backend"
+version = "0.1.1"
+authors = ["azzamsa <vcs@azzamsa.com>"]
+categories = ["web-programming"]
+edition = "2021"
+exclude = ["/README.md"]
+keywords = ["boilerplate"]
+license = "MIT"
+repository = "https://github.com/azzamsa/rust-graphql"
+description = "Rust GraphQL Template"
+
+[dependencies]
+# web server
+axum = "0.5.13"
+hyper = "0.14.20"
+tokio = { version = "1.20.0", features = ["macros", "rt-multi-thread"] }
+
+# GraphQL
+async-graphql = { version = "4.0.5", features = ["uuid", "chrono"] }
+async-graphql-axum = "4.0.5"
+
+# Rest
+utoipa = { git = "https://github.com/juhaku/utoipa", rev = "baa3947", features = ["axum_extras"] }
+utoipa-swagger-ui = { git = "https://github.com/juhaku/utoipa", rev = "baa3947", features = ["axum"] }
+
+# log
+env_logger = "0.9.0"
+log = "0.4"
+
+dotenv = "0.15"
+nrot = "2.0.0"
+serde = "1.0"
+serde_json = "1.0"
+thiserror = "1.0"
+
+[dev-dependencies]
+anyhow = "1.0"
+cynic = "1.0.0"
+hyper = { version = "0.14.20", features = ["full"] }
+mime = "0.3.16"
+serde = { version = "1.0", features = ["derive"] }
+tower = { version = "0.4", features = ["util"] }

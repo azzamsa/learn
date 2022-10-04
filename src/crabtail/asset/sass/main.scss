@@ -1,0 +1,15 @@
+//==========  Import all component partials ==========/
+// postcss-import need the exact path and filename
+
+@import "base/all.scss";
+@import "components/all.scss";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  h1 {
+    @apply text-5xl;
+  }
+}

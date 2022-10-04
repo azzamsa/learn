@@ -1,0 +1,158 @@
+name: Caesar Dioxus (CI)
+
+env:
+  MIN_SUPPORTED_RUST_VERSION: "1.60.0"
+
+on:
+  push:
+    paths:
+      -  src/caesars/dioxus/**
+      - .github/workflows/caesars.yml
+      - .github/workflows/caesars_dioxus.yml
+  pull_request:
+    paths:
+      -  src/caesars/dioxus/**
+      - .github/workflows/caesars.yml
+      - .github/workflows/caesars_dioxus.yml
+
+defaults:
+  run:
+    working-directory: src/caesars/frontend/dioxus
+
+jobs:
+  code_quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          # nightly is only use for rustfmt
+          toolchain: nightly
+          default: true
+          profile: minimal # no documentation
+          components: clippy, rustfmt
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install global JS dependencies
+        run: |
+          pnpm add -g prettier
+
+      - name: Install dprint
+        run: |
+          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
+          unzip dprint.zip
+          cp dprint ~/.cargo/bin/
+          dprint --version
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v1
+
+      - name: Ensure MSRV is set in `clippy.toml`
+        run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
+
+      - name: Run check
+        run: make check
+
+
+  min_version:
+    name: Minimum supported rust version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install rust toolchain (v${{ env.MIN_SUPPORTED_RUST_VERSION }})
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ env.MIN_SUPPORTED_RUST_VERSION }}
+          default: true
+          profile: minimal
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install global JS dependencies
+        run: |
+          pnpm add -g prettier
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v1
+
+      - name: Run test
+        run: make test
+
+  build:
+    name: ${{ matrix.job.os }} (${{ matrix.job.target }})
+    runs-on: ${{ matrix.job.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        job:
+          - { os: ubuntu-latest, target: wasm32-unknown-unknown   }
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.job.target }}
+          override: true
+          profile: minimal
+
+      - name: Install Trunk
+        run: |
+          curl --location https://github.com/thedodd/trunk/releases/download/v0.16.0/trunk-x86_64-unknown-linux-gnu.tar.gz --output trunk.tar.gz
+          tar -xzf trunk.tar.gz
+          cp trunk ~/.cargo/bin/
+          trunk --version
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install global dependencies
+        run: |
+          pnpm add -g prettier
+
+      - name: Install local JS dependencies
+        run: |
+          pnpm i
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v1
+
+      - name: Show version information
+        shell: bash
+        run: |
+          gcc --version || true
+          rustup -V
+          rustup toolchain list
+          rustup default
+          cargo -V
+          rustc -V
+
+          prettier --version
+          trunk --version
+
+      - name: Run build
+        run: make build
+
+      - name: Run test
+        run: make test

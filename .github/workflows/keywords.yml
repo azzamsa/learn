@@ -1,0 +1,105 @@
+name: Keywords (CI)
+
+on:
+  push:
+    paths:
+      -  src/keywords/**
+      - .github/workflows/keywords.yml
+  pull_request:
+    paths:
+      -  src/keywords/**
+      - .github/workflows/keywords.yml
+
+defaults:
+  run:
+    working-directory: src/keywords
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dprint
+        run: |
+          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
+          unzip dprint.zip
+          cp dprint ~/.cargo/bin/
+          dprint --version
+
+      - name: Lint
+        run: |
+          make fmt_check
+
+  test-python:
+    name: Test Python
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Test
+        run: |
+          ./scripts/test_python
+
+  test-rust:
+    name: Test Rust
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/keywords/src/rust
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          profile: minimal # no documentation
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v1
+
+      - name: Install dprint
+        run: |
+          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
+          unzip dprint.zip
+          cp dprint ~/.cargo/bin/
+          dprint --version
+
+      - name: Test
+        run: |
+          make check
+
+  test-nushell:
+    name: Test Nushell
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Nushell
+        run: |
+          curl --location https://github.com/nushell/nushell/releases/download/0.66.2/nu-0.66.2-x86_64-unknown-linux-gnu.tar.gz --output nu.tar.gz
+          tar -xzf nu.tar.gz
+          sudo cp nu /usr/local/bin/
+          nu --version
+
+      - name: Test
+        run: |
+          ./scripts/test_nushell
+
+  test-fish:
+    name: Test Fish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Test
+        run: |
+          ./scripts/test_fish

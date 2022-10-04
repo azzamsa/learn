@@ -1,0 +1,115 @@
+[env]
+PORT = "8080"
+BROWSER ="/usr/local/bin/firefox-dev"
+
+[config]
+skip_core_tasks = true
+
+# ---- GENERAL ----
+
+[tasks.verify]
+description = "Format, lint with Clippy and run tests"
+dependencies = ["fmt", "clippy" ,"fmt_prettier", "test_cargo", "test_cypress"]
+script = [
+    "echo 'Ready to deploy 🚀'"
+]
+
+[tasks.is_verified]
+description = "Like `verify`, but fails if the code isn't formatted. Primarily for CI."
+dependencies = ["fmt_check", "clippy" ,"fmt_prettier_check", "test_cargo", "test_cypress"]
+
+# ---- BASIC ----
+
+[tasks.clean]
+description = "Remove build output"
+script = [
+    "trunk clean",
+    "rm -f src/generated/css_classes.rs"
+]
+
+[tasks.trunk]
+description = "Manage trunk"
+install_crate = { crate_name = "trunk", binary = "trunk", test_arg = "-V" }
+command = "trunk"
+
+[tasks.serve]
+description = "Start server"
+extend = "trunk"
+args = ["serve"]
+dependencies = ["prepare"]
+
+[tasks.serve_release]
+description = "Start real web server"
+install_crate = { crate_name = "microserver", binary = "microserver", test_arg = "-h" }
+command = "microserver"
+args = ["dist/", "--port", "${PORT}"]
+dependencies = ["build_release"]
+
+# ---- BUILD ----
+
+[tasks.prepare]
+description = "Prepare asset"
+command = "npx"
+env = {mode = "development"}
+args = ["postcss", "--config", "configs/postcss.config.js", "asset/sass/main.scss", "--output", "asset/sass/compiled.scss", "--env", "${mode}"]
+
+[tasks.prepare_release]
+description = "Prepare asset for release"
+extend = "prepare"
+env = {mode = "production"}
+
+
+[tasks.build_release]
+description = "Build with trunk"
+extend = "trunk"
+args = ["build", "--release"]
+dependencies = ["prepare_release"]
+
+
+
+
+# ---- LINT ----
+
+[tasks.clippy]
+description = "Lint with Clippy"
+install_crate = { rustup_component_name = "clippy", binary = "cargo-clippy", test_arg = "--help" }
+script = [
+    'find . | grep "\.rs" | xargs touch ; cargo clippy --all-features -- --deny warnings --deny clippy::pedantic --deny clippy::nursery'
+]
+
+[tasks.fmt]
+description = "Format with nightly rustfmt"
+toolchain = "nightly"
+command = "cargo"
+args = ["fmt", "--all"]
+
+[tasks.fmt_check]
+extend = "fmt"
+description = "Check format with nightly rustfmt"
+args = ["fmt", "--all", "--", "--check"]
+
+[tasks.prettier]
+command = "prettier"
+args = [".", "--config", "configs/prettier.config.js", "--ignore-path", "configs/prettierignore", "${option}" ]
+
+[tasks.fmt_prettier]
+description = "Format with prettier"
+extend = "prettier"
+env = { option = "--write" }
+
+[tasks.fmt_prettier_check]
+description = "Check format with prettier"
+extend = "prettier"
+env = { option = "--check" }
+
+# ---- TEST ----
+
+[tasks.test_cargo]
+description = "Run tests"
+command = "cargo"
+args = ["test"]
+
+[tasks.test_cypress]
+description = "Run E2E Test"
+command = "yarn"
+args = ["test"]

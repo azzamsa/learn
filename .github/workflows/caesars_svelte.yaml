@@ -1,0 +1,41 @@
+name: Caesar Svelte (CI)
+
+on:
+  push:
+    paths:
+      -  src/caesars/svelte/**
+      - .github/workflows/caesars.yml
+      - .github/workflows/caesars_svelte.yml
+  pull_request:
+    paths:
+      -  src/caesars/svelte/**
+      - .github/workflows/caesars.yml
+      - .github/workflows/caesars_svelte.yml
+
+defaults:
+  run:
+    working-directory: src/caesars/frontend/svelte
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install global JS dependencies
+        run: |
+          pnpm add -g prettier
+
+      - name: Install local dependencies
+        run: |
+          pnpm i
+
+      - name: Lint
+        run: |
+          make check

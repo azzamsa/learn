@@ -1,0 +1,58 @@
+name: Pokedex Svelte (Release)
+
+on:
+  push:
+    paths:
+      -  src/pokedex-svelte/**
+      - .github/workflows/pokedex_svelte.yml
+    tags:
+      - 'v*'
+
+defaults:
+  run:
+    working-directory: src/pokedex-svelte
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install dependencies
+        run: |
+          pnpm i
+
+      - name: Install adapter for static pages
+        run: |
+          pnpm i -D @sveltejs/adapter-static
+
+      - name: Use production config
+        run: |
+          cp svelte.config.prod.js svelte.config.js
+
+      - name: Build
+        env:
+          NODE_ENV: production
+        run: |
+          pnpm run build
+
+          # write build version
+          echo "BUILD_VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "$BUILD_VERSION" >  ./build/build.txt
+
+          # disable jekyll
+          touch ./build/.nojekyll
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        env:
+          NODE_ENV: production
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./build

@@ -1,0 +1,6 @@
+project: 567953
+
+# Needs to point the requirements file.
+# Otherwise, `builtins.ModuleNotFoundError: No module named 'itemadapter'`
+requirements:
+  file: requirements.txt

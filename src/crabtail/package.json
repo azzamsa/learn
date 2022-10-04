@@ -1,0 +1,25 @@
+{
+  "name": "crabtail",
+  "version": "0.1.0",
+  "description": "Convert your TailwindCSS class to typed Rust",
+  "author": "Azzam S.A",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "start-server": "trunk serve",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test start-server http://localhost:8080 cy:run",
+    "prepare:dev": "npx postcss --config configs/postcss.config.js asset/sass/main.scss --output asset/sass/compiled.scss --env development"
+  },
+  "devDependencies": {
+    "//": "to import style file in sub-directory. Unfortunately it need exact filename",
+    "@tabler/icons": "^1.39.1",
+    "autoprefixer": "^10.2.5",
+    "find": "^0.3.0",
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.0",
+    "postcss-scss": "^3.0.5",
+    "postcss-typed-css-classes": "^0.2.3",
+    "tailwindcss": "^2.0.4"
+  }
+}

@@ -17,32 +17,26 @@ These projects are built for learning purposes. Some are implemented using diffe
 
 ### Rust 🦀
 
-- [Caesars](https://github.com/azzamsa/caesars) - Encrypt and decrypt your secrets using ROT13 🔐.
-- [Crabtail](https://github.com/azzamsa/crabtail) - Convert your TailwindCSS 💨 class to typed Rust 🦀.
-- [Dryip of Rust](https://github.com/azzamsa/dryip-of-rust) - Short Rust 🦀 code snippets for inspiration.
 - [Rustlings](https://github.com/azzamsa/rustlings)
-- [Rust In Action Notes](https://github.com/azzamsa/rust-in-action-notes)
-- [Easy Rust Notes](https://github.com/azzamsa/easy_rust_notes)
+- [Dryip of Rust](https://github.com/azzamsa/dryip-of-rust) - Short Rust 🦀 code snippets for inspiration.
+- [Crabtail](src/crabtail) - Convert your TailwindCSS 💨 class to typed Rust 🦀.
+- [Caesars](src/caesars) - Encrypt and decrypt your secrets using ROT13 🔐.
 
 ### Python 🐍
 
-- [Learn Data Structure and Algorithm](https://github.com/azzamsa/learn-dsa) - My notes on learning DSA 🧁.
-- [Learn Scrapy](https://github.com/azzamsa/learn-scrapy) - My notes on learning Scrapy 🕷.
+- [Learn Data Structure and Algorithm](src/learn-dsa) - My notes on learning DSA 🧁.
+- [Learn Scrapy](src/learn-scrapy) - My notes on learning Scrapy 🕷.
 
 ### Javascript 🖖
 
 - Pokédex
-  - 🥇 [Pokédex Vue](https://github.com/azzamsa/pokedex-vue) - Browse your favorite pokemon 🐉.
-  - [Pokédex SvelteKit](https://github.com/azzamsa/pokedex-sveltekit) - Browse your favorite pokemon 🐉.
-- [Quiz Vue](https://github.com/azzamsa/quiz-vue) - Simple quiz app 🎲.
+  - 🥇 [Pokédex Vue](src/pokedex-vue) - Browse your favorite pokemon 🐉.
+  - [Pokédex SvelteKit](src/pokedex-sveltekit) - Browse your favorite pokemon 🐉.
+- [Quiz Vue](src/quiz-vue) - Simple quiz app 🎲.
 
 ### Misc
 
-- [Keywords](https://github.com/azzamsa/keywords) - Collections of language keywords 🗝.
-- [Grass](https://github.com/azzamsa/grass) - A plant that lives anywhere 🌿.
-- [Cheatsheets](https://github.com/azzamsa/cheatsheets) - My most used snippets 🧠 that are nice to share.
+- [Keywords](src/keywords) - Collections of language keywords 🗝.
+- [Grass](src/grass) - A plant that lives anywhere 🌿.
 
-### Archived
 
-- [Rust Backend Zoo](https://github.com/azzamsa/rust-backend-zoo) - A collection of Rust web framework boilerplate.
-- [Caesar ROT13 Dioxus](https://github.com/azzamsa/caesar-dioxus) - Encrypt and decrypt your secrets using ROT13 🔐.
