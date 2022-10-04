@@ -11,15 +11,14 @@
     "prepare:dev": "npx postcss --config configs/postcss.config.js asset/sass/main.scss --output asset/sass/compiled.scss --env development"
   },
   "devDependencies": {
-    "//": "to import style file in sub-directory. Unfortunately it need exact filename",
-    "@tabler/icons": "^1.39.1",
-    "autoprefixer": "^10.2.5",
+    "@tabler/icons": "^1.101.0",
+    "autoprefixer": "^10.4.12",
     "find": "^0.3.0",
-    "postcss": "^8.2.8",
-    "postcss-cli": "^8.3.1",
-    "postcss-import": "^14.0.0",
-    "postcss-scss": "^3.0.5",
-    "postcss-typed-css-classes": "^0.2.3",
-    "tailwindcss": "^2.0.4"
+    "postcss": "^8.4.17",
+    "postcss-cli": "^10.0.0",
+    "postcss-import": "^15.0.0",
+    "postcss-scss": "^4.0.5",
+    "postcss-typed-css-classes": "^0.2.5",
+    "tailwindcss": "^3.1.8"
   }
 }
