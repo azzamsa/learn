@@ -12,20 +12,20 @@ description = "Rust GraphQL Template"
 
 [dependencies]
 # web server
-axum = "0.5.13"
+axum = "0.5.16"
 hyper = "0.14.20"
-tokio = { version = "1.20.0", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread"] }
 
 # GraphQL
-async-graphql = { version = "4.0.5", features = ["uuid", "chrono"] }
-async-graphql-axum = "4.0.5"
+async-graphql = { version = "4.0.14", features = ["uuid", "chrono"] }
+async-graphql-axum = "4.0.14"
 
 # Rest
 utoipa = { git = "https://github.com/juhaku/utoipa", rev = "baa3947", features = ["axum_extras"] }
 utoipa-swagger-ui = { git = "https://github.com/juhaku/utoipa", rev = "baa3947", features = ["axum"] }
 
 # log
-env_logger = "0.9.0"
+env_logger = "0.9.1"
 log = "0.4"
 
 dotenv = "0.15"
