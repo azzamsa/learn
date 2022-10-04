@@ -1,6 +1,7 @@
+#![allow(clippy::cast_possible_truncation)]
 /// Convert number to reversed array of digits
 ///
-/// [Function 1 - hello world | Codewars](https://www.codewars.com/kata/523b4ff7adca849afe000035/rust)
+/// [Convert number to reversed array of digits | Codewars](https://www.codewars.com/kata/5583090cbe83f4fd8c000051/rust)
 ///
 /// Level: kyu 8
 ///
@@ -16,6 +17,18 @@ pub fn digitize(n: u64) -> Vec<u8> {
         .collect::<Vec<u8>>();
     result.reverse();
     result
+}
+
+/// Other's solution.
+///
+/// `rev` is availiabe as functional function
+/// use `as` in the same line as `to_digit`
+pub fn digitize_other(n: u64) -> Vec<u8> {
+    n.to_string()
+        .chars()
+        .map(|c| c.to_digit(10).unwrap() as u8)
+        .rev()
+        .collect::<Vec<u8>>()
 }
 
 #[cfg(test)]
