@@ -1,2 +1,2 @@
-Scrapy==2.5.1
+Scrapy==2.6.3
 scrapy-splash==0.8.0
