@@ -1,6 +1,6 @@
 /// Convert a Boolean to a String
 ///
-/// [Training on Convert a Boolean to a String | Codewars](https://www.codewars.com/kata/551b4501ac0447318f0009cd/train/rust)
+/// [Training on Convert a Boolean to a String | Codewars](https://www.codewars.com/kata/551b4501ac0447318f0009cd/rust)
 ///
 /// Level: kyu 8
 ///

@@ -1,6 +1,6 @@
 /// Find Maximum and Minimum Values of a List
 ///
-/// [Training on Find Maximum and Minimum Values of a List | Codewars](https://www.codewars.com/kata/577a98a6ae28071780000989/train/rust)
+/// [Training on Find Maximum and Minimum Values of a List | Codewars](https://www.codewars.com/kata/577a98a6ae28071780000989/rust)
 ///
 /// Level: kyu 8
 ///

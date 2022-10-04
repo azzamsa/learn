@@ -1,6 +1,6 @@
 /// What is between?
 ///
-/// [Training on What is between? | Codewars](https://www.codewars.com/kata/55ecd718f46fba02e5000029/train/rust)
+/// [Training on What is between? | Codewars](https://www.codewars.com/kata/55ecd718f46fba02e5000029/rust)
 ///
 /// Level: kyu 8
 ///

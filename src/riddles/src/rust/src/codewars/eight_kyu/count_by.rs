@@ -1,6 +1,6 @@
 /// Return an array of the first `n` multiples of `x`
 ///
-/// [Training on Count by X | Codewars](https://www.codewars.com/kata/5513795bd3fafb56c200049e/train/rust)
+/// [Training on Count by X | Codewars](https://www.codewars.com/kata/5513795bd3fafb56c200049e/rust)
 ///
 /// Level: 8 Kyu
 ///

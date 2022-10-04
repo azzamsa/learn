@@ -1,6 +1,6 @@
 /// Return digits in descending order
 ///
-/// [Training on Descending Order | Codewars](https://www.codewars.com/kata/5467e4d82edf8bbf40000155/train/rust)
+/// [Training on Descending Order | Codewars](https://www.codewars.com/kata/5467e4d82edf8bbf40000155/rust)
 ///
 /// Level: 7 kyu
 ///
@@ -11,7 +11,7 @@
 /// Other solutions:
 /// One of them is using sort and reverse in one line ` result.sort_by(|a, b| b.cmp(a));`
 /// This shorten the code.
-fn descending_order(x: u64) -> u64 {
+pub fn descending_order(x: u64) -> u64 {
     let mut result = x
         .to_string()
         .chars()
