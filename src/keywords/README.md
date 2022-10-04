@@ -4,8 +4,8 @@
 
 Collections of language keywords 🗝.
 
-<a href="https://github.com/azzamsa/keywords/actions/workflows/ci.yml">
-<img src="https://github.com/azzamsa/keywords/actions/workflows/ci.yml/badge.svg" alt="Build status" />
+<a href="https://github.com/azzamsa/learn/actions/workflows/keywords.yml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/keywords.yml/badge.svg" alt="Build status" />
 </a>
 
 <br/>

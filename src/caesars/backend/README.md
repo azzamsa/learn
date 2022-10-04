@@ -3,11 +3,9 @@
 
 Encrypt and decrypt your secrets using ROT algorithm 🔐
 
-<a href="https://github.com/azzamsa/caesars/actions/workflows/ci_backend.yaml">
-    <img src="https://github.com/azzamsa/caesars/actions/workflows/ci_backend.yaml/badge.svg" alt="Build status" />
+<a href="https://github.com/azzamsa/learn/actions/workflows/caesars_backend.yaml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/caesars_backend.yaml/badge.svg" alt="Build status" />
 </a>
-
-</div>
 
 ---
 

@@ -3,8 +3,8 @@
 
 Browse your favorite pokemon 🐉.
 
-<a href="https://github.com/azzamsa/pokedex-vue/actions/workflows/ci.yml">
-    <img src="https://github.com/azzamsa/pokedex-vue/actions/workflows/ci.yml/badge.svg" alt="Build status" />
+<a href="https://github.com/azzamsa/learn/actions/workflows/pokedex_vue.yml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/pokedex_vue.yml/badge.svg" alt="Build status" />
 </a>
 
 <br/>

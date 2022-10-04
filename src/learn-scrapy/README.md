@@ -3,10 +3,10 @@
 
 My notes on learning Scrapy 🕷.
 
-<a href="https://github.com/azzamsa/learn-scrapy/workflows/ci.yml">
-    <img src="https://github.com/azzamsa/learn-scrapy/workflows/ci/badge.svg" alt="Build status" />
+<a href="https://github.com/azzamsa/learn/actions/workflows/learn_scrapy.yml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/learn_scrapy.yml/badge.svg" alt="Build status" />
 </a>
-<a href="https://github.com/azzamsa/learn-scrapy">
+<a href="https://github.com/azzamsa/learn/tree/master/src/learn-scrapy">
     <img src="https://img.shields.io/badge/Python-3.9%2B-blue" alt="Python versions" />
 </a>
 

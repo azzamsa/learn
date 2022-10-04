@@ -3,8 +3,8 @@
 
 Test your general knowledge 🎲.
 
-<a href="https://github.com/azzamsa/quiz-vue/actions/workflows/ci.yml">
-<img src="https://github.com/azzamsa/quiz-vue/actions/workflows/ci.yml/badge.svg" alt="Build status" />
+<a href="https://github.com/azzamsa/learn/actions/workflows/quiz_vue.yml">
+  <img src="https://github.com/azzamsa/learn/actions/workflows/quiz_vue.yml/badge.svg" alt="Build status" />
 </a>
 
 <br/>

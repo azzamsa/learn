@@ -3,8 +3,8 @@
 
 Browse your favorite pokemon 🐉.
 
-<a href="https://github.com/azzamsa/pokedex-svelte/workflows/ci.yml">
-    <img src="https://github.com/azzamsa/pokedex-svelte/workflows/ci/badge.svg" alt="Build status" />
+<a href="https://github.com/azzamsa/learn/actions/workflows/pokedex_svelte.yml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/pokedex_svelte.yml/badge.svg" alt="Build status" />
 </a>
 
 </div>

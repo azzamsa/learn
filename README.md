@@ -28,7 +28,7 @@ These projects are built for learning purposes. Some are implemented using diffe
 - [Learn Data Structure and Algorithm](src/learn-dsa) - My notes on learning DSA 🧁.
 - [Learn Scrapy](src/learn-scrapy) - My notes on learning Scrapy 🕷.
 
-### Javascript 🖖
+### Javascript 🕸️
 
 - Pokédex
   - 🥇 [Pokédex Vue](src/pokedex-vue) - Browse your favorite pokemon 🐉.

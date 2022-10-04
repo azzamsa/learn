@@ -5,6 +5,10 @@
 
 Collection of my solution for coding challenges 🥇
 
+<a href="https://github.com/azzamsa/learn/actions/workflows/riddles_rust.yml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/riddles_rust.yml/badge.svg" alt="Build status" />
+</a>
+
 </div>
 
 ---
