@@ -12,3 +12,5 @@ pub mod min_max;
 pub mod reversed_vector;
 /// Jenny's secret message
 pub mod secret_message;
+/// Simple Multiplication
+pub mod simple_multiplication;
