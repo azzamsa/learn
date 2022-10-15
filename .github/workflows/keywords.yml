@@ -29,9 +29,12 @@ jobs:
           cp dprint ~/.cargo/bin/
           dprint --version
 
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
+
       - name: Lint
         run: |
-          make fmt_check
+          just fmt-check
 
   test-python:
     name: Test Python
@@ -61,6 +64,9 @@ jobs:
           default: true
           profile: minimal # no documentation
 
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
+
       - name: Cache
         uses: Swatinem/rust-cache@v1
 
@@ -73,7 +79,7 @@ jobs:
 
       - name: Test
         run: |
-          make check
+          just check
 
   test-nushell:
     name: Test Nushell

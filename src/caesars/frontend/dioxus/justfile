@@ -1,0 +1,75 @@
+#!/usr/bin/env -S just --justfile
+
+alias d := dev
+alias t := test
+
+# List available commands.
+_default:
+    just --list --unsorted
+
+# Setup the repository.
+setup:
+    rustup target add wasm32-unknown-unknown
+
+    trunk --version || cargo install trunk
+    microserver --version || cargo install microserver
+
+# Clean build artifacts.
+clean:
+    trunk clean
+
+# Develop the app.
+dev:
+    pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss  --output styles/compiled.scss
+    trunk serve
+
+# Build the app.
+build:
+    NODE_ENV=production pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss --output styles/compiled.scss
+    trunk build --release
+
+# Preview the build output.
+preview-build:
+    microserver dist/
+
+# Format the codebase.
+fmt:
+    cargo +nightly fmt --all
+    prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --write .
+
+# Check is the codebase properly formatted.
+fmt-check:
+    cargo +nightly fmt --check
+    prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --check .
+
+# Lint the codebase.
+lint:
+    cargo clippy --all-targets --all-features
+
+# Check the documentation.
+_doc-check:
+    cargo doc --all-features --no-deps
+
+# Lint the codebase.
+test:
+    cargo test --all --all-features --all-targets
+
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint test _doc-check
+
+update-graphql-schema:
+    # run the app before running this command `cargo r`
+    get-graphql-schema http://127.0.0.1:8000/graphql > src/graphql/schema.graphql
+
+# Check dependencies health.
+up:
+    cargo +nightly udeps
+    cargo outdated --root-deps-only
+
+# Local Variables:
+# mode: makefile
+# End:
+# vim: set ft=make :

@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install rust toolchain
         uses: actions-rs/toolchain@v1
@@ -37,14 +37,17 @@ jobs:
           profile: minimal # no documentation
           components: clippy, rustfmt
 
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
+
       - name: Cache
         uses: Swatinem/rust-cache@v1
 
       - name: Ensure `fmt` has been run
-        run:  make fmt_check
+        run:  just fmt-check
 
       - name: Run clippy
-        run: make lint
+        run: just lint
 
 
   min_version:
@@ -53,7 +56,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install rust toolchain (v${{ env.MIN_SUPPORTED_RUST_VERSION }})
         uses: actions-rs/toolchain@v1
@@ -61,6 +64,9 @@ jobs:
           toolchain: ${{ env.MIN_SUPPORTED_RUST_VERSION }}
           default: true
           profile: minimal
+
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
 
       - name: Cache
         uses: Swatinem/rust-cache@v1
@@ -70,7 +76,7 @@ jobs:
           cp .example.env .env
 
       - name: Run tests
-        run: make test
+        run: just test
 
   build:
     name: ${{ matrix.job.os }} (${{ matrix.job.target }})
@@ -83,7 +89,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -96,7 +102,7 @@ jobs:
       - name: Cache
         uses: Swatinem/rust-cache@v1
 
-      - name: Show version information (Rust, cargo, GCC)
+      - name: Show version information
         shell: bash
         run: |
           gcc --version || true

@@ -1,16 +1,16 @@
-name: Caesar Vue (CI)
+name: Caesar Svelte (CI)
 
 on:
   push:
     paths:
-      -  src/caesars/vue/**
+      -  src/caesars/frontend/svelte/**
       - .github/workflows/caesars.yml
-      - .github/workflows/caesars_vue.yml
+      - .github/workflows/caesars_svelte.yml
   pull_request:
     paths:
-      -  src/caesars/vue/**
+      -  src/caesars/frontend/svelte/**
       - .github/workflows/caesars.yml
-      - .github/workflows/caesars_vue.yml
+      - .github/workflows/caesars_svelte.yml
 
 defaults:
   run:
@@ -28,10 +28,17 @@ jobs:
         with:
           version: 7
 
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
+
+      - name: Install global JS dependencies
+        run: |
+          pnpm add -g prettier
+
       - name: Install local dependencies
         run: |
           pnpm i
 
       - name: Lint
         run: |
-          make check
+          just check

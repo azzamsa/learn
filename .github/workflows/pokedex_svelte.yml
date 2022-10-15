@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install dprint
         run: |
@@ -27,6 +27,9 @@ jobs:
           unzip dprint.zip
           cp dprint ~/.cargo/bin/
           dprint --version
+
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -39,4 +42,4 @@ jobs:
 
       - name: Lint
         run: |
-          make check
+          just check

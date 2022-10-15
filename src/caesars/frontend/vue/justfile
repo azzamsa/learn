@@ -1,0 +1,44 @@
+#!/usr/bin/env -S just --justfile
+
+alias d := dev
+
+# List available commands.
+_default:
+    just --list --unsorted
+
+# Setup the repository.
+setup:
+    pnpm i
+
+# Develop the app.
+dev:
+    pnpm dev
+
+# Lint the codebase.
+lint:
+    pnpm lint
+
+# Format the codebase.
+fmt: lint
+
+# Check is the codebase properly formatted.
+fmt-check: lint
+
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint
+    pnpm run type-check
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint
+    pnpm run type-check
+
+#
+# Misc
+
+up:
+    ncu
+
+# Local Variables:
+# mode: makefile
+# End:
+# vim: set ft=make :

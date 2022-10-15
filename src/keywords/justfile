@@ -1,0 +1,33 @@
+#!/usr/bin/env -S just --justfile
+
+# List available commands.
+_default:
+    just --list --unsorted
+
+# Lint the codebase.
+lint:
+
+# Format the codebase.
+fmt:
+    dprint fmt --config configs/dprint.json
+
+# Check is the codebase properly formatted.
+fmt-check:
+    dprint check --config configs/dprint.json
+
+# Test the codebase.
+test:
+    ./scripts/test_python
+    ./scripts/test_fish
+    ./scripts/test_nushell
+
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint test
+
+# Local Variables:
+# mode: makefile
+# End:
+# vim: set ft=make :

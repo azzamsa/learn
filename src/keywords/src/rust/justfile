@@ -7,13 +7,8 @@ alias t := test
 _default:
     just --list --unsorted
 
-# Setup the repository.
-setup:
-    cargo nextest --version || cargo install --locked cargo-nextest
-
-# Develop the app.
-dev pattern:
-    cargo watch -x 'test -- --nocapture --test {{ pattern }}'
+dev:
+    cargo watch -x clippy -x run
 
 # Format the codebase.
 fmt:
@@ -23,28 +18,19 @@ fmt:
 fmt-check:
     cargo fmt --all -- --check
 
-# Lint the docstring.
-_lint_doc:
-    cargo doc --all-features --no-deps
-
 # Lint the codebase.
-lint: _lint_doc
+lint:
     cargo clippy
 
 # Test the codebase.
 test:
-    cargo test --doc
-    cargo nextest run
+    cargo test
 
 # Tasks to make the code-base comply with the rules. Mostly used in git hooks.
 comply: fmt lint test
 
 # Check if the repository comply with the rules and ready to be pushed.
 check: fmt-check lint test
-
-# Open documentation
-doc:
-    cargo doc --open
 
 # Local Variables:
 # mode: makefile

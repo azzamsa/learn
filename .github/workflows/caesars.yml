@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dprint
         run: |
@@ -30,5 +30,8 @@ jobs:
           cp dprint ~/.cargo/bin/
           dprint --version
 
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
+
       - name: Check if the repository comply with the rules
-        run:  make check
+        run:  just check

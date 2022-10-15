@@ -1,0 +1,64 @@
+#!/usr/bin/env -S just --justfile
+
+alias d := dev
+alias t := test
+
+# List available commands.
+_default:
+    just --list --unsorted
+
+# Setup the repository.
+setup:
+    pnpm i
+    pnpx husky install
+
+# Develop the app.
+dev:
+    pnpm dev
+
+# Build the app.
+build:
+    pnpm run build
+
+# Lint the codebase.
+lint:
+    pnpm run lint
+    pnpm run type-check
+
+# Format the codebase.
+fmt: lint
+    dprint fmt --config configs/dprint.json
+
+# Check is the codebase properly formatted.
+fmt-check: lint
+    dprint check --config configs/dprint.json
+
+# Test the codebase.
+test:
+    pnpm run test-unit
+
+# Test the codebase in CI environment.
+_test-ci:
+    pnpm run test-unit
+    # TODO
+    # pnpm run test-e2e
+    # all the test passed in 'open' mode, but buggy in 'run' mode
+
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test build
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint _test-ci build
+
+# Create a new release. Example `just release v2.2.0`
+release version:
+    bash scripts/release.sh {{ version }}
+
+# Check dependencies health.
+up:
+    ncu
+
+# Local Variables:
+# mode: makefile
+# End:
+# vim: set ft=make :

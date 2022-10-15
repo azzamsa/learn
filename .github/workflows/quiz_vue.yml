@@ -33,13 +33,16 @@ jobs:
           cp dprint ~/.cargo/bin/
           dprint --version
 
+      - name: Install latest just release
+        uses: extractions/setup-just@v1
+
       - name: Install
         run: pnpm install
 
       - name: Lint
         run: |
-          make fmt_check
-          make lint
+          just fmt-check
+          just lint
 
   test:
     runs-on: ${{ matrix.os }}
