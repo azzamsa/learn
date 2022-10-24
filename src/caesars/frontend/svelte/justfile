@@ -34,13 +34,7 @@ comply: fmt lint
 check: fmt-check lint
     pnpm run check
 
-#
 
 # Check dependencies health.
 up:
     ncu
-
-# Local Variables:
-# mode: makefile
-# End:
-# vim: set ft=make :

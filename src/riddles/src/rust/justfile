@@ -46,7 +46,3 @@ check: fmt-check lint test
 doc:
     cargo doc --open
 
-# Local Variables:
-# mode: makefile
-# End:
-# vim: set ft=make :

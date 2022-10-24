@@ -45,8 +45,3 @@ release version:
 # Check dependencies health.
 up:
     ncu
-
-# Local Variables:
-# mode: makefile
-# End:
-# vim: set ft=make :

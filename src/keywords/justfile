@@ -27,7 +27,3 @@ comply: fmt lint test
 # Check if the repository comply with the rules. Mostly used in CI.
 check: fmt-check lint test
 
-# Local Variables:
-# mode: makefile
-# End:
-# vim: set ft=make :

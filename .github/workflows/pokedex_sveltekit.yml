@@ -1,18 +1,18 @@
-name: Pokedex Svelte (CI)
+name: Pokedex SvelteKit (CI)
 
 on:
   push:
     paths:
-      -  src/pokedex-svelte/**
-      - .github/workflows/pokedex_svelte.yml
+      -  src/pokedex-sveltekit/**
+      - .github/workflows/pokedex_sveltekit.yml
   pull_request:
     paths:
-      -  src/pokedex-svelte/**
-      - .github/workflows/pokedex_svelte.yml
+      -  src/pokedex-sveltekit/**
+      - .github/workflows/pokedex_sveltekit.yml
 
 defaults:
   run:
-    working-directory: src/pokedex-svelte
+    working-directory: src/pokedex-sveltekit
 
 jobs:
   ci:

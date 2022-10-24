@@ -1,16 +1,16 @@
-name: Pokedex Svelte (Release)
+name: Pokedex SvelteKit (Release)
 
 on:
   push:
     paths:
-      -  src/pokedex-svelte/**
-      - .github/workflows/pokedex_svelte.yml
+      -  src/pokedex-sveltekit/**
+      - .github/workflows/pokedex_sveltekit.yml
     tags:
       - 'v*'
 
 defaults:
   run:
-    working-directory: src/pokedex-svelte
+    working-directory: src/pokedex-sveltekit
 
 jobs:
   deploy:

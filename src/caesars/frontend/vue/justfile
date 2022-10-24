@@ -32,13 +32,6 @@ comply: fmt lint
 check: fmt-check lint
     pnpm run type-check
 
-#
-# Misc
-
 up:
     ncu
 
-# Local Variables:
-# mode: makefile
-# End:
-# vim: set ft=make :
