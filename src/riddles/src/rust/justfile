@@ -12,7 +12,7 @@ setup:
     cargo nextest --version || cargo install --locked cargo-nextest
 
 # Develop the app.
-dev pattern:
+dev pattern: lint
     cargo watch -x 'test -- --nocapture --test {{ pattern }}'
 
 # Format the codebase.
