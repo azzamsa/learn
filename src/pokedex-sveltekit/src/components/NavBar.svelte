@@ -16,7 +16,7 @@
 
 <div class="navbar rounded-box mb-2 bg-primary shadow-lg">
   <div class="md:hidden">
-    <button on:click={() => (showMenu = !showMenu)} class="btn btn-ghost btn-square">
+    <button on:click={() => (showMenu = !showMenu)} class="btn-ghost btn-square btn">
       <HamburgerIcon />
     </button>
   </div>
@@ -40,12 +40,12 @@
         <input
           type="text"
           placeholder="bulbasur"
-          class="input input-bordered"
+          class="input-bordered input"
           bind:value={searchTerm}
         />
       </div>
     {/if}
-    <button class="btn btn-ghost btn-square" on:click={() => (showSearchBar = !showSearchBar)}>
+    <button class="btn-ghost btn-square btn" on:click={() => (showSearchBar = !showSearchBar)}>
       <SearchIcon />
     </button>
   </div>
@@ -62,6 +62,6 @@
 
 <style lang="postcss">
   .nav-btn {
-    @apply btn btn-ghost btn-sm rounded-btn;
+    @apply btn-ghost rounded-btn btn-sm btn;
   }
 </style>
