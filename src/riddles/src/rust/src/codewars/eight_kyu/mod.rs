@@ -10,6 +10,8 @@ pub mod hello_world;
 pub mod min_max;
 /// Convert number to reversed array of digits
 pub mod reversed_vector;
+/// Rock Paper Scissors
+pub mod rps;
 /// Jenny's secret message
 pub mod secret_message;
 /// Simple Multiplication
