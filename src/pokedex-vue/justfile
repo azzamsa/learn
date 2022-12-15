@@ -1,5 +1,7 @@
 #!/usr/bin/env -S just --justfile
 
+shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
+
 alias d := dev
 alias t := test
 
@@ -10,19 +12,22 @@ _default:
 # Setup the repository.
 setup:
     pnpm i
-    pnpx husky install
 
 # Develop the app.
 dev:
     pnpm dev
 
+# Build the app.
+build:
+    pnpm run build
+
 # Lint the codebase.
 lint:
     pnpm run lint
-    pnpm run type-check
 
 # Format the codebase.
-fmt: lint
+fmt:
+    pnpm fun fmt
     dprint fmt --config configs/dprint.json
 
 # Check is the codebase properly formatted.
@@ -43,6 +48,11 @@ check: fmt-check lint test
 release version:
     bash scripts/release.sh {{ version }}
 
-# Check dependencies health.
-up:
-    ncu
+# Check dependencies health. Pass `--write` to uppgrade dependencies.
+up arg="":
+    #!{{ shebang }}
+    if [ "{{ arg }}" = "--write" ]; then
+        taze --write
+    else
+        taze
+    fi;
