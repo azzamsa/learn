@@ -6,7 +6,7 @@ memory=$(grep MemTotal /proc/meminfo)
 
 os=$(echo "$os" | xargs) # remove whitspace after `Description:`
 echo "$os" | sed 's/Description:/OS/'
-echo "Kernel: $( uname -srm)"
+echo "Kernel: $(uname -srm)"
 
 cpu=$(echo "$cpu" | xargs)
 echo "$cpu" | sed 's/model name/CPU/'
