@@ -32,22 +32,22 @@ function setLimit(event: any) {
 
         <div class="flex justify-center space-x-4">
           <button
-            class="btn btn-secondary"
+            class="btn-secondary btn"
             @click="showCustomize = !showCustomize"
           >
             {{ $t('index.customize') }}
           </button>
 
-          <RouterLink class="btn btn-primary" to="/quiz">
+          <RouterLink class="btn-primary btn" to="/quiz">
             {{ $t('index.start') }}
           </RouterLink>
         </div>
 
         <div v-if="showCustomize">
-          <div class="divider mt-2 mb-2"></div>
+          <div class="divider mt-2 mb-2" />
 
           <div class="mt-4 flex flex-col items-center space-x-4 space-y-4">
-            <select class="select select-secondary" @change="setDifficulty">
+            <select class="select-secondary select" @change="setDifficulty">
               <option disabled selected>
                 {{ $t('index.difficultyLevel') }}:
               </option>
@@ -60,7 +60,7 @@ function setLimit(event: any) {
               </option>
             </select>
 
-            <select class="select select-secondary" @change="setLimit">
+            <select class="select-secondary select" @change="setLimit">
               <option disabled selected>
                 {{ $t('index.questionLimit') }}:
               </option>

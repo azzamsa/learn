@@ -1,6 +1,6 @@
 import { URL, fileURLToPath } from 'node:url'
-import path from 'path'
-import { vueI18n } from '@intlify/vite-plugin-vue-i18n'
+import path from 'node:path'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -50,7 +50,9 @@ export default () => {
           // https://github.com/vueuse/head
           '@vueuse/head',
           '@vueuse/core',
-          'vue-i18n',
+          {
+            'vue-i18n': ['useI18n'],
+          },
           {
             'lodash-es': ['debounce'],
           },
@@ -59,8 +61,8 @@ export default () => {
         dirs: ['src/stores'],
       }),
 
-      // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
-      vueI18n({
+      // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
+      VueI18nPlugin({
         defaultSFCLang: 'json5',
         runtimeOnly: true,
         compositionOnly: true,

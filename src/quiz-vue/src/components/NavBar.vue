@@ -15,7 +15,7 @@ const toggleLocales = () => {
   <header>
     <div class="navbar rounded-box mb-2 bg-primary shadow-lg">
       <div class="md:hidden">
-        <button class="btn btn-ghost btn-square" @click="showMenu = !showMenu">
+        <button class="btn-ghost btn-square btn" @click="showMenu = !showMenu">
           <i-tabler:menu-2 v-if="!showMenu" class="h-8 w-8" />
           <i-tabler:x v-else class="h-8 w-8" />
         </button>
@@ -39,7 +39,7 @@ const toggleLocales = () => {
       </div>
 
       <div class="navbar-end">
-        <button class="btn btn-ghost btn-square" @click="toggleLocales">
+        <button class="btn-ghost btn-square btn" @click="toggleLocales">
           <i-tabler:language class="h-8 w-8" />
         </button>
       </div>
@@ -54,7 +54,7 @@ const toggleLocales = () => {
           {{ $t('nav.home') }}
         </RouterLink>
       </li>
-      <div class="divider mt-0 mb-0"></div>
+      <div class="divider mt-0 mb-0" />
       <li>
         <RouterLink class="nav-btn" to="/about" @click="showMenu = !showMenu">
           {{ $t('nav.about') }}
@@ -66,6 +66,6 @@ const toggleLocales = () => {
 
 <style scoped>
 .nav-btn {
-  @apply btn btn-ghost btn-sm rounded-btn;
+  @apply btn-ghost rounded-btn btn-sm btn;
 }
 </style>

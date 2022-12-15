@@ -69,8 +69,8 @@ function submit() {
     class="card mx-4 mt-4 rounded-lg border border-4 border-primary bg-base-100 py-2 text-center font-bold shadow-xl"
   >
     <div class="card-body items-center text-center">
-      <h2 class="card-title" v-html="question.question"></h2>
-      <div class="divider mt-1 mb-1"></div>
+      <h2 class="card-title" v-html="question.question" />
+      <div class="divider mt-1 mb-1" />
 
       <div class="form-control">
         <div
@@ -87,18 +87,18 @@ function submit() {
               @click="selectedIndex = index"
             />
           </label>
-          <p class="label-text text-left" v-html="answer"></p>
+          <p class="label-text text-left" v-html="answer" />
         </div>
       </div>
 
-      <div class="divider mt-1 mb-1"></div>
+      <div class="divider mt-1 mb-1" />
       <div class="card-actions">
-        <RouterLink v-if="isFinalQuestion" class="btn btn-primary" to="/result">
+        <RouterLink v-if="isFinalQuestion" class="btn-primary btn" to="/result">
           {{ $t('box.finish') }}
         </RouterLink>
         <button
           v-else
-          class="btn btn-primary"
+          class="btn-primary btn"
           :disabled="isCountdown"
           @click="submit"
         >

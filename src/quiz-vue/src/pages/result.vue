@@ -32,7 +32,7 @@ watch(quizStore, () => {
   <div class="hero mt-20">
     <div class="hero-content text-center">
       <div class="max-w-md">
-        <div></div>
+        <div />
         <h1 class="text-5xl font-bold">
           {{ correctAnswer }}/{{ totalQuestions }}
           <i-noto:party-popper
@@ -63,7 +63,7 @@ watch(quizStore, () => {
           </p>
         </div>
 
-        <RouterLink class="btn btn-primary" to="/quiz">
+        <RouterLink class="btn-primary btn" to="/quiz">
           {{ $t('result.retake') }}
         </RouterLink>
       </div>
