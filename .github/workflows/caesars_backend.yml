@@ -1,7 +1,7 @@
 name: Caesar Backend (CI)
 
 env:
-  MIN_SUPPORTED_RUST_VERSION: "1.62.0"
+  MIN_SUPPORTED_RUST_VERSION: "1.65.0"
 
 on:
   push:
