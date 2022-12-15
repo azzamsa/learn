@@ -7,25 +7,25 @@ edition = "2021"
 exclude = ["/README.md"]
 keywords = ["boilerplate"]
 license = "MIT"
-repository = "https://github.com/azzamsa/rust-graphql"
+repository = "https://github.com/azzamsa/tin"
 description = "Rust GraphQL Template"
 
 [dependencies]
 # web server
-axum = "0.5.16"
-hyper = "0.14.20"
-tokio = { version = "1.21.2", features = ["macros", "rt-multi-thread"] }
+axum = "0.6.1"
+hyper = "0.14"
+tokio = { version = "1.23", features = ["macros", "rt-multi-thread"] }
 
 # GraphQL
-async-graphql = { version = "4.0.14", features = ["uuid", "chrono"] }
-async-graphql-axum = "4.0.14"
+async-graphql = { version = "5.0", features = ["uuid", "chrono"] }
+async-graphql-axum = "5.0"
 
 # Rest
-utoipa = { git = "https://github.com/juhaku/utoipa", rev = "baa3947", features = ["axum_extras"] }
-utoipa-swagger-ui = { git = "https://github.com/juhaku/utoipa", rev = "baa3947", features = ["axum"] }
+utoipa = { version = "2.4", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "3.0", features = ["axum"] }
 
 # log
-env_logger = "0.9.1"
+env_logger = "0.10"
 log = "0.4"
 
 dotenv = "0.15"
@@ -36,8 +36,8 @@ thiserror = "1.0"
 
 [dev-dependencies]
 anyhow = "1.0"
-cynic = "1.0.0"
-hyper = { version = "0.14.20", features = ["full"] }
+cynic = "2.2"
+hyper = { version = "0.14.23", features = ["full"] }
 mime = "0.3.16"
 serde = { version = "1.0", features = ["derive"] }
 tower = { version = "0.4", features = ["util"] }
