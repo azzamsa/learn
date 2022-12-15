@@ -1,10 +1,9 @@
 describe('Locale Test', () => {
-  it('visits the about page', () => {
+  it('toggle the locale button', () => {
     cy.visit('/about')
     cy.contains('.mt-4 > :nth-child(1)', 'Hi')
-  })
 
-  it('change the locales', () => {
+    // change the locales
     cy.get('.navbar-end > .btn').click()
     cy.contains('.mt-4 > :nth-child(1)', 'Hai')
   })
