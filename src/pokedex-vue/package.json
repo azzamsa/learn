@@ -9,7 +9,7 @@
     "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
     "test:e2e:ci": "start-server-and-test preview http://localhost:4173/ 'cypress run --e2e'",
     "test": "run-p test:unit test:e2e:ci",
-    "dev": "vite",
+    "dev": "vite --port 4173",
     "preview": "vite preview --port 4173",
     "build:vite": "vite build",
     "build": "run-p lint build:vite"
