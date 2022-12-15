@@ -1,8 +1,7 @@
-type Params = {
-  id: number;
-};
-export async function load({ params }: { params: Params }) {
-  const id: number = params.id;
+import type { PageLoad } from "./$types";
+
+export const load = (async ({ fetch, params }) => {
+  const id = params.id;
   const url_ = `https://pokeapi.co/api/v2/pokemon/${id}`;
   const res = await fetch(url_);
   const pokemon_ = await res.json();
@@ -20,4 +19,4 @@ export async function load({ params }: { params: Params }) {
   return {
     pokemon
   };
-}
+}) satisfies PageLoad;
