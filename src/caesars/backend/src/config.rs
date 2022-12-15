@@ -109,18 +109,17 @@ impl Config {
     }
     fn validate(&self) -> Result<(), Error> {
         //  GrahpQL
-        match &self.schema_location {
-            Some(location) => {
-                let path = Path::new(location);
-                if !path.exists() {
-                    return Err(Error::InvalidArgument(format!(
-                        "config: GraphQL schema location doesn't exists '{}'",
-                        &location
-                    )));
-                }
-            }
-            None => (),
-        };
+        let location = &self
+            .schema_location
+            .as_ref()
+            .map(|l| Path::new(l).exists())
+            .unwrap_or(false);
+
+        if !location {
+            return Err(Error::InvalidArgument(
+                "config: GraphQL schema location doesn't exists".into(),
+            ));
+        }
 
         Ok(())
     }
