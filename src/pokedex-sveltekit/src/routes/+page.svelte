@@ -1,16 +1,17 @@
 <script lang="ts">
   import { paginate, LightPaginationNav } from "svelte-paginate";
 
+  import type { Pokemon } from "../types/Pokemon";
   import { pokemons } from "../stores/pokemons";
   import PokemonCard from "../components/PokemonCard.svelte";
   import { searchTerm } from "../stores/search";
 
-  let filteredPokemon = [];
-  let paginatedItems = [];
+  let filteredPokemon: Pokemon[] = [];
+  let paginatedItems: Pokemon[] = [];
 
   $: {
     if ($searchTerm) {
-      filteredPokemon = $pokemons.filter((pokemon) =>
+      filteredPokemon = $pokemons.filter((pokemon: Pokemon) =>
         pokemon.name.includes($searchTerm.toLowerCase())
       );
     } else {

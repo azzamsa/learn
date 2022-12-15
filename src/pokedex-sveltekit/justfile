@@ -1,5 +1,7 @@
 #!/usr/bin/env -S just --justfile
 
+shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
+
 alias d := dev
 
 # List available commands.
@@ -11,16 +13,18 @@ setup:
     dprint --version || cargo install dprint
 
     pnpm i
-    pnpx husky install
 
 # Develop the app.
 dev:
     pnpm run dev
 
+# Build the app.
+build:
+    pnpm run build
+
 # Lint the codebase.
 lint:
     pnpm run lint
-    pnpm run check
 
 # Format the codebase.
 fmt:
@@ -42,6 +46,11 @@ check: fmt-check lint
 release version:
     bash scripts/release.sh {{ version }}
 
-# Check dependencies health.
-up:
-    taze
+# Check dependencies health. Pass `--write` to uppgrade dependencies.
+up arg="":
+    #!{{ shebang }}
+    if [ "{{ arg }}" = "--write" ]; then
+        taze --write
+    else
+        taze
+    fi;
