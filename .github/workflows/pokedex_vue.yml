@@ -25,12 +25,10 @@ jobs:
         with:
           version: 7
 
-      - name: Install dprint
-        run: |
-          curl --location https://github.com/dprint/dprint/releases/download/0.30.3/dprint-x86_64-unknown-linux-gnu.zip --output dprint.zip
-          unzip dprint.zip
-          cp dprint ~/.cargo/bin/
-          dprint --version
+      - name: Install latest dprint release
+        uses: taiki-e/install-action@v1
+        with:
+          tool: dprint
 
       - name: Install latest just release
         uses: extractions/setup-just@v1
