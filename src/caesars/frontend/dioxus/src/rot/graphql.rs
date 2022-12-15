@@ -8,13 +8,13 @@ pub mod queries {
     use super::schema;
 
     #[derive(cynic::QueryFragment, Debug)]
-    #[cynic(graphql_type = "Query", argument_struct = "EncryptArguments")]
+    #[cynic(graphql_type = "Query", variables = "EncryptArguments")]
     pub struct EncryptQuery {
-        #[arguments(plain = &args.plain, rotation = &args.rotation)]
+        #[arguments(plain: $plain, rotation: $rotation)]
         pub encrypt: Encrypt,
     }
 
-    #[derive(cynic::FragmentArguments, Debug)]
+    #[derive(cynic::QueryVariables, Debug)]
     pub struct EncryptArguments {
         pub plain: String,
         pub rotation: i32,
@@ -27,13 +27,13 @@ pub mod queries {
     }
 
     #[derive(cynic::QueryFragment, Debug)]
-    #[cynic(graphql_type = "Query", argument_struct = "DecryptArguments")]
+    #[cynic(graphql_type = "Query", variables = "DecryptArguments")]
     pub struct DecryptQuery {
-        #[arguments(secret = &args.secret, rotation = &args.rotation)]
+        #[arguments(secret: $secret, rotation: $rotation)]
         pub decrypt: Decrypt,
     }
 
-    #[derive(cynic::FragmentArguments, Debug)]
+    #[derive(cynic::QueryVariables, Debug)]
     pub struct DecryptArguments {
         pub secret: String,
         pub rotation: i32,
