@@ -8,14 +8,12 @@ impl Service {
         let input_length = secret.len();
         let input_bytes = secret.as_bytes();
 
-        let plain = {
-            if input_length == 1 {
-                let byte_result = rot_letter(Mode::Decrypt, input_bytes[0], rotation);
-                format!("{}", String::from_utf8_lossy(&[byte_result]))
-            } else {
-                let bytes_result = rot(Mode::Decrypt, input_bytes, rotation);
-                format!("{}", String::from_utf8_lossy(&bytes_result))
-            }
+        let bytes_result = rot(Mode::Decrypt, input_bytes, rotation);
+        let mut plain = format!("{}", String::from_utf8_lossy(&bytes_result));
+
+        if input_length == 1 {
+            let byte_result = rot_letter(Mode::Decrypt, input_bytes[0], rotation);
+            plain = format!("{}", String::from_utf8_lossy(&[byte_result]));
         };
 
         let rot = Decrypt { plain, rotation };

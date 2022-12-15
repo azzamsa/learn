@@ -12,14 +12,12 @@ impl Service {
         let input_length = secret.len();
         let input_bytes = secret.as_bytes();
 
-        let secret = {
-            if input_length == 1 {
-                let byte_result = rot_letter(Mode::Encrypt, input_bytes[0], rotation);
-                format!("{}", String::from_utf8_lossy(&[byte_result]))
-            } else {
-                let bytes_result = rot(Mode::Encrypt, input_bytes, rotation);
-                format!("{}", String::from_utf8_lossy(&bytes_result))
-            }
+        let bytes_result = rot(Mode::Encrypt, input_bytes, rotation);
+        let mut secret = format!("{}", String::from_utf8_lossy(&bytes_result));
+
+        if input_length == 1 {
+            let byte_result = rot_letter(Mode::Encrypt, input_bytes[0], rotation);
+            secret = format!("{}", String::from_utf8_lossy(&[byte_result]));
         };
 
         let rot = entities::Encrypt { secret, rotation };
