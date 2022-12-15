@@ -42,7 +42,7 @@ test:
 _test-ci:
     pnpm run test:unit
     # TODO
-    # pnpm run test-e2e
+    # pnpm run test:e2e:ci
     # all the test passed in 'open' mode, but buggy in 'run' mode
 
 # Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
