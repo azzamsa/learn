@@ -17,6 +17,10 @@ setup:
 dev:
     pnpm dev
 
+# Preview the app.
+preview:
+    pnpm preview
+
 # Build the app.
 build:
     pnpm run build
