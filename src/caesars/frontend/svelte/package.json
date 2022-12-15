@@ -11,30 +11,30 @@
     "lint": "eslint . --ext .svelte,.js,.jsx,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.4",
-    "@sveltejs/vite-plugin-svelte": "^1.0.1",
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tsconfig/svelte": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
-    "@typescript-eslint/parser": "^5.30.7",
-    "autoprefixer": "^10.4.7",
-    "eslint": "^8.20.0",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.29.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "eslint-plugin-tailwindcss": "^3.6.0",
-    "postcss": "^8.4.14",
-    "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.7.0",
-    "prettier-plugin-tailwindcss": "^0.1.12",
+    "eslint-plugin-tailwindcss": "^3.7.1",
+    "postcss": "^8.4.20",
+    "prettier": "^2.8.1",
+    "prettier-plugin-svelte": "^2.9.0",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "svelte": "^3.49.0",
-    "svelte-check": "^2.8.0",
-    "svelte-preprocess": "^4.10.7",
-    "tailwindcss": "^3.1.6",
-    "tslib": "^2.4.0",
-    "typescript": "^4.6.4",
-    "vite": "^3.0.0"
+    "svelte-check": "^2.10.2",
+    "svelte-preprocess": "^5.0.0",
+    "tailwindcss": "^3.2.4",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.1"
   },
   "dependencies": {
-    "@urql/svelte": "^2.0.2",
-    "graphql": "^16.5.0"
+    "@urql/svelte": "^3.0.3",
+    "graphql": "^16.6.0"
   }
 }

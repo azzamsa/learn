@@ -17,7 +17,7 @@ import HeartIcon from "./icons/IconHeart.vue";
 
     <a
       class="hover:underline"
-      href="https://github.com/azzamsa/caesars"
+      href="https://github.com/azzamsa/learn/tree/master/src/caesars"
       target="_blank"
     >
       Meta
