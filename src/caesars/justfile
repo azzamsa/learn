@@ -27,7 +27,3 @@ check: fmt-check
 release version:
     bash scripts/release.sh {{ version }}
 
-# Local Variables:
-# mode: makefile
-# End:
-# vim: set ft=make :
