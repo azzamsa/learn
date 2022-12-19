@@ -21,10 +21,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install latest just release
-        uses: extractions/setup-just@v1
+        uses: taiki-e/install-action@v1
+        with:
+          tool: just
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2

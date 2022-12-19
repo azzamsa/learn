@@ -29,11 +29,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          default: true
-          profile: minimal # no documentation
           components: clippy, rustfmt
 
       - name: Install pnpm
@@ -51,10 +48,12 @@ jobs:
           tool: dprint
 
       - name: Install latest just release
-        uses: extractions/setup-just@v1
+        uses: taiki-e/install-action@v1
+        with:
+          tool: just
 
       - name: Cache
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
 
       - name: Ensure MSRV is set in `clippy.toml`
         run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
@@ -69,14 +68,12 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install rust toolchain (v${{ env.MIN_SUPPORTED_RUST_VERSION }})
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ env.MIN_SUPPORTED_RUST_VERSION }}
-          default: true
-          profile: minimal
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -88,10 +85,12 @@ jobs:
           pnpm add -g prettier
 
       - name: Install latest just release
-        uses: extractions/setup-just@v1
+        uses: taiki-e/install-action@v1
+        with:
+          tool: just
 
       - name: Cache
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
 
       - name: Run test
         run:  just test
@@ -108,15 +107,12 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
           target: ${{ matrix.job.target }}
-          override: true
-          profile: minimal
 
       - name: Install latest dprint release
         uses: taiki-e/install-action@v1
@@ -137,10 +133,12 @@ jobs:
           pnpm i
 
       - name: Install latest just release
-        uses: extractions/setup-just@v1
+        uses: taiki-e/install-action@v1
+        with:
+          tool: just
 
       - name: Cache
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
 
       - name: Show version information
         shell: bash

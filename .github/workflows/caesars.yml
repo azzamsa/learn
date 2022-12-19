@@ -29,7 +29,9 @@ jobs:
           tool: dprint
 
       - name: Install latest just release
-        uses: extractions/setup-just@v1
+        uses: taiki-e/install-action@v1
+        with:
+          tool: just
 
       - name: Check if the repository comply with the rules
         run:  just check
