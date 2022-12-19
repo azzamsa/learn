@@ -78,14 +78,14 @@ script = [
 ]
 
 [tasks.fmt]
-description = "Format with nightly rustfmt"
-toolchain = "nightly"
+description = "Format with rustfmt"
+toolchain = "stable"
 command = "cargo"
 args = ["fmt", "--all"]
 
 [tasks.fmt-check]
 extend = "fmt"
-description = "Check format with nightly rustfmt"
+description = "Check format with rustfmt"
 args = ["fmt", "--all", "--", "--check"]
 
 [tasks.prettier]

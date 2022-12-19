@@ -31,11 +31,11 @@ run:
 
 # Format the codebase.
 fmt:
-    cargo +nightly fmt --all
+    cargo fmt --all
 
 # Check is the codebase properly formatted.
 fmt-check:
-    cargo +nightly fmt --all -- --check
+    cargo fmt --all -- --check
 
 # Lint the codebase.
 lint:

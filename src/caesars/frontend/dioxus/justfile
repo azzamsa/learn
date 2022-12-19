@@ -36,12 +36,12 @@ preview-build:
 
 # Format the codebase.
 fmt:
-    cargo +nightly fmt --all
+    cargo fmt --all
     prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --write .
 
 # Check is the codebase properly formatted.
 fmt-check:
-    cargo +nightly fmt --check
+    cargo fmt --check
     prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --check .
 
 # Lint the codebase.

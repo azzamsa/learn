@@ -41,10 +41,6 @@ tasks:
       mv cargo-make/cargo-make ~/.cargo/bin/
       cargo make --version
 
-      # install Rust nightly
-      rustup toolchain install nightly
-      rustup component add rustfmt --toolchain nightly
-
       # install trunk
       wget -qO- https://github.com/thedodd/trunk/releases/download/v0.10.0/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
       chmod +x trunk

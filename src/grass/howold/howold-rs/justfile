@@ -29,12 +29,12 @@ run:
 
 # Format the codebase.
 fmt:
-    cargo +nightly fmt --all
+    cargo fmt --all
     dprint fmt --config .config/dprint.json
 
 # Check is the codebase properly formatted.
 fmt-check:
-    cargo +nightly fmt --all -- --check
+    cargo fmt --all -- --check
 
 # Lint the codebase.
 lint:
@@ -65,6 +65,6 @@ up arg="":
     	cargo upgrade
     	cargo update
     else
-    	cargo +nightly udeps
+    	cargo udeps
         cargo outdated --root-deps-only
     fi;
