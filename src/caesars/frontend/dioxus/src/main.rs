@@ -9,7 +9,7 @@ pub mod rot;
 use dioxus::prelude::*;
 
 fn main() {
-    dioxus::web::launch(app);
+    dioxus_web::launch(app);
 }
 
 fn app(cx: Scope) -> Element {
@@ -21,10 +21,10 @@ fn app(cx: Scope) -> Element {
                 }
             }
             main { class: "bg-white max-w-5xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl",
-            components::banner::banner()
-            components::dashboard::dashboard()
+            components::banner::banner{}
+            components::dashboard::dashboard{}
             }
-            components::footer::footer()
+            components::footer::footer{}
         }
     ))
 }
