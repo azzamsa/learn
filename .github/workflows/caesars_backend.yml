@@ -36,8 +36,8 @@ jobs:
       - name: Install latest just release
         uses: taiki-e/install-action@just
 
-      - name: Cache
-        uses: Swatinem/rust-cache@v2
+      # - name: Cache
+      #   uses: Swatinem/rust-cache@v2
 
       - name: Ensure `fmt` has been run
         run:  just fmt-check
@@ -64,8 +64,8 @@ jobs:
       - name: Install latest just release
         uses: taiki-e/install-action@just
 
-      - name: Cache
-        uses: Swatinem/rust-cache@v2
+      # - name: Cache
+      #   uses: Swatinem/rust-cache@v2
 
       - name: Prepare the environment variables
         run: |
