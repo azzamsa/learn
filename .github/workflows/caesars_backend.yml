@@ -34,9 +34,7 @@ jobs:
           components: clippy, rustfmt
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
+        uses: taiki-e/install-action@just
 
       - name: Cache
         uses: Swatinem/rust-cache@v2
@@ -64,9 +62,7 @@ jobs:
         uses: taiki-e/install-action@nextest
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
+        uses: taiki-e/install-action@just
 
       - name: Cache
         uses: Swatinem/rust-cache@v2
@@ -79,13 +75,13 @@ jobs:
         run: just test
 
   build:
-    name: ${{ matrix.job.os }} (${{ matrix.job.target }})
-    runs-on: ${{ matrix.job.os }}
+    name: Build for ${{ matrix.build }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        job:
-          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu    }
+        include:
+          - { build: linux-gnu,  os: ubuntu-22.04, target: x86_64-unknown-linux-gnu    }
 
     steps:
       - name: Checkout source code
@@ -94,7 +90,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          target: ${{ matrix.job.target }}
+          target: ${{ matrix.target }}
 
       - name: Show version information
         shell: bash
@@ -106,23 +102,17 @@ jobs:
           cargo -V
           rustc -V
 
-      - name: Set cargo cmd
-        shell: bash
-        run: echo "CARGO_CMD=cargo" >> $GITHUB_ENV
-
-      - name: Set cargo cmd to cross
-        shell: bash
-        if: ${{ matrix.job.use-cross == true }}
-        run: echo "CARGO_CMD=cross" >> $GITHUB_ENV
+      - name: Install musl-tools
+        if: matrix.target == 'x86_64-unknown-linux-musl'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            --allow-unauthenticated musl-tools
 
       - name: Rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          key: ${{ matrix.job.os }}-${{ matrix.job.target }}
-
-      - name: Install cross
-        if: ${{ matrix.job.use-cross == true }}
-        uses: taiki-e/install-action@cross
+          key: ${{ matrix.os }}-${{ matrix.target }}
 
       - name: Build
-        run: ${{ env.CARGO_CMD }} build --verbose --target=${{ matrix.job.target }}
+        run: cargo build --release --locked --target ${{ matrix.target }}

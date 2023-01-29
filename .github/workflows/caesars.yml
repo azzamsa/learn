@@ -23,15 +23,11 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name: Install latest dprint release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: dprint
-
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
+        uses: taiki-e/install-action@just
+
+      - name: Install latest dprint release
+        uses: taiki-e/install-action@dprint
 
       - name: Check if the repository comply with the rules
         run:  just check
