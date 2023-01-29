@@ -1,0 +1,71 @@
+#!/usr/bin/env -S just --justfile
+
+shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
+
+alias d := dev
+alias t := test
+
+# List available commands.
+_default:
+    just --list --unsorted
+
+# Setup the repository.
+setup:
+    rustup target add wasm32-unknown-unknown
+
+
+# Clean build artifacts.
+clean:
+    trunk clean
+
+# Develop the app.
+dev:
+    pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.css  --output styles/compiled.css
+    cargo leptos watch
+
+# Build the app.
+build:
+    NODE_ENV=production pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss --output styles/compiled.scss
+    trunk build --release
+
+# Preview the build output.
+preview-build:
+    microserver dist/
+
+# Format the codebase.
+fmt:
+    cargo fmt --all
+    prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --write .
+
+# Check is the codebase properly formatted.
+fmt-check:
+    cargo fmt --check
+    prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --check .
+
+# Lint the codebase.
+lint:
+    cargo clippy --all-targets --all-features
+
+# Check the documentation.
+_doc-check:
+    cargo doc --all-features --no-deps
+
+# Lint the codebase.
+test:
+    cargo test --all --all-features --all-targets
+
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint test _doc-check
+
+# Check dependencies health. Pass `--write` to uppgrade dependencies.
+up arg="":
+    #!{{ shebang }}
+    if [ "{{ arg }}" = "--write" ]; then
+    	cargo upgrade
+    	cargo update
+    else
+        cargo outdated
+    fi;
