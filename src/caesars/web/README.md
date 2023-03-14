@@ -4,6 +4,10 @@
 
 Encrypt and decrypt your secrets using ROT algorithm 🔐
 
+<a href="https://github.com/azzamsa/learn/actions/workflows/caesars.yaml">
+    <img src="https://github.com/azzamsa/learn/actions/workflows/caesars.yaml/badge.svg" alt="Build status" />
+</a>
+
 </div>
 
 ![demo](docs/demo.gif)
@@ -22,7 +26,7 @@ After some research, now the result is live: [Is Rust Ready for Web Front-End?](
 All the features can be viewed in the [CHANGELOG](CHANGELOG.md) file tagged with `feat`.
 The file only contains user-facing changes, so you won't get lost bisecting the features.
 
-## Web 
+## Frontends
 
 - 🦀 [Dioxus](frontend/dioxus)
 - 🖖 [Vue 3](frontend/vue)

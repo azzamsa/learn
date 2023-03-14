@@ -3,18 +3,18 @@ name: Caesar Svelte (CI)
 on:
   push:
     paths:
-      -  src/caesars/frontend/svelte/**
+      -  src/caesars/web/frontend/svelte/**
       - .github/workflows/caesars.yml
       - .github/workflows/caesars_svelte.yml
   pull_request:
     paths:
-      -  src/caesars/frontend/svelte/**
+      -  src/caesars/web/frontend/svelte/**
       - .github/workflows/caesars.yml
       - .github/workflows/caesars_svelte.yml
 
 defaults:
   run:
-    working-directory: src/caesars/frontend/svelte
+    working-directory: src/caesars/web/frontend/svelte
 
 jobs:
   ci:

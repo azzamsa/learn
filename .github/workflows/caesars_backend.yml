@@ -11,13 +11,13 @@ on:
       - .github/workflows/caesars_backend.yml
   pull_request:
     paths:
-      -  src/caesars/backend/**
+      -  src/caesars/web/backend/**
       - .github/workflows/caesars.yml
       - .github/workflows/caesars_backend.yml
 
 defaults:
   run:
-    working-directory: src/caesars/backend
+    working-directory: src/caesars/web/backend
 
 jobs:
   code_quality:
