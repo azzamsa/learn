@@ -6,18 +6,18 @@ env:
 on:
   push:
     paths:
-      -  src/caesars/frontend/dioxus/**
+      -  src/caesars/web/frontend/dioxus/**
       - .github/workflows/caesars.yml
       - .github/workflows/caesars_dioxus.yml
   pull_request:
     paths:
-      -  src/caesars/frontend/dioxus/**
+      -  src/caesars/web/frontend/dioxus/**
       - .github/workflows/caesars.yml
       - .github/workflows/caesars_dioxus.yml
 
 defaults:
   run:
-    working-directory: src/caesars/frontend/dioxus
+    working-directory: src/caesars/web/frontend/dioxus
 
 jobs:
   code_quality:
