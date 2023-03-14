@@ -1,0 +1,12 @@
+[package]
+name = "caesar"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cxx = "1.0.83"
+cxx-qt = "0.5"
+cxx-qt-lib = "0.5"
+
+[build-dependencies]
+cxx-qt-build = "0.5"
