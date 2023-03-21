@@ -30,34 +30,16 @@ Window {
             font.bold: true
         }
 
-        TextArea {
-            id: plain
+        InputArea {
             placeholderText: qsTr("me@caesar.tld")
             text: rot.plain
             onTextChanged: rot.secret = rot.encrypt(text)
-
-            background: Rectangle {
-                implicitWidth: 400
-                implicitHeight: 50
-                radius: 3
-                color: plain.enabled ? "#e2e8f0" : "#353637"
-                border.color: plain.enabled ? "#21be2b" : "#e2e8f0"
-            }
         }
 
-        TextArea {
-            id: sercet
+        InputArea {
             placeholderText: qsTr("zr@pnrfne.gyq")
             text: rot.secret
             onTextChanged: rot.plain = rot.decrypt(text)
-
-            background: Rectangle {
-                implicitWidth: 400
-                implicitHeight: 50
-                radius: 3
-                color: sercet.enabled ? "#e2e8f0" : "#353637"
-                border.color: sercet.enabled ? "#21be2b" : "#e2e8f0"
-            }
         }
     }
 }
