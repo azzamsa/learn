@@ -10,6 +10,7 @@ dependencies = [
  "cxx-qt",
  "cxx-qt-build",
  "cxx-qt-lib",
+ "nrot",
 ]
 
 [[package]]
@@ -230,6 +231,12 @@ dependencies = [
  "memchr",
  "minimal-lexical",
 ]
+
+[[package]]
+name = "nrot"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e1b75af407349817b344318758951783e3458bef84085470ae6d2d8cbe90090f"
 
 [[package]]
 name = "once_cell"
