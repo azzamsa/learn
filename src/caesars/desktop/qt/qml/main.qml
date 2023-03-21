@@ -34,7 +34,7 @@ Window {
             id: control
             placeholderText: qsTr("me@caesar.tld")
             text: rot.plain
-            onTextChanged: rot.plain = text
+            onTextChanged: rot.secret = rot.encrypt(text)
 
             background: Rectangle {
                 implicitWidth: 400
@@ -43,11 +43,6 @@ Window {
                 color: control.enabled ? "#e2e8f0" : "#353637"
                 border.color: control.enabled ? "#21be2b" : "#e2e8f0"
             }
-        }
-
-        Button {
-            text: "Encrypt!"
-            onClicked: rot.secret = rot.encrypt(rot.plain)
         }
 
         Label {
