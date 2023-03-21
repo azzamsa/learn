@@ -42,5 +42,22 @@ mod my_object {
 
             QString::from(&secret)
         }
+
+        #[qinvokable]
+        pub fn decrypt(&self, secret: &QString) -> QString {
+            let rotation = 13; // common ROT rotation
+            let secret = secret.to_string();
+            let secret = secret.as_bytes();
+
+            let bytes_result = rot(Mode::Decrypt, secret, rotation);
+            let mut plain = format!("{}", String::from_utf8_lossy(&bytes_result));
+
+            if secret.len() == 1 {
+                let byte_result = rot_letter(Mode::Decrypt, secret[0], rotation);
+                plain = format!("{}", String::from_utf8_lossy(&[byte_result]));
+            };
+
+            QString::from(&plain)
+        }
     }
 }
