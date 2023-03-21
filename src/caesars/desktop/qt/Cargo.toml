@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+nrot = "2.0.0"
+
+# UI
 cxx = "1.0.83"
 cxx-qt = "0.5"
 cxx-qt-lib = "0.5"
