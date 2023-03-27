@@ -43,17 +43,10 @@ jobs:
           pnpm add -g prettier
 
       - name: Install latest dprint release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: dprint
+        uses: taiki-e/install-action@dprint
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
-
-      - name: Cache
-        uses: Swatinem/rust-cache@v2
+        uses: taiki-e/install-action@just
 
       - name: Ensure MSRV is set in `clippy.toml`
         run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
@@ -80,17 +73,8 @@ jobs:
         with:
           version: 7
 
-      - name: Install global JS dependencies
-        run: |
-          pnpm add -g prettier
-
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
-
-      - name: Cache
-        uses: Swatinem/rust-cache@v2
+        uses: taiki-e/install-action@just
 
       - name: Run test
         run:  just test
@@ -124,7 +108,7 @@ jobs:
         with:
           version: 7
 
-      - name: Install global dependencies
+      - name: Install global JS dependencies
         run: |
           pnpm add -g prettier
 
@@ -133,12 +117,7 @@ jobs:
           pnpm i
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
-
-      - name: Cache
-        uses: Swatinem/rust-cache@v2
+        uses: taiki-e/install-action@just
 
       - name: Show version information
         shell: bash
