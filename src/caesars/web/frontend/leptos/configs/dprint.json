@@ -1,0 +1,18 @@
+{
+  "json": {
+  },
+  "toml": {
+  },
+  "includes": ["**/*.{json,toml,dockerfile}"],
+  "excludes": [
+    "**/*-lock.json",
+    "**/*-lock.toml",
+    "./target",
+    "sqlx-data.json"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/json-0.15.3.wasm",
+    "https://plugins.dprint.dev/dockerfile-0.2.3.wasm",
+    "https://plugins.dprint.dev/toml-0.5.4.wasm"
+  ]
+}

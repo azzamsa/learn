@@ -1,7 +1,0 @@
-target/
-
-dist/
-**/compiled.scss
-*.yaml
-*.md
-*.toml

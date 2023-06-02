@@ -1,0 +1,12 @@
+[serve]
+address = "127.0.0.1"
+port = 8000
+# Open a browser tab once the initial build is complete.
+open = false
+# Disable auto-reload of the web app.
+no_autoreload = true
+
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = ["-c", "npx tailwindcss -i styles/main.css -o styles/compiled.css"]

@@ -1,39 +1,20 @@
-#[cfg(feature = "ssr")]
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    use actix_files::Files;
-    use actix_web::*;
-    use leptos::*;
-    use leptos_actix::{generate_route_list, LeptosRoutes};
-    use leptos_start::app::*;
-
-    let conf = get_configuration(None).await.unwrap();
-    let addr = conf.leptos_options.site_address;
-    // Generate the list of routes in your Leptos App
-    let routes = generate_route_list(|cx| view! { cx, <App/> });
-
-    HttpServer::new(move || {
-        let leptos_options = &conf.leptos_options;
-        let site_root = &leptos_options.site_root;
-
-        App::new()
-            .route("/api/{tail:.*}", leptos_actix::handle_server_fns())
-            .leptos_routes(
-                leptos_options.to_owned(),
-                routes.to_owned(),
-                |cx| view! { cx, <App/> },
-            )
-            .service(Files::new("/", site_root))
-        //.wrap(middleware::Compress::default())
-    })
-    .bind(&addr)?
-    .run()
-    .await
+mod app;
+mod components {
+    pub mod banner;
+    pub mod dashboard;
+    pub mod footer;
+    pub mod icons;
 }
 
-#[cfg(not(feature = "ssr"))]
+use app::*;
+use leptos::*;
+
 pub fn main() {
-    // no client-side main function
-    // unless we want this to work with e.g., Trunk for pure client-side testing
-    // see lib.rs for hydration function instead
+    _ = console_log::init_with_level(log::Level::Debug);
+    console_error_panic_hook::set_once();
+
+    log!("csr mode - mounting to body");
+    mount_to_body(|cx| {
+        view! { cx, <App/> }
+    });
 }

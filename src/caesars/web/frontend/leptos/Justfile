@@ -11,8 +11,15 @@ _default:
 
 # Setup the repository.
 setup:
+    rustup toolchain install nightly --allow-downgrade
+    rustup default nightly
     rustup target add wasm32-unknown-unknown
 
+    cargo-generate --version || cargo install cargo-generate
+    trunk --version || cargo install trunk
+    microserver --version || cargo install microserver
+
+    npm install
 
 # Clean build artifacts.
 clean:
@@ -20,13 +27,11 @@ clean:
 
 # Develop the app.
 dev:
-    pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.css  --output styles/compiled.css
-    cargo leptos watch
+    trunk serve
 
 # Build the app.
 build:
-    NODE_ENV=production pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss --output styles/compiled.scss
-    trunk build --release
+    trunk build
 
 # Preview the build output.
 preview-build:
@@ -35,12 +40,15 @@ preview-build:
 # Format the codebase.
 fmt:
     cargo fmt --all
-    prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --write .
+    npx rustywind --write .
+    leptosfmt src
+    dprint fmt --config configs/dprint.json
 
 # Check is the codebase properly formatted.
 fmt-check:
     cargo fmt --check
-    prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --check .
+    npx rustywind --check-formatted .
+    dprint check --config configs/dprint.json
 
 # Lint the codebase.
 lint:
@@ -67,5 +75,5 @@ up arg="":
     	cargo upgrade
     	cargo update
     else
-        cargo outdated
+        cargo outdated --root-deps-only
     fi;

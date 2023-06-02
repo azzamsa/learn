@@ -2,41 +2,42 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
+use crate::components::banner::Banner;
+use crate::components::dashboard::Dashboard;
+use crate::components::footer::Footer;
+
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
-    // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context(cx);
 
-    view! {
-        cx,
-
-        // injects a stylesheet into the document <head>
-        // id=leptos means cargo-leptos will hot-reload this stylesheet
-        <Stylesheet id="leptos" href="/pkg/leptos_start.css"/>
-
-        // sets the document title
-        <Title text="Welcome to Leptos"/>
-
-        // content for this welcome page
+    view! { cx,
+        <Stylesheet id="leptos" href="/pkg/tailwind.css"/>
+        <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
-            <main>
-                <Routes>
-                    <Route path="" view=|cx| view! { cx, <HomePage/> }/>
-                </Routes>
-            </main>
+            <Routes>
+                <Route
+                    path=""
+                    view=move |cx| {
+                        view! { cx, <Home/> }
+                    }
+                />
+            </Routes>
         </Router>
     }
 }
 
-/// Renders the home page of your application.
 #[component]
-fn HomePage(cx: Scope) -> impl IntoView {
-    // Creates a reactive value to update the button
-    let (count, set_count) = create_signal(cx, 0);
-    let on_click = move |_| set_count.update(|count| *count += 1);
-
+fn Home(cx: Scope) -> impl IntoView {
     view! { cx,
-        <h1>"Welcome to Leptos!"</h1>
-        <button on:click=on_click>"Click Me: " {count}</button>
+        <div class="px-2 pt-12 pb-6 min-h-screen md:px-5 md:pt-20 bg-main">
+            <header class="mx-auto max-w-lg">
+                <h1 class="font-bold text-center text-white"></h1>
+            </header>
+            <main class="p-8 my-10 mx-auto max-w-5xl bg-white rounded-lg shadow-2xl md:p-12">
+                <Banner/>
+                <Dashboard/>
+            </main>
+            <Footer/>
+        </div>
     }
 }
