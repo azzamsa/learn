@@ -3,8 +3,8 @@ use dioxus::{events::*, prelude::*};
 use crate::rot;
 
 pub fn dashboard(cx: Scope) -> Element {
-    let plain = use_state(&cx, || "".to_string());
-    let secret = use_state(&cx, || "".to_string());
+    let plain = use_state(cx, || "".to_string());
+    let secret = use_state(cx, || "".to_string());
 
     let on_input_plain = move |e: FormEvent| {
         plain.set(e.value.clone());

@@ -32,7 +32,7 @@ pub fn padlock(cx: Scope) -> Element {
         y1: "84.429",
         y2: "84.429",
         x2: "78.997",
-        gradientUnits: "userSpaceOnUse",
+        gradient_units: "userSpaceOnUse",
         x1: "89.177",
         stop {
             offset: "0",
@@ -79,11 +79,11 @@ pub fn padlock(cx: Scope) -> Element {
     }
     radialGradient {
         id: "b",
-        gradientTransform: "matrix(-.077 -.997 .4971 -.0384 58.224 127.429)",
+        gradient_transform: "matrix(-.077 -.997 .4971 -.0384 58.224 127.429)",
         cy: "49.066",
         cx: "76.707",
         r: "37.716",
-        gradientUnits: "userSpaceOnUse",
+        gradient_units: "userSpaceOnUse",
         stop {
             offset: ".156",
             style: "stop-color:#3d8192",

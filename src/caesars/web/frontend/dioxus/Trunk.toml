@@ -1,0 +1,5 @@
+[serve]
+address = "127.0.0.1"
+port = 8000
+# Open a browser tab once the initial build is complete.
+open = false

@@ -15,7 +15,7 @@ pub async fn encrypt(plain: String) -> String {
     let query = EncryptQuery::build(args);
     let client = reqwest::Client::new();
     let response: EncryptResponse = client
-        .post("http://127.0.0.1:8000/graphql")
+        .post("http://127.0.0.1:7000/graphql")
         .json(&query)
         .send()
         .await
@@ -34,7 +34,7 @@ pub async fn decrypt(secret: String) -> String {
     let query = DecryptQuery::build(args);
     let client = reqwest::Client::new();
     let response: DecryptResponse = client
-        .post("http://127.0.0.1:8000/graphql")
+        .post("http://127.0.0.1:7000/graphql")
         .json(&query)
         .send()
         .await

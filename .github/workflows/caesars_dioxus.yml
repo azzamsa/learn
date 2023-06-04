@@ -1,7 +1,7 @@
 name: Caesar Dioxus (CI)
 
 env:
-  MIN_SUPPORTED_RUST_VERSION: "1.68.0"
+  MIN_SUPPORTED_RUST_VERSION: "1.70.0"
 
 on:
   push:
@@ -99,7 +99,7 @@ jobs:
           target: ${{ matrix.job.target }}
 
       - name: Install latest dprint release
-        uses: taiki-e/install-action@v1
+        uses: taiki-e/install-action@v2
         with:
           tool: trunk
 

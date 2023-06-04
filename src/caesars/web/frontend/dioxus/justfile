@@ -2,6 +2,7 @@
 
 shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
 
+alias r := run
 alias d := dev
 alias t := test
 
@@ -22,6 +23,10 @@ clean:
 
 # Develop the app.
 dev:
+    cargo watch -x 'clippy --locked --all-targets --all-features'
+
+# Run the app.
+run:
     pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss  --output styles/compiled.scss
     trunk serve
 
