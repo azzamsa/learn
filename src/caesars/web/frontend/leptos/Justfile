@@ -3,6 +3,7 @@
 shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
 
 alias d := dev
+alias r := run
 alias t := test
 
 # List available commands.
@@ -27,11 +28,11 @@ clean:
 
 # Develop the app.
 dev:
-    trunk serve
+    cargo watch -x 'clippy --locked --all-targets --all-features'
 
-# Build the app.
-build:
-    trunk build
+# Run the app in develompent mode
+run:
+    trunk serve
 
 # Preview the build output.
 preview-build:

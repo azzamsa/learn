@@ -1,4 +1,5 @@
 mod app;
+mod rot;
 mod components {
     pub mod banner;
     pub mod dashboard;
