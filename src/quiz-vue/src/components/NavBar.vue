@@ -54,7 +54,7 @@ const toggleLocales = () => {
           {{ $t('nav.home') }}
         </RouterLink>
       </li>
-      <div class="divider mt-0 mb-0" />
+      <div class="divider mb-0 mt-0" />
       <li>
         <RouterLink class="nav-btn" to="/about" @click="showMenu = !showMenu">
           {{ $t('nav.about') }}

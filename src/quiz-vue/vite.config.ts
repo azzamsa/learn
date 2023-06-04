@@ -67,6 +67,7 @@ export default () => {
         runtimeOnly: true,
         compositionOnly: true,
         include: [path.resolve(__dirname, 'locales/**')],
+        strictMessage: false,
       }),
     ],
 

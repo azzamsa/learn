@@ -70,7 +70,7 @@ function submit() {
   >
     <div class="card-body items-center text-center">
       <h2 class="card-title" v-html="question.question" />
-      <div class="divider mt-1 mb-1" />
+      <div class="divider mb-1 mt-1" />
 
       <div class="form-control">
         <div
@@ -91,7 +91,7 @@ function submit() {
         </div>
       </div>
 
-      <div class="divider mt-1 mb-1" />
+      <div class="divider mb-1 mt-1" />
       <div class="card-actions">
         <RouterLink v-if="isFinalQuestion" class="btn-primary btn" to="/result">
           {{ $t('box.finish') }}

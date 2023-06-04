@@ -44,7 +44,7 @@ function setLimit(event: any) {
         </div>
 
         <div v-if="showCustomize">
-          <div class="divider mt-2 mb-2" />
+          <div class="divider mb-2 mt-2" />
 
           <div class="mt-4 flex flex-col items-center space-x-4 space-y-4">
             <select class="select-secondary select" @change="setDifficulty">
