@@ -22,7 +22,7 @@
       <p>Weight: {pokemon.weight} Hg</p>
     {:else}
       <div class="card-actions">
-        <a class="btn-outline btn-accent btn" href="{base}/pokemon/{pokemon.id}">More info</a>
+        <a class="btn-accent btn-outline btn" href="{base}/pokemon/{pokemon.id}">More info</a>
       </div>
     {/if}
   </div>
