@@ -24,9 +24,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
+        uses: taiki-e/install-action@just
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
