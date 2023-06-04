@@ -38,10 +38,6 @@ jobs:
         with:
           version: 7
 
-      - name: Install global JS dependencies
-        run: |
-          pnpm add -g prettier
-
       - name: Install latest dprint release
         uses: taiki-e/install-action@dprint
 
@@ -108,11 +104,7 @@ jobs:
         with:
           version: 7
 
-      - name: Install global JS dependencies
-        run: |
-          pnpm add -g prettier
-
-      - name: Install local JS dependencies
+      - name: Install JS dependencies
         run: |
           pnpm i
 
@@ -129,7 +121,7 @@ jobs:
           cargo -V
           rustc -V
 
-          prettier --version
+          pnpx prettier --version
           trunk --version
 
       - name: Run build

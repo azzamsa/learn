@@ -33,10 +33,6 @@ jobs:
         with:
           tool: just
 
-      - name: Install global JS dependencies
-        run: |
-          pnpm add -g prettier
-
       - name: Install local dependencies
         run: |
           pnpm i
