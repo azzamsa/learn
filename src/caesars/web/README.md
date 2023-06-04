@@ -1,6 +1,6 @@
 <div align="center">
 <h1>Caesars</h1>
-<img src='docs/padlock.svg' width=80px/>
+<img src='../docs/padlock.svg' width=80px/>
 
 Encrypt and decrypt your secrets using ROT algorithm 🔐
 
