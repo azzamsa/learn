@@ -1,13 +1,13 @@
 <script lang="ts">
   /* global EncryptResponse, DecryptResponse */
-  import {gql, getContextClient} from "@urql/svelte"
+  import { gql, getContextClient } from '@urql/svelte'
   let client = getContextClient()
 
-  let plain = ""
-  let secret = ""
+  let plain = ''
+  let secret = ''
 
-  let plainPlaceholder = "me@caesar.tld"
-  let secretPlaceholder = "zr@pnfne.gyq"
+  let plainPlaceholder = 'me@caesar.tld'
+  let secretPlaceholder = 'zr@pnfne.gyq'
 
   function encrypt() {
     const encryptQuery = gql`
@@ -19,10 +19,12 @@
     `
 
     client
-      .query(encryptQuery, {plain: plain})
+      .query(encryptQuery, { plain: plain })
       .toPromise()
       .then((response: EncryptResponse) => {
-        secret = response.data.encrypt.secret
+        if (response.data) {
+          secret = response.data.encrypt.secret
+        }
       })
       .catch((err) => console.log(err))
   }
@@ -36,40 +38,30 @@
     `
 
     client
-      .query(decryptQuery, {secret: secret})
+      .query(decryptQuery, { secret: secret })
       .toPromise()
       .then((response: DecryptResponse) => {
-        plain = response.data.decrypt.plain
+        if (response.data) {
+          plain = response.data.decrypt.plain
+        }
       })
       .catch((err) => console.log(err))
   }
 </script>
 
-<template>
-  <section class="mt-10 flex flex-col">
-    <div class="mb-6 rounded bg-gray-200 pt-3">
-      <label class="input-label" for="plain">Plain</label>
-      <textarea
-        id="plain"
-        placeholder={plainPlaceholder}
-        bind:value={plain}
-        on:input={encrypt}
-      />
-    </div>
+<section class="mt-10 flex flex-col">
+  <div class="mb-6 rounded bg-gray-200 pt-3">
+    <label class="input-label" for="plain">Plain</label>
+    <textarea id="plain" placeholder={plainPlaceholder} bind:value={plain} on:input={encrypt} />
+  </div>
 
-    <div class="mb-6 rounded bg-gray-200 pt-3">
-      <label class="input-label" for="secret">Secret</label>
-      <textarea
-        id="secret"
-        placeholder={secretPlaceholder}
-        bind:value={secret}
-        on:input={decrypt}
-      />
-    </div>
+  <div class="mb-6 rounded bg-gray-200 pt-3">
+    <label class="input-label" for="secret">Secret</label>
+    <textarea id="secret" placeholder={secretPlaceholder} bind:value={secret} on:input={decrypt} />
+  </div>
 
-    <div class="flex justify-center" />
-  </section>
-</template>
+  <div class="flex justify-center" />
+</section>
 
 <style lang="postcss">
   textarea {

@@ -1,23 +1,24 @@
-name: Caesar Svelte (CI)
+name: Caesar SvelteKit (CI)
 
 on:
   push:
     paths:
-      -  src/caesars/web/frontend/svelte/**
+      -  src/caesars/web/frontend/sveltekit/**
       - .github/workflows/caesars.yml
-      - .github/workflows/caesars_svelte.yml
+      - .github/workflows/caesars_sveltekit.yml
   pull_request:
     paths:
-      -  src/caesars/web/frontend/svelte/**
+      -  src/caesars/web/frontend/sveltekit/**
       - .github/workflows/caesars.yml
-      - .github/workflows/caesars_svelte.yml
+      - .github/workflows/caesars_sveltekit.yml
 
 defaults:
   run:
-    working-directory: src/caesars/web/frontend/svelte
+    working-directory: src/caesars/web/frontend/sveltekit
 
 jobs:
   ci:
+    name: Code quality
     runs-on: ubuntu-latest
 
     steps:
@@ -29,9 +30,7 @@ jobs:
           version: 7
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v2
-        with:
-          tool: just
+        uses: taiki-e/install-action@just
 
       - name: Install local dependencies
         run: |

@@ -18,15 +18,15 @@ run:
 
 # Lint the codebase.
 lint:
-    pnpm lint
+    pnpm run lint
+    pnpm run check
 
 # Format the codebase.
 fmt:
-    pnpx prettier --config configs/prettier.config.cjs --ignore-path configs/prettierignore --write . --plugin-search-dir=. ./**/*.svelte
+    pnpm run format
 
 # Check is the codebase properly formatted.
 fmt-check:
-    pnpx prettier --config configs/prettier.config.cjs --ignore-path configs/prettierignore --check . --plugin-search-dir=. ./**/*.svelte
 
 # Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
 comply: fmt lint
