@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { gql, useClientHandle } from "@urql/vue";
+import { ref } from 'vue'
+import { gql, useClientHandle } from '@urql/vue'
 
-const client = useClientHandle().client;
+const client = useClientHandle().client
 
-const plain = ref("");
-const secret = ref("");
+const plain = ref('')
+const secret = ref('')
 
-const plainPlaceholder = ref("me@caesar.tld");
-const secretPlaceholder = ref("zr@pnfne.gyq");
+const plainPlaceholder = ref('me@caesar.tld')
+const secretPlaceholder = ref('zr@pnfne.gyq')
 
 function encrypt() {
   const encryptQuery = gql`
@@ -17,15 +17,15 @@ function encrypt() {
         secret
       }
     }
-  `;
+  `
 
   client
     .query(encryptQuery, { plain: plain.value })
     .toPromise()
     .then((response) => {
-      secret.value = response.data.encrypt.secret;
+      secret.value = response.data.encrypt.secret
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
 }
 function decrypt() {
   const encryptQuery = gql`
@@ -34,15 +34,15 @@ function decrypt() {
         plain
       }
     }
-  `;
+  `
 
   client
     .query(encryptQuery, { secret: secret.value })
     .toPromise()
     .then((response) => {
-      plain.value = response.data.decrypt.plain;
+      plain.value = response.data.decrypt.plain
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
 }
 </script>
 

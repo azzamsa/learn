@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PadlockIcon from "./icons/IconPadlock.vue";
+import PadlockIcon from './icons/IconPadlock.vue'
 </script>
 
 <template>

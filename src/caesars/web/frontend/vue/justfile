@@ -10,29 +10,30 @@ _default:
 
 # Setup the repository.
 setup:
-    pnpm i
+    npm i
 
 # Develop the app.
 run:
-    pnpm dev
+    npm run dev
 
 # Lint the codebase.
 lint:
-    pnpm lint
+    npm run lint
 
 # Format the codebase.
-fmt: lint
+fmt:
+    npm run format
 
 # Check is the codebase properly formatted.
 fmt-check: lint
 
 # Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
 comply: fmt lint
-    pnpm run type-check
+    npm run type-check
 
 # Check if the repository comply with the rules. Mostly used in CI.
 check: fmt-check lint
-    pnpm run type-check
+    npm run type-check
 
 # Check dependencies health. Pass `--write` to uppgrade dependencies.
 up arg="":

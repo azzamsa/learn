@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HeartIcon from "./icons/IconHeart.vue";
+import HeartIcon from './icons/IconHeart.vue'
 </script>
 
 <template>

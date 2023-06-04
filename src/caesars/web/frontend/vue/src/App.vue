@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import Footer from "./components/FooterItem.vue";
-import Banner from "./components/BannerItem.vue";
-import Dashboard from "./components/DashboardItem.vue";
+import Footer from './components/FooterItem.vue'
+import Banner from './components/BannerItem.vue'
+import Dashboard from './components/DashboardItem.vue'
 
-import { Client, provideClient, cacheExchange, fetchExchange } from "@urql/vue";
+import { Client, provideClient, cacheExchange, fetchExchange } from '@urql/vue'
 
 const client = new Client({
-  url: "http://localhost:7000/graphql",
-  exchanges: [cacheExchange, fetchExchange],
-});
+  url: 'http://localhost:7000/graphql',
+  exchanges: [cacheExchange, fetchExchange]
+})
 
-provideClient(client);
+provideClient(client)
 </script>
 
 <template>
@@ -19,9 +19,7 @@ provideClient(client);
       <h1 class="text-center text-5xl font-bold text-white">Caesar</h1>
     </header>
 
-    <main
-      class="mx-auto my-10 max-w-5xl rounded-lg bg-white p-8 shadow-2xl md:p-12"
-    >
+    <main class="mx-auto my-10 max-w-5xl rounded-lg bg-white p-8 shadow-2xl md:p-12">
       <Banner />
       <Dashboard />
     </main>

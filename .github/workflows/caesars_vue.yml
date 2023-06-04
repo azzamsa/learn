@@ -14,10 +14,11 @@ on:
 
 defaults:
   run:
-    working-directory: src/caesars/web/frontend/svelte
+    working-directory: src/caesars/web/frontend/vue
 
 jobs:
   ci:
+    name: Code quality
     runs-on: ubuntu-latest
 
     steps:
@@ -25,15 +26,6 @@ jobs:
 
       - name: Install latest just release
         uses: taiki-e/install-action@just
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-
-      - name: Install local dependencies
-        run: |
-          pnpm i
 
       - name: Lint
         run: |
