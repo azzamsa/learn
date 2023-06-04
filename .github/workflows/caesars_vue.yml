@@ -27,6 +27,15 @@ jobs:
       - name: Install latest just release
         uses: taiki-e/install-action@just
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install dependencies
+        run: |
+          pnpm i
+
       - name: Lint
         run: |
           just check
