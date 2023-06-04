@@ -28,6 +28,7 @@ The file only contains user-facing changes, so you won't get lost bisecting the 
 
 ## Frontends
 
+- 🦀 [Leptos](frontend/leptos)
 - 🦀 [Dioxus](frontend/dioxus)
 - 🖖 [Vue 3](frontend/vue)
 - 🎩 [Svelte](frontend/svelte)
