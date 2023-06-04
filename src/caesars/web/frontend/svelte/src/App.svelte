@@ -3,16 +3,22 @@
   import Banner from "./lib/BannerItem.svelte"
   import Dashboard from "./lib/DashboardItem.svelte"
 
-  import {setContextClient, createClient} from "@urql/svelte"
+  import {
+    Client,
+    setContextClient,
+    cacheExchange,
+    fetchExchange,
+  } from "@urql/svelte"
 
-  setContextClient(
-    createClient({
-      url: "http://localhost:8000/graphql",
-    })
-  )
+  const client = new Client({
+    url: "http://localhost:7000/graphql",
+    exchanges: [cacheExchange, fetchExchange],
+  })
+
+  setContextClient(client)
 </script>
 
-<section class="bg-main min-h-screen px-2 pt-12 pb-6 md:px-5 md:pt-20">
+<section class="bg-main min-h-screen px-2 pb-6 pt-12 md:px-5 md:pt-20">
   <header class="mx-auto max-w-lg">
     <h1 class="text-center text-5xl font-bold text-white">Caesar</h1>
   </header>

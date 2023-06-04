@@ -2,7 +2,7 @@
 
 shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
 
-alias d := dev
+alias r := run
 
 # List available commands.
 _default:
@@ -13,7 +13,7 @@ setup:
     pnpm i
 
 # Develop the app.
-dev:
+run:
     pnpm run dev
 
 # Lint the codebase.
