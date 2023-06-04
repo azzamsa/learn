@@ -1,0 +1,118 @@
+name: Caesar Leptos (CI)
+
+env:
+  MIN_SUPPORTED_RUST_VERSION: "1.72.0"
+
+on:
+  push:
+    paths:
+      -  src/caesars/web/frontend/leptos/**
+      - .github/workflows/caesars.yml
+      - .github/workflows/caesars_leptos.yml
+  pull_request:
+    paths:
+      -  src/caesars/web/frontend/leptos/**
+      - .github/workflows/caesars.yml
+      - .github/workflows/caesars_leptos.yml
+
+defaults:
+  run:
+    working-directory: src/caesars/web/frontend/leptos
+
+jobs:
+  code_quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Install rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: clippy, rustfmt
+
+      - name: Install JS dependencies
+        run: |
+          npm install
+
+      - name: Install latest dprint release
+        uses: taiki-e/install-action@dprint
+
+      - name: Install latest just release
+        uses: taiki-e/install-action@just
+
+      - name: Ensure MSRV is set in `clippy.toml`
+        run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
+
+      - name: Run check
+        run: just check
+
+
+  min_version:
+    name: Minimum supported rust version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Install rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+
+      - name: Install latest just release
+        uses: taiki-e/install-action@just
+
+      - name: Run test
+        run:  just test
+
+  build:
+    name: ${{ matrix.job.os }} (${{ matrix.job.target }})
+    runs-on: ${{ matrix.job.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        job:
+          - { os: ubuntu-latest, target: wasm32-unknown-unknown   }
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          target: ${{ matrix.job.target }}
+
+      - name: Install latest trunk release
+        uses: taiki-e/install-action@v2
+        with:
+          tool: trunk
+
+      - name: Install JS dependencies
+        run: |
+          npm install
+
+      - name: Install latest just release
+        uses: taiki-e/install-action@just
+
+      - name: Show version information
+        shell: bash
+        run: |
+          gcc --version || true
+          rustup -V
+          rustup toolchain list
+          rustup default
+          cargo -V
+          rustc -V
+
+          npx rustywind --version
+          trunk --version
+
+      - name: Run build
+        run:  trunk build
+
+      - name: Run test
+        run:  just test
