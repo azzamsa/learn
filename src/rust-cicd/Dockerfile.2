@@ -1,0 +1,12 @@
+# Dockerfile.2
+
+ARG BASE_IMAGE=rust:1.70.0-slim-bullseye
+
+FROM $BASE_IMAGE as builder
+WORKDIR app
+COPY . .
+RUN cargo build --release
+
+FROM $BASE_IMAGE
+COPY --from=builder /app/target/release/hello /
+CMD ["./hello"]

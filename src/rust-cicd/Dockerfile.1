@@ -1,0 +1,9 @@
+# Dockerfile.1
+
+ARG BASE_IMAGE=rust:1.70.0-slim-bullseye
+
+FROM $BASE_IMAGE
+WORKDIR app
+COPY . .
+RUN cargo build --release
+CMD ["./target/release/hello"]

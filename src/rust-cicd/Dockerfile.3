@@ -1,0 +1,12 @@
+# Dockerfile.3
+
+FROM rust:1.70.0-alpine3.18 as builder
+# fixes `cannot find crti.o`
+RUN apk add musl-dev
+WORKDIR app
+COPY . .
+RUN cargo build --release
+
+FROM scratch
+COPY --from=builder /app/target/release/hello /
+CMD ["./hello"]
