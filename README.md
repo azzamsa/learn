@@ -22,6 +22,7 @@ These projects are built for learning purposes. Some are implemented using diffe
 - [Dryip of Rust](https://github.com/azzamsa/dryip-of-rust) - Short Rust 🦀 code snippets for inspiration.
 - [Crabtail](src/crabtail) - Convert your TailwindCSS 💨 class to typed Rust 🦀.
 - [Caesars](src/caesars) - Encrypt and decrypt your secrets using ROT13 🔐.
+- [Hello](src/hello) - A research to find the most effective way to produce tiny and fast Docker image.
 
 ### Python 🐍
 
