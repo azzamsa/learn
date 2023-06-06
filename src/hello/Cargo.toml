@@ -11,3 +11,7 @@ lto = true
 [dependencies]
 axum = "0.6.18"
 tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+hyper = { version = "0.14", features = ["full"] }
+tower = { version = "0.4.13", features = ["util"] }
