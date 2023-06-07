@@ -7,11 +7,6 @@ pub fn Dashboard(cx: Scope) -> impl IntoView {
     let (plain, set_plain) = create_signal(cx, "".to_string());
     let (secret, set_secret) = create_signal(cx, "".to_string());
 
-    let encrypted = create_resource(cx, plain, |value| async move { rot::encrypt(value).await });
-    let encrypted = move || encrypted.read(cx).unwrap_or_else(|| "Loading...".into());
-    let decrypted = create_resource(cx, secret, |value| async move { rot::decrypt(value).await });
-    let decrypted = move || decrypted.read(cx).unwrap_or_else(|| "Loading...".into());
-
     view! { cx,
         <section class="flex flex-col mt-10">
             <div class="pt-3 mb-6 bg-gray-200 rounded">
@@ -19,9 +14,14 @@ pub fn Dashboard(cx: Scope) -> impl IntoView {
                 <textarea
                     class="input"
                     placeholder="me@caesar.tld"
-                    prop:value=decrypted
+                    prop:value=plain
                     on:input=move |ev| {
-                        set_plain(event_target_value(&ev));
+                        let plain = event_target_value(&ev);
+                        set_plain(plain.clone());
+                        spawn_local(async move {
+                            let secret = rot::encrypt(plain).await;
+                            set_secret(secret);
+                        });
                     }
                 ></textarea>
             </div>
@@ -30,9 +30,14 @@ pub fn Dashboard(cx: Scope) -> impl IntoView {
                 <textarea
                     class="input"
                     placeholder="zr@pnrfne.gyq"
-                    prop:value=encrypted
+                    prop:value=secret
                     on:input=move |ev| {
-                        set_secret(event_target_value(&ev));
+                        let secret = event_target_value(&ev);
+                        set_secret(secret.clone());
+                        spawn_local(async move {
+                            let plain = rot::decrypt(secret).await;
+                            set_plain(plain);
+                        });
                     }
                 ></textarea>
             </div>
