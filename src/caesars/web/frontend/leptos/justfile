@@ -1,7 +1,5 @@
 #!/usr/bin/env -S just --justfile
 
-shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
-
 alias d := dev
 alias r := run
 alias t := test
@@ -16,9 +14,9 @@ setup:
     rustup default nightly
     rustup target add wasm32-unknown-unknown
 
-    cargo-generate --version || cargo install cargo-generate
-    trunk --version || cargo install trunk
-    microserver --version || cargo install microserver
+    (_cargo-install 'cargo-generate')
+    (_cargo-install 'trunk')
+    (_cargo-install 'microserver')
 
     npm install
 
@@ -70,11 +68,37 @@ comply: fmt lint test
 check: fmt-check lint test _doc-check
 
 # Check dependencies health. Pass `--write` to uppgrade dependencies.
+[unix]
 up arg="":
-    #!{{ shebang }}
+    #!/usr/bin/env bash
     if [ "{{ arg }}" = "--write" ]; then
-    	cargo upgrade
-    	cargo update
+        cargo upgrade
+        cargo update
     else
         cargo outdated --root-deps-only
     fi;
+
+[windows]
+up arg="":
+    #!powershell.exe
+    if ( "{{ arg }}" -eq "--write") {
+        cargo upgrade
+        cargo update
+    }
+    else {
+        cargo outdated --root-deps-only
+    }
+
+#
+# Helper
+#
+
+[unix]
+_cargo-install tool:
+    #!/usr/bin/env bash
+    {{ tool }} --version || cargo install {{ tool }}
+
+[windows]
+_cargo-install tool:
+    #!powershell.exe
+    if (!(Get-Command {{ tool }} -ErrorAction SilentlyContinue)) { cargo install {{ tool }} }
