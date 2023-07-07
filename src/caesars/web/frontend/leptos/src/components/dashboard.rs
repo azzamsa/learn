@@ -14,13 +14,14 @@ pub fn Dashboard(cx: Scope) -> impl IntoView {
                 <textarea
                     class="input"
                     placeholder="me@caesar.tld"
-                    prop:value=plain
+                    prop:value=move || plain.get()
                     on:input=move |ev| {
-                        let plain = event_target_value(&ev);
-                        set_plain(plain.clone());
+                        let plain_input = event_target_value(&ev);
+                        log::debug!("plain text area: {}", &plain_input);
+                        set_plain.set(plain_input.clone());
                         spawn_local(async move {
-                            let secret = rot::encrypt(plain).await;
-                            set_secret(secret);
+                            let secret_result = rot::encrypt(plain_input).await;
+                            set_secret.set(secret_result);
                         });
                     }
                 ></textarea>
@@ -30,13 +31,13 @@ pub fn Dashboard(cx: Scope) -> impl IntoView {
                 <textarea
                     class="input"
                     placeholder="zr@pnrfne.gyq"
-                    prop:value=secret
+                    prop:value=move || secret.get()
                     on:input=move |ev| {
-                        let secret = event_target_value(&ev);
-                        set_secret(secret.clone());
+                        let secret_input = event_target_value(&ev);
+                        set_secret.set(secret_input.clone());
                         spawn_local(async move {
-                            let plain = rot::decrypt(secret).await;
-                            set_plain(plain);
+                            let plain_result = rot::decrypt(secret_input).await;
+                            set_plain.set(plain_result);
                         });
                     }
                 ></textarea>

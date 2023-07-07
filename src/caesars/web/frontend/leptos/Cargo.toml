@@ -4,9 +4,9 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-leptos = { version = "0.3.1", features = ["serde", "csr"] }
-leptos_meta = { version = "0.3.1", features = ["csr"] }
-leptos_router = { version = "0.3.1", features = ["csr"] }
+leptos = { version = "0.4.1", features = ["serde", "csr"] }
+leptos_meta = { version = "0.4.1", features = ["csr"] }
+leptos_router = { version = "0.4.1", features = ["csr"] }
 
 gloo-net = { version = "0.3.0", features = ["http"] }
 log = "0.4.19"
@@ -17,6 +17,6 @@ console_log = { version = "1" }
 wasm-bindgen = { version = "0.2" }
 
 # backend communication
-cynic = "3.1"
+cynic = "3.2"
 reqwest = { version = "0.11", features = ["json"] }
 serde = "1.0"

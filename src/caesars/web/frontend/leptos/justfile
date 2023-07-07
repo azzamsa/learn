@@ -13,8 +13,6 @@ setup:
 
 # Setup the development tools.
 _setup-dev: (_cargo-install 'cargo-generate trunk microserver leptosfmt')
-    rustup toolchain install nightly
-    rustup default nightly
     rustup target add wasm32-unknown-unknown
 
     npm install
