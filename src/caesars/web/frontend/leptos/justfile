@@ -10,13 +10,12 @@ _default:
 
 # Setup the repository.
 setup:
-    rustup toolchain install nightly --allow-downgrade
+
+# Setup the development tools.
+_setup-dev: (_cargo-install 'cargo-generate trunk microserver leptosfmt')
+    rustup toolchain install nightly
     rustup default nightly
     rustup target add wasm32-unknown-unknown
-
-    (_cargo-install 'cargo-generate')
-    (_cargo-install 'trunk')
-    (_cargo-install 'microserver')
 
     npm install
 
@@ -26,7 +25,7 @@ clean:
 
 # Develop the app.
 dev:
-    cargo watch -x 'clippy --locked --all-targets --all-features'
+    cargo watch -x 'clippy --locked --all-targets --all-features' | spacer
 
 # Run the app in develompent mode
 run:
@@ -81,7 +80,7 @@ up arg="":
 [windows]
 up arg="":
     #!powershell.exe
-    if ( "{{ arg }}" -eq "--write") {
+    if ( "tool" -eq "--write") {
         cargo upgrade
         cargo update
     }
@@ -96,9 +95,10 @@ up arg="":
 [unix]
 _cargo-install tool:
     #!/usr/bin/env bash
-    {{ tool }} --version || cargo install {{ tool }}
-
-[windows]
-_cargo-install tool:
-    #!powershell.exe
-    if (!(Get-Command {{ tool }} -ErrorAction SilentlyContinue)) { cargo install {{ tool }} }
+    if command -v cargo-binstall >/dev/null 2>&1; then
+        echo "cargo-binstall..."
+        cargo binstall --no-confirm --no-symlinks {{ tool }}
+    else
+        echo "Building from source"
+        cargo install --locked {{ tool }}
+    fi
