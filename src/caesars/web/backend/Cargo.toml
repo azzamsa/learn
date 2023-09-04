@@ -12,16 +12,16 @@ description = "Rust GraphQL Template"
 
 [dependencies]
 # web server
-axum = "0.6.18"
+axum = "0.6.20"
 hyper = "0.14"
-tokio = { version = "1.28", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.32", features = ["macros", "rt-multi-thread"] }
 
 # GraphQL
 async-graphql = { version = "5.0", features = ["uuid", "chrono"] }
 async-graphql-axum = "5.0"
 
 # Rest
-utoipa = { version = "3.3", features = ["axum_extras"] }
+utoipa = { version = "3.5", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "3.1", features = ["axum"] }
 
 # log
@@ -37,7 +37,7 @@ thiserror = "1.0"
 [dev-dependencies]
 anyhow = "1.0"
 cynic = "2.2"
-hyper = { version = "0.14.26", features = ["full"] }
+hyper = { version = "0.14.27", features = ["full"] }
 mime = "0.3.17"
 serde = { version = "1.0", features = ["derive"] }
 tower = { version = "0.4", features = ["util"] }
