@@ -1,7 +1,7 @@
 #!/usr/bin/env -S just --justfile
 
 alias d := dev
-alias r := dev
+alias r := run
 alias t := test
 
 # List available commands.
