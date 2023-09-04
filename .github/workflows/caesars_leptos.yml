@@ -46,6 +46,9 @@ jobs:
       - name: Install latest just release
         uses: taiki-e/install-action@just
 
+      - name: Install latest nextest release
+        uses: taiki-e/install-action@nextest
+
       - name: Ensure MSRV is set in `clippy.toml`
         run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
 
@@ -66,6 +69,12 @@ jobs:
 
       - name: Install latest just release
         uses: taiki-e/install-action@just
+
+      - name: Install latest just release
+        uses: taiki-e/install-action@just
+
+      - name: Install latest nextest release
+        uses: taiki-e/install-action@nextest
 
       - name: Run test
         run:  just test
@@ -101,6 +110,12 @@ jobs:
 
       - name: Install latest just release
         uses: taiki-e/install-action@just
+
+      - name: Install latest just release
+        uses: taiki-e/install-action@just
+
+      - name: Install latest nextest release
+        uses: taiki-e/install-action@nextest
 
       - name: Show version information
         shell: bash
