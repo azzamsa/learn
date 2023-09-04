@@ -13,16 +13,8 @@ pub async fn encrypt(plain: String) -> String {
         rotation: 13,
     };
     let query = EncryptQuery::build(args);
-    let client = reqwest::Client::new();
-    let response: EncryptResponse = client
-        .post("http://127.0.0.1:7000/graphql")
-        .json(&query)
-        .send()
-        .await
-        .unwrap()
-        .json()
-        .await
-        .unwrap();
+    let response = request(&query).await;
+    let response: EncryptResponse = serde_json::from_str(&response).unwrap();
     response.data.encrypt.secret
 }
 
@@ -32,15 +24,23 @@ pub async fn decrypt(secret: String) -> String {
         rotation: 13,
     };
     let query = DecryptQuery::build(args);
+    let response = request(&query).await;
+    let response: DecryptResponse = serde_json::from_str(&response).unwrap();
+    response.data.decrypt.plain
+}
+
+async fn request<T>(query: &T) -> String
+where
+    T: serde::Serialize,
+{
     let client = reqwest::Client::new();
-    let response: DecryptResponse = client
+    client
         .post("http://127.0.0.1:7000/graphql")
-        .json(&query)
+        .json(query)
         .send()
         .await
         .unwrap()
-        .json()
+        .text()
         .await
-        .unwrap();
-    response.data.decrypt.plain
+        .unwrap()
 }
