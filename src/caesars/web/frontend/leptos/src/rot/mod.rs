@@ -1,10 +1,8 @@
 pub mod graphql;
-mod schema;
 use cynic::QueryBuilder;
 
-use crate::rot::{
-    graphql::queries::{DecryptArguments, DecryptQuery, EncryptArguments, EncryptQuery},
-    schema::{DecryptResponse, EncryptResponse},
+use crate::rot::graphql::queries::{
+    DecryptArguments, DecryptQuery, EncryptArguments, EncryptQuery,
 };
 
 pub async fn encrypt(plain: String) -> String {
@@ -14,8 +12,8 @@ pub async fn encrypt(plain: String) -> String {
     };
     let query = EncryptQuery::build(args);
     let response = request(&query).await;
-    let response: EncryptResponse = serde_json::from_str(&response).unwrap();
-    response.data.encrypt.secret
+    let response: cynic::GraphQlResponse<EncryptQuery> = response.json().await.unwrap();
+    response.data.unwrap().encrypt.secret
 }
 
 pub async fn decrypt(secret: String) -> String {
@@ -25,11 +23,11 @@ pub async fn decrypt(secret: String) -> String {
     };
     let query = DecryptQuery::build(args);
     let response = request(&query).await;
-    let response: DecryptResponse = serde_json::from_str(&response).unwrap();
-    response.data.decrypt.plain
+    let response: cynic::GraphQlResponse<DecryptQuery> = response.json().await.unwrap();
+    response.data.unwrap().decrypt.plain
 }
 
-async fn request<T>(query: &T) -> String
+async fn request<T>(query: &T) -> reqwest::Response
 where
     T: serde::Serialize,
 {
@@ -38,9 +36,6 @@ where
         .post("http://127.0.0.1:7000/graphql")
         .json(query)
         .send()
-        .await
-        .unwrap()
-        .text()
         .await
         .unwrap()
 }
