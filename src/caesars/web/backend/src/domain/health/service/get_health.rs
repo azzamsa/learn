@@ -1,5 +1,5 @@
 use super::Service;
-use crate::health::entities;
+use crate::domain::health::entities;
 
 impl Service {
     pub async fn get_health(&self) -> Result<entities::Health, crate::Error> {

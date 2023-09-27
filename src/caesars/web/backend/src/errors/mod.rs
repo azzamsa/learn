@@ -35,6 +35,18 @@ impl std::convert::From<std::io::Error> for Error {
     }
 }
 
+impl std::convert::From<tracing_subscriber::filter::ParseError> for Error {
+    fn from(err: tracing_subscriber::filter::ParseError) -> Self {
+        Error::Internal(err.to_string())
+    }
+}
+
+impl std::convert::From<tracing_subscriber::filter::FromEnvError> for Error {
+    fn from(err: tracing_subscriber::filter::FromEnvError) -> Self {
+        Error::Internal(err.to_string())
+    }
+}
+
 impl std::convert::From<std::net::AddrParseError> for Error {
     fn from(err: std::net::AddrParseError) -> Self {
         Error::Internal(err.to_string())

@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use async_graphql::{Context, Error, FieldResult, Object};
+use frunk_core::labelled::Transmogrifier;
 
 use super::model;
 use crate::context::ServerContext;
@@ -20,7 +21,7 @@ impl RotQuery {
 
         let result = server_ctx.rot_service.encrypt(plain, rotation).await;
         match result {
-            Ok(res) => Ok(res.into()),
+            Ok(res) => Ok(res.transmogrify()),
             Err(err) => Err(Error::new(err.to_string())),
         }
     }
@@ -35,7 +36,7 @@ impl RotQuery {
 
         let result = server_ctx.rot_service.decrypt(secret, rotation).await;
         match result {
-            Ok(res) => Ok(res.into()),
+            Ok(res) => Ok(res.transmogrify()),
             Err(err) => Err(Error::new(err.to_string())),
         }
     }

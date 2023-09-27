@@ -1,11 +1,10 @@
 pub mod config;
 pub mod context;
 mod errors;
-pub mod health;
 pub mod logger;
-pub mod meta;
-pub mod rot;
 pub mod routes;
 pub mod schema;
+
+pub mod domain;
 
 pub use errors::Error;

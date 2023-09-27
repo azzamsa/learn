@@ -7,8 +7,7 @@ edition = "2021"
 exclude = ["/README.md"]
 keywords = ["boilerplate"]
 license = "MIT"
-repository = "https://github.com/azzamsa/tin"
-description = "Rust GraphQL Template"
+description = "nROT backend"
 
 [dependencies]
 # web server
@@ -17,26 +16,32 @@ hyper = "0.14"
 tokio = { version = "1.32", features = ["macros", "rt-multi-thread"] }
 
 # GraphQL
-async-graphql = { version = "5.0", features = ["uuid", "chrono"] }
-async-graphql-axum = "5.0"
+async-graphql = { version = "6.0.7", features = ["uuid", "chrono"] }
+async-graphql-axum = "6.0.7"
 
 # Rest
 utoipa = { version = "3.5", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "3.1", features = ["axum"] }
 
 # log
-env_logger = "0.10"
-log = "0.4"
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter", "time", "local-time"] }
 
-dotenv = "0.15"
+# Configurations
+dotenv = "0.15.0"
+
+# Misc
 nrot = "2.0.0"
 serde = "1.0"
 serde_json = "1.0"
 thiserror = "1.0"
+frunk = "0.4.2"
+frunk_core = { version = "0.4.2" }
+time = "0.3.27"
 
 [dev-dependencies]
 anyhow = "1.0"
-cynic = "2.2"
+cynic = "3.2.2"
 hyper = { version = "0.14.27", features = ["full"] }
 mime = "0.3.17"
 serde = { version = "1.0", features = ["derive"] }

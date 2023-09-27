@@ -1,7 +1,7 @@
 use nrot::{rot, rot_letter, Mode};
 
 use super::Service;
-use crate::rot::entities;
+use crate::domain::rot::entities;
 
 impl Service {
     pub async fn encrypt(

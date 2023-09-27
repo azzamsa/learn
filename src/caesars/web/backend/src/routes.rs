@@ -18,7 +18,8 @@ use crate::{
     config,
     config::Config,
     context::ServerContext,
-    health, meta, rot, routes,
+    domain::{health, meta, rot},
+    routes,
     schema::{AppSchema, Query},
     Error,
 };
@@ -33,7 +34,7 @@ pub async fn graphql_playground() -> impl IntoResponse {
 pub async fn app() -> Result<Router, Error> {
     let config = Arc::new(Config::load()?);
 
-    let meta_service = Arc::new(meta::Service::new());
+    let meta_service = Arc::new(meta::Service::new(config.clone()));
     let health_service = Arc::new(health::Service::new());
     let rot_service = Arc::new(rot::Service::new());
 
@@ -49,8 +50,14 @@ pub async fn app() -> Result<Router, Error> {
 
     // Export schema to file
     if let Some(location) = &config.schema_location {
-        fs::write(location, schema.sdl())?;
-    };
+        fs::write(location, schema.sdl()).map_err(|_| {
+            Error::InvalidArgument(format!(
+                "GraphQL schema location doesn't exists `{}`",
+                &location
+            ))
+        })?;
+        tracing::info!("Wrote GraphQL schema to {}", location);
+    }
 
     #[derive(OpenApi)]
     #[openapi(
@@ -59,7 +66,7 @@ pub async fn app() -> Result<Router, Error> {
         ),
         components(schemas(health::model::Health, health::model::HealthResponse)),
         tags(
-            (name = "Rust GraphQL", description = "Rust GraphQL Boilerplate 🏗️")
+            (name = "Rust GraphQL", description = "nROT backend 🔐")
         )
     )]
     struct ApiDoc;
