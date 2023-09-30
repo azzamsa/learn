@@ -20,7 +20,7 @@ mod tests {
         assert!(
             actual == expected,
             "Test failed with a = {a}, b = {b}\nExpected {expected:?}\nBut got {actual:?}"
-        )
+        );
     }
 
     #[test]

@@ -40,7 +40,7 @@ mod tests {
             rps(p1, p2),
             expected,
             "{ERR_MSG} with p1 = \"{p1}\", p2 = \"{p2}\""
-        )
+        );
     }
 
     #[test]
