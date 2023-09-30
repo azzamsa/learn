@@ -8,6 +8,7 @@ mod components {
 }
 
 use app::*;
+use leptos::logging::log;
 use leptos::*;
 
 pub fn main() {
@@ -15,7 +16,5 @@ pub fn main() {
     console_error_panic_hook::set_once();
 
     log!("csr mode - mounting to body");
-    mount_to_body(|cx| {
-        view! { cx, <App/> }
-    });
+    leptos::mount_to_body(|| view! { <App/> })
 }

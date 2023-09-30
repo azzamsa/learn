@@ -13,7 +13,7 @@ setup: _areyousure
     rustup target add wasm32-unknown-unknown
     npm install
 
-    just _cargo-install 'cargo-generate trunk microserver leptosfmt spacer'
+    just _cargo-install 'cargo-generate trunk microserver leptosfmt bacon'
 
 # Tasks to make the code-base comply with the rules. Mostly used in git hooks.
 comply: fmt lint test
@@ -23,7 +23,7 @@ check: fmt-check lint test
 
 # Develop the app.
 dev:
-    cargo watch -x 'clippy --all-targets --all-features' | spacer
+    bacon clippy
 
 # Run the app in develompent mode
 run:

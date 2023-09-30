@@ -7,28 +7,23 @@ use crate::components::dashboard::Dashboard;
 use crate::components::footer::Footer;
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
-    provide_meta_context(cx);
+pub fn App() -> impl IntoView {
+    provide_meta_context();
 
-    view! { cx,
+    view! {
         <Stylesheet id="leptos" href="/pkg/tailwind.css"/>
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
             <Routes>
-                <Route
-                    path=""
-                    view=move |cx| {
-                        view! { cx, <Home/> }
-                    }
-                />
+                <Route path="" view=|| view! { <Home/> }/>
             </Routes>
         </Router>
     }
 }
 
 #[component]
-fn Home(cx: Scope) -> impl IntoView {
-    view! { cx,
+fn Home() -> impl IntoView {
+    view! {
         <div class="px-2 pt-12 pb-6 min-h-screen md:px-5 md:pt-20 bg-main">
             <header class="mx-auto max-w-lg">
                 <h1 class="font-bold text-center text-white"></h1>

@@ -1,8 +1,8 @@
 use leptos::*;
 
 #[component]
-pub fn Heart(cx: Scope) -> impl IntoView {
-    view! { cx,
+pub fn Heart() -> impl IntoView {
+    view! {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
             <path
                 fill="#DD2E44"
@@ -17,8 +17,8 @@ pub fn Heart(cx: Scope) -> impl IntoView {
 }
 
 #[component]
-pub fn Padlock(cx: Scope) -> impl IntoView {
-    view! { cx,
+pub fn Padlock() -> impl IntoView {
+    view! {
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 128 128"
