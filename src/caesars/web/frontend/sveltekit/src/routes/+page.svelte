@@ -6,7 +6,13 @@
   import { Client, setContextClient, cacheExchange, fetchExchange } from '@urql/svelte'
 
   const client = new Client({
-    url: 'http://127.0.0.1:7000/graphql',
+    url: 'http://localhost:7000/graphql',
+    // CORS doesn't work without this in SvelteKit
+    fetchOptions: () => ({
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }),
     exchanges: [cacheExchange, fetchExchange]
   })
 
