@@ -11,6 +11,7 @@ use axum::{
     routing::{get, post},
     Router,
 };
+use tower_http::cors::{Any, CorsLayer};
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
 
@@ -71,9 +72,11 @@ pub async fn app() -> Result<Router, Error> {
     )]
     struct ApiDoc;
 
+    let cors = CorsLayer::new().allow_origin(Any);
     let mut app = Router::new()
         .route("/graphql", post(routes::graphql_handler))
-        .route("/health", get(health::resolver::health));
+        .route("/health", get(health::resolver::health))
+        .layer(cors);
     if config.env != config::Env::Production {
         app = app
             .route("/playground", get(routes::graphql_playground))
