@@ -33,11 +33,10 @@ jobs:
         with:
           components: clippy, rustfmt
 
+      - uses: Swatinem/rust-cache@v2
+
       - name: Install latest just release
         uses: taiki-e/install-action@just
-
-      # - name: Cache
-      #   uses: Swatinem/rust-cache@v2
 
       - name: Ensure `fmt` has been run
         run:  just fmt-check
@@ -58,14 +57,13 @@ jobs:
         with:
           toolchain: ${{ env.MIN_SUPPORTED_RUST_VERSION }}
 
+      - uses: Swatinem/rust-cache@v2
+
       - name: Install latest nextest release
         uses: taiki-e/install-action@nextest
 
       - name: Install latest just release
         uses: taiki-e/install-action@just
-
-      # - name: Cache
-      #   uses: Swatinem/rust-cache@v2
 
       - name: Prepare the environment variables
         run: |
