@@ -38,6 +38,9 @@ jobs:
       - name: Install latest just release
         uses: taiki-e/install-action@just
 
+      - name: Install latest dprint release
+        uses: taiki-e/install-action@dprint
+
       - name: Ensure `fmt` has been run
         run:  just fmt-check
 
