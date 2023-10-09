@@ -3,16 +3,16 @@ name: Pokedex Vue (CI)
 on:
   push:
     paths:
-      -  src/pokedex-vue/**
+      -  src/pokedex/vue/**
       - .github/workflows/pokedex_vue.yml
   pull_request:
     paths:
-      -  src/pokedex-vue/**
+      -  src/pokedex/vue/**
       - .github/workflows/pokedex_vue.yml
 
 defaults:
   run:
-    working-directory: src/pokedex-vue
+    working-directory: src/pokedex/vue
 
 jobs:
   lint:
@@ -23,18 +23,13 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Install latest dprint release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: dprint
+        uses: taiki-e/install-action@dprint
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
-
+        uses: taiki-e/install-action@just
       - name: Install
         run: pnpm install
 
@@ -47,7 +42,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x, 18.x]
         os: [ubuntu-latest]
       fail-fast: false
 
@@ -57,7 +52,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -65,7 +60,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
           cache: pnpm
-          cache-dependency-path: src/pokedex-vue/pnpm-lock.yaml
+          cache-dependency-path: src/pokedex/vue/pnpm-lock.yaml
 
       - run: pnpm install
       - run: pnpm run test:unit
@@ -84,7 +79,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -92,7 +87,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
           cache: pnpm
-          cache-dependency-path: src/pokedex-vue/pnpm-lock.yaml
+          cache-dependency-path: src/pokedex/vue/pnpm-lock.yaml
 
       - run: pnpm install
 

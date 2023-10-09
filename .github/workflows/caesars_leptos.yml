@@ -100,17 +100,14 @@ jobs:
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           target: ${{ matrix.job.target }}
 
-      - name: Install latest trunk release
-        uses: taiki-e/install-action@v2
-        with:
-          tool: trunk
-
       - name: Install JS dependencies
         run: |
           npm install
 
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
+      - name: Install latest trunk release
+        uses: taiki-e/install-action@v2
+        with:
+          tool: trunk
 
       - name: Install latest just release
         uses: taiki-e/install-action@just

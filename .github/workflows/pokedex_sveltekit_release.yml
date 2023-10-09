@@ -4,13 +4,13 @@ on:
   push:
     paths:
       -  src/pokedex-sveltekit/**
-      - .github/workflows/pokedex_sveltekit.yml
+      - .github/workflows/pokedex/sveltekit.yml
     tags:
       - 'v*'
 
 defaults:
   run:
-    working-directory: src/pokedex-sveltekit
+    working-directory: src/pokedex/sveltekit
 
 jobs:
   deploy:

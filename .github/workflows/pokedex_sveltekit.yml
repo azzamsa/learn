@@ -3,16 +3,16 @@ name: Pokedex SvelteKit (CI)
 on:
   push:
     paths:
-      -  src/pokedex-sveltekit/**
+      -  src/pokedex/sveltekit/**
       - .github/workflows/pokedex_sveltekit.yml
   pull_request:
     paths:
-      -  src/pokedex-sveltekit/**
+      -  src/pokedex/sveltekit/**
       - .github/workflows/pokedex_sveltekit.yml
 
 defaults:
   run:
-    working-directory: src/pokedex-sveltekit
+    working-directory: src/pokedex/sveltekit
 
 jobs:
   ci:
@@ -22,19 +22,15 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install latest dprint release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: dprint
+        uses: taiki-e/install-action@dprint
 
       - name: Install latest just release
-        uses: taiki-e/install-action@v1
-        with:
-          tool: just
+        uses: taiki-e/install-action@just
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Install dependencies
         run: |
