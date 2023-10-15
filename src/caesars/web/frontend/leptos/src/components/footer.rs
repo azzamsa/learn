@@ -16,7 +16,7 @@ pub fn Footer() -> impl IntoView {
                     <Heart/>
                 </i>
             </a>
-            <span class="mx-3">"•"</span>
+            <span class="mx-3">"\u{2022}"</span>
             <a class="hover:underline" href="https://github.com/azzamsa/caesars" target="_blank">
                 "Meta"
             </a>
