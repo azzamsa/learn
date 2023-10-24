@@ -32,3 +32,8 @@ This is the new chapter in my shell programming journey. After moving to bspwm f
 `sfetch` is a simple system information fetcher that I wrote initially in bash, then ported to POSIX-sh. I want it to grow easily, so it end-up rewritten in Python.
 
 I put them here to show how the taste of each language. Though I moved to Python completely before finishing the sh version. For growing applications, I doubt I will write it in bash/sh.
+
+
+## 3) [parsers](parsers)
+
+- Pest (main)
