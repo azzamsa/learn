@@ -1,6 +1,6 @@
 use chrono::offset::Local;
-use chrono::{TimeZone, Duration};
-use humantime::{parse_duration, format_duration};
+use chrono::{Duration, TimeZone};
+use humantime::{format_duration, parse_duration};
 
 fn main() {
     let birthday = Local.with_ymd_and_hms(1990, 11, 28, 0, 0, 0).unwrap();

@@ -1,6 +1,6 @@
 [workspace]
-# default-members = ["wchrono"]
+resolver = "2"
 members = [
-  "wchrono",
-  "wtime",
+  "chrono-demo",
+  "time-demo",
 ]

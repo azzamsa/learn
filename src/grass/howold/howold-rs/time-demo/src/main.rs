@@ -1,5 +1,5 @@
-use humantime::{parse_duration, format_duration};
-use time::{macros::{date,}, Duration, format_description, OffsetDateTime};
+use humantime::{format_duration, parse_duration};
+use time::{format_description, macros::date, Duration, OffsetDateTime};
 
 fn main() {
     let birthday = date!(1990 - 11 - 28);
