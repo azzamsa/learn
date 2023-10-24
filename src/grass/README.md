@@ -1,16 +1,8 @@
 # Grass
 
-A collection of daily scripts implemented in various languages.
+An assortment of comparisons, whether it's related to programming languages or libraries.
 
-## Why?
-
-I want to taste another language than Python (my daily driver). By implementing them to my small-scoped real-world problem. I can compare their user-experience, libraries availability, and maturity, easy-to-find documentation, and answers.
-
-## Scripts
-
-Read complete experience in each project.
-
-### 1) [howold](howold) - tell how old are you.
+## 1) [howold](howold) - tell how old are you.
 
 - Python (main)
 - Go
@@ -23,16 +15,14 @@ I miss the Python f-string when working with Go fmt (hope it will be added soon)
 
 ~~Some of the Rust cons also immature and small ecosystems. But the community and the compiler are very helpful. I keep coming back because I see a lot of potential in it. Learning a completely different language than Python also will expand my views on programming. Is Rust syntaxes can be made simpler?~~.
 
-It has been two years (2020-2022) since the first time I learned Rust. Turns out I don't need to parse `Duration` by 
+It has been two years (2020-2022) since the first time I learned Rust. Turns out I don't need to parse `Duration` by
 hand. The Rust core is very small. Many additional features are implemented in a third-party library. Don't ever feel
 guilty using it. Popular creates also maximizes the existing solutions.
 
 I don't take this decision previously because I write Rust with Python in mind. Python has everything built-in.
 I thought it was a silly idea for a learner to just grab other people's solutions. Turns out, it was a defacto way.
 
-
-
-### 2) [sfetch](sfetch) - simple fetch.
+## 2) [sfetch](sfetch) - simple fetch.
 
 - Python (main)
 - sh
