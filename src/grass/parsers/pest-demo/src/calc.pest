@@ -1,0 +1,13 @@
+spec = _{ SOI ~ expr ~ EOI }
+
+expr = { lhs ~ operator ~ rhs }
+
+lhs = { int }
+rhs = { int }
+int = { ASCII_DIGIT* }
+
+operator = _{ add | subtract }
+add      =  { "+" }
+subtract =  { "-" }
+
+WHITESPACE = _{ " " | "\t" }
