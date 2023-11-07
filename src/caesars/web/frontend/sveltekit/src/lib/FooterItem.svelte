@@ -1,5 +1,5 @@
 <script lang="ts">
-  import HeartIcon from "./icons/IconHeart.svelte"
+  import HeartIcon from "$lib/icons/IconHeart.svelte"
 </script>
 
 <section class="mx-auto flex max-w-lg justify-center font-medium text-white">

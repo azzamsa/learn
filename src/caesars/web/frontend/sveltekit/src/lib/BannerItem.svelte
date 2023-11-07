@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PadlockIcon from "./icons/IconPadlock.svelte"
+  import PadlockIcon from "$lib/icons/IconPadlock.svelte"
 </script>
 
 <section>
