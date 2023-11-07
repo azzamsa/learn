@@ -1,13 +1,13 @@
 <script lang="ts">
   /* global EncryptResponse, DecryptResponse */
-  import { gql, getContextClient } from '@urql/svelte'
+  import { gql, getContextClient } from "@urql/svelte"
   let client = getContextClient()
 
-  let plain = ''
-  let secret = ''
+  let plain = ""
+  let secret = ""
 
-  let plainPlaceholder = 'me@caesar.tld'
-  let secretPlaceholder = 'zr@pnfne.gyq'
+  let plainPlaceholder = "me@caesar.tld"
+  let secretPlaceholder = "zr@pnfne.gyq"
 
   function encrypt() {
     const encryptQuery = gql`
