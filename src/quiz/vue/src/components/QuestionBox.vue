@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import { ref } from 'vue'
 
 import { debounce, shuffle } from 'lodash-es'
@@ -13,7 +14,7 @@ const selectedIndex = ref(0)
 // Correct index of questions
 const correctIndex = ref(0)
 // Randomize question order
-const shuffledAnswers: string[] = ref([])
+const shuffledAnswers: Ref<string[]> = ref([])
 // is Final Question
 const isFinalQuestion = ref(false)
 // is Final Question

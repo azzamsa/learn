@@ -1,6 +1,7 @@
 #!/usr/bin/env -S just --justfile
 
 alias d := dev
+alias l := lint
 alias t := test
 
 # List available commands.
@@ -35,7 +36,7 @@ fmt:
     dprint fmt --config configs/dprint.json
 
 # Check is the codebase properly formatted.
-fmt-check: lint
+fmt-check:
     dprint check --config configs/dprint.json
 
 # Test the codebase.
