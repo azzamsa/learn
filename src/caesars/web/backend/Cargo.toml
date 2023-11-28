@@ -25,8 +25,8 @@ utoipa = { version = "3.5", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "3.1", features = ["axum"] }
 
 # log
-tracing = "0.1.37"
-tracing-subscriber = { version = "0.3.17", features = ["env-filter", "time", "local-time"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "chrono"] }
 
 # Configurations
 dotenv = "0.15.0"
@@ -38,7 +38,6 @@ serde_json = "1.0"
 thiserror = "1.0"
 frunk = "0.4.2"
 frunk_core = { version = "0.4.2" }
-time = "0.3.29"
 
 [dev-dependencies]
 anyhow = "1.0"
