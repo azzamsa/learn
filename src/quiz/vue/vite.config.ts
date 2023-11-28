@@ -76,7 +76,11 @@ export default () => {
       include: ['tests/**/*.test.ts'],
       environment: 'jsdom',
       deps: {
-        inline: ['@vue', '@vueuse'],
+        optimizer: {
+          web: {
+            include: ['@vue', '@vueuse'],
+          },
+        },
       },
     },
 
