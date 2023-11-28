@@ -23,9 +23,9 @@
 ### Javascript 🕸️
 
 - Pokédex
-  - [Pokédex Vue](src/pokedex-vue) - Browse your favorite pokemon 🐉.
-  - [Pokédex SvelteKit](src/pokedex-sveltekit) - Browse your favorite pokemon 🐉.
-- [Quiz Vue](src/quiz-vue) - Simple quiz app 🎲.
+  - [Pokédex Vue](src/pokedex/vue) - Browse your favorite pokemon 🐉.
+  - [Pokédex SvelteKit](src/pokedex/sveltekit) - Browse your favorite pokemon 🐉.
+- [Quiz Vue](src/quiz/vue) - Simple quiz app 🎲.
 
 ### Misc
 

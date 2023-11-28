@@ -28,7 +28,8 @@ These projects are created for educational purposes, with implementations in var
 ### Javascript 🕸️
 
 - Pokédex
-  - [Pokédex Vue](src/pokedex-vue) - Browse your favorite pokemon 🐉.
+  - [Pokédex Vue](src/pokedex/vue) - Browse your favorite pokemon 🐉.
+- [Quiz Vue](src/quiz/vue) - Simple quiz app 🎲.
 
 ### Other Projects
 
