@@ -21,8 +21,8 @@ async-graphql = { version = "6.0.7", features = ["uuid", "chrono"] }
 async-graphql-axum = "6.0.7"
 
 # Rest
-utoipa = { version = "3.5", features = ["axum_extras"] }
-utoipa-swagger-ui = { version = "3.1", features = ["axum"] }
+utoipa = { version = "4.1.0", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "4.0.0", features = ["axum"] }
 
 # log
 tracing = "0.1.40"
@@ -41,7 +41,7 @@ frunk_core = { version = "0.4.2" }
 
 [dev-dependencies]
 anyhow = "1.0"
-cynic = "3.2.2"
+cynic = "3.3.0"
 hyper = { version = "0.14.27", features = ["full"] }
 mime = "0.3.17"
 serde = { version = "1.0", features = ["derive"] }
