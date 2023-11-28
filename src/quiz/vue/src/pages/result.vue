@@ -1,29 +1,31 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const quizStore = useQuizStore()
 quizStore.fetchQuestions()
 
-let totalQuestions = $ref(0)
-let correctAnswer = $ref(0)
-let difficultyLevel = $ref('')
+let totalQuestions = ref(0)
+let correctAnswer = ref(0)
+let difficultyLevel = ref('')
 
-totalQuestions = quizStore.getTotalQuestions
-correctAnswer = quizStore.getCorrectAnswer
-difficultyLevel = quizStore.getDifficultyLevel
+totalQuestions.value = quizStore.getTotalQuestions
+correctAnswer.value = quizStore.getCorrectAnswer
+difficultyLevel.value = quizStore.getDifficultyLevel
 
 const resultLevel = computed(() => {
-  const middle = Math.ceil((totalQuestions + 1) / 2)
-  if (correctAnswer > middle)
+  const middle = Math.ceil((totalQuestions.value + 1) / 2)
+  if (correctAnswer.value > middle)
     return 'great'
-  else if (correctAnswer === middle)
+  else if (correctAnswer.value === middle)
     return 'soso'
   else
     return 'bad'
 })
 
 watch(quizStore, () => {
-  totalQuestions = quizStore.getTotalQuestions
-  correctAnswer = quizStore.getCorrectAnswer
-  difficultyLevel = quizStore.getDifficultyLevel
+  totalQuestions.value = quizStore.getTotalQuestions
+  correctAnswer.value = quizStore.getCorrectAnswer
+  difficultyLevel.value = quizStore.getDifficultyLevel
 })
 </script>
 

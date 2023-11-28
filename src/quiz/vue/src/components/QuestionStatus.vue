@@ -1,18 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const quizStore = useQuizStore()
 
-let correctAnswer = $ref(0)
-let totalQuestions = $ref(0)
-let currentQuestionIndex = $ref(0)
+let correctAnswer = ref(0)
+let totalQuestions = ref(0)
+let currentQuestionIndex = ref(0)
 
-totalQuestions = quizStore.getTotalQuestions
-correctAnswer = quizStore.getCorrectAnswer
-currentQuestionIndex = quizStore.getCurrentQuestionIndex
+totalQuestions.value = quizStore.getTotalQuestions
+correctAnswer.value = quizStore.getCorrectAnswer
+currentQuestionIndex.value = quizStore.getCurrentQuestionIndex
 
 watch(quizStore, () => {
-  correctAnswer = quizStore.getCorrectAnswer
-  totalQuestions = quizStore.getTotalQuestions
-  currentQuestionIndex = quizStore.getCurrentQuestionIndex
+  correctAnswer.value = quizStore.getCorrectAnswer
+  totalQuestions.value = quizStore.getTotalQuestions
+  currentQuestionIndex.value = quizStore.getCurrentQuestionIndex
 })
 </script>
 

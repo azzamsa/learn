@@ -1,56 +1,58 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import { debounce, shuffle } from 'lodash-es'
 import type { Question } from '../types/Question'
 
 const quizStore = useQuizStore()
 
 // Current Question
-let question: any | Question = $ref('')
+let question: any | Question = ref('')
 // Selected index of questions
-const selectedIndex = $ref(0)
+const selectedIndex = ref(0)
 // Correct index of questions
-let correctIndex = $ref(0)
+let correctIndex = ref(0)
 // Randomize question order
-let shuffledAnswers: string[] = $ref([])
+let shuffledAnswers: string[] = ref([])
 // is Final Question
-let isFinalQuestion = $ref(false)
+let isFinalQuestion = ref(false)
 // is Final Question
-let isCountdown = $ref(false)
+let isCountdown = ref(false)
 
 function shuffleAnswer() {
-  const answers = [...question.incorrect_answers, question.correct_answer]
-  shuffledAnswers = shuffle(answers)
-  correctIndex = shuffledAnswers.indexOf(question.correct_answer)
+  const answers = [...question.value.incorrect_answers, question.value.correct_answer]
+  shuffledAnswers.value = shuffle(answers)
+  correctIndex.value = shuffledAnswers.value.indexOf(question.value.correct_answer)
 }
 
-question = quizStore.getCurrentQuestion
+question.value = quizStore.getCurrentQuestion
 shuffleAnswer()
-isFinalQuestion = quizStore.isFinalQuestion
+isFinalQuestion.value = quizStore.isFinalQuestion
 
 watch(quizStore, () => {
-  question = quizStore.getCurrentQuestion
+  question.value = quizStore.getCurrentQuestion
   shuffleAnswer()
-  isFinalQuestion = quizStore.isFinalQuestion
+  isFinalQuestion.value = quizStore.isFinalQuestion
 })
 
 // Add check mark to correct answwer
 function showAnswer() {
   const answers = []
-  for (const shuffledAnswer of shuffledAnswers) {
-    if (shuffledAnswer === question.correct_answer)
+  for (const shuffledAnswer of shuffledAnswers.value) {
+    if (shuffledAnswer === question.value.correct_answer)
       answers.push(`${shuffledAnswer}&nbsp;&nbsp;&nbsp;` + `✅`)
     else
       answers.push(shuffledAnswer)
   }
-  shuffledAnswers = answers
+  shuffledAnswers.value = answers
 }
 
 function submit_() {
-  if (selectedIndex === correctIndex)
+  if (selectedIndex.value === correctIndex.value)
     quizStore.incrementCorrectAnswer()
 
   quizStore.nextQuestion()
-  isCountdown = false
+  isCountdown.value = false
 }
 
 const submitDebounce = debounce(() => {
@@ -58,7 +60,7 @@ const submitDebounce = debounce(() => {
 }, 800)
 
 function submit() {
-  isCountdown = true
+  isCountdown.value = true
   showAnswer()
   submitDebounce()
 }
