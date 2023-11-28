@@ -3,7 +3,7 @@
 
 <img src='docs/brain.svg' width=80px />
 
-List of project I built for learning purpose 🧠
+Compilation of projects built for learning purposes
 
 </div>
 
@@ -11,34 +11,25 @@ List of project I built for learning purpose 🧠
 
 ## Rationale
 
-These projects are built for learning purposes. Some are implemented using different languages and frameworks, for the sake of comparison. The one marked with (🥇) is the flagship version. The version that I invested my time more than others. Just because I enjoy using its language or framework.
+These projects are created for educational purposes, with implementations in various languages and frameworks to facilitate comparison. The version I invested more time in is simply because I find the language or framework more enjoyable to use.
 
-## Projects
+## Featured Projects
 
 ### Rust 🦀
 
-- [Riddles](src/riddles) - Collection of my solution for coding challenges 🥇.
-- [Rustlings](https://github.com/azzamsa/rustlings) - My Rustlings Solutions 🥇.
-- [Dryip of Rust](https://github.com/azzamsa/dryip-of-rust) - Short Rust 🦀 code snippets for inspiration.
-- [Crabtail](src/crabtail) - Convert your TailwindCSS 💨 class to typed Rust 🦀.
 - [Caesars](src/caesars) - Encrypt and decrypt your secrets using ROT13 🔐.
-- [Hello](src/hello) - A research to find the most effective way to produce tiny and fast Docker image.
-
-### Python 🐍
-
-- [Learn Data Structure and Algorithm](src/learn-dsa) - My notes on learning DSA 🧁.
-- [Learn Scrapy](src/learn-scrapy) - My notes on learning Scrapy 🕷.
+  - Backend
+  - Frontend
+    - [Vue](src/caesars/web/frontend/vue)
+    - [Leptos](src/caesars/web/frontend/leptos)
+- [Riddles](src/riddles) - Collection of my solution for coding challenges 🥇.
+- [Dryip of Rust](https://github.com/azzamsa/dryip-of-rust) - Short Rust 🦀 code snippets for inspiration.
 
 ### Javascript 🕸️
 
 - Pokédex
-  - 🥇 [Pokédex Vue](src/pokedex-vue) - Browse your favorite pokemon 🐉.
-  - [Pokédex SvelteKit](src/pokedex-sveltekit) - Browse your favorite pokemon 🐉.
-- [Quiz Vue](src/quiz-vue) - Simple quiz app 🎲.
+  - [Pokédex Vue](src/pokedex-vue) - Browse your favorite pokemon 🐉.
 
-### Misc
+### Other Projects
 
-- [Keywords](src/keywords) - Collections of language keywords 🗝.
-- [Grass](src/grass) - A plant that lives anywhere 🌿.
-
-
+Refer to [PROJECTS.md](PROJECTS.md) for the complete list of projects.
