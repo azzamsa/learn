@@ -7,17 +7,17 @@ import type { Question } from '../types/Question'
 const quizStore = useQuizStore()
 
 // Current Question
-let question: any | Question = ref('')
+const question: any | Question = ref('')
 // Selected index of questions
 const selectedIndex = ref(0)
 // Correct index of questions
-let correctIndex = ref(0)
+const correctIndex = ref(0)
 // Randomize question order
-let shuffledAnswers: string[] = ref([])
+const shuffledAnswers: string[] = ref([])
 // is Final Question
-let isFinalQuestion = ref(false)
+const isFinalQuestion = ref(false)
 // is Final Question
-let isCountdown = ref(false)
+const isCountdown = ref(false)
 
 function shuffleAnswer() {
   const answers = [...question.value.incorrect_answers, question.value.correct_answer]

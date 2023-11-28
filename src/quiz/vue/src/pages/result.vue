@@ -4,9 +4,9 @@ import { ref } from 'vue'
 const quizStore = useQuizStore()
 quizStore.fetchQuestions()
 
-let totalQuestions = ref(0)
-let correctAnswer = ref(0)
-let difficultyLevel = ref('')
+const totalQuestions = ref(0)
+const correctAnswer = ref(0)
+const difficultyLevel = ref('')
 
 totalQuestions.value = quizStore.getTotalQuestions
 correctAnswer.value = quizStore.getCorrectAnswer
