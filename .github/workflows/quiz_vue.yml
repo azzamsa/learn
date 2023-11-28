@@ -95,7 +95,7 @@ jobs:
           working-directory: src/quiz/vue
           install-command: echo
           build: pnpm run build
-          start: npx vite --port 4173
+          start: npx vite --port 3333
           spec: |
             cypress/e2e/locale.cy.ts
             cypress/e2e/questionLimit.cy.ts

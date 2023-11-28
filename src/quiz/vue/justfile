@@ -46,8 +46,8 @@ test:
 # Test the codebase in CI environment.
 _test-ci:
     pnpm run test:unit
+    # pnpm run test
     # TODO
-    # pnpm run test:e2e:ci
     # all the test passed in 'open' mode, but buggy in 'run' mode
 
 # Create a new release. Example `just release v2.2.0`
