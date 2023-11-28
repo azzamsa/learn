@@ -1,8 +1,6 @@
 #!/usr/bin/env -S just --justfile
 
-shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
-
-alias r := run
+alias d := dev
 alias t := test
 
 # List available commands.
@@ -14,7 +12,7 @@ setup:
     pnpm i
 
 # Run app in development mode.
-run:
+dev:
     pnpm dev
 
 # Build the app.
@@ -55,11 +53,8 @@ check: fmt-check lint _test-ci build
 release version:
     bash scripts/release.sh {{ version }}
 
-# Check dependencies health. Pass `--write` to uppgrade dependencies.
+# Check dependencies health.
+[unix]
 up arg="":
-    #!{{ shebang }}
-    if [ "{{ arg }}" = "--write" ]; then
-        taze --write
-    else
-        taze
-    fi;
+    #!/usr/bin/env bash
+    taze major --interactiv
