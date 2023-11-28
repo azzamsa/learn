@@ -22,20 +22,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
+      - uses: pnpm/action-setup@v2
 
       - name: Install dependencies
-        run: |
-          pnpm i
+        run: pnpm install
 
       - name: Lint
-        run: |
-          just check
+        run: just check

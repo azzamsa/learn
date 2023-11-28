@@ -1,6 +1,6 @@
 #!/usr/bin/env -S just --justfile
 
-alias r := run
+alias d := dev
 
 # List available commands.
 _default:
@@ -12,19 +12,17 @@ setup:
 
 # Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
 comply: fmt lint
-    pnpm run type-check
 
 # Check if the repository comply with the rules. Mostly used in CI.
 check: fmt-check lint
-    pnpm run type-check
 
 # Develop the app.
-run:
+dev:
     pnpm run dev
 
 # Format the codebase.
 fmt:
-    pnpm run format
+    pnpm run fmt
 
 # Check is the codebase properly formatted.
 fmt-check: lint
@@ -32,14 +30,11 @@ fmt-check: lint
 # Lint the codebase.
 lint:
     pnpm run lint
+    pnpm run type-check
 
-# Check dependencies health. Pass `--write` to uppgrade dependencies.
+# Check dependencies health.
 [unix]
 up arg="":
     #!/usr/bin/env bash
-    if [ "{{ arg }}" = "--write" ]; then
-        taze --write
-    else
-        taze
-    fi;
+    taze major --interactive
 

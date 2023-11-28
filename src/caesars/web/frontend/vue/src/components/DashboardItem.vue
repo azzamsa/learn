@@ -25,7 +25,6 @@ function encrypt() {
     .then((response) => {
       secret.value = response.data.encrypt.secret
     })
-    .catch((err) => console.log(err))
 }
 function decrypt() {
   const encryptQuery = gql`
@@ -42,7 +41,6 @@ function decrypt() {
     .then((response) => {
       plain.value = response.data.decrypt.plain
     })
-    .catch((err) => console.log(err))
 }
 </script>
 
@@ -52,23 +50,23 @@ function decrypt() {
       <label for="plain">Plain</label>
       <textarea
         id="plain"
-        :placeholder="plainPlaceholder"
         v-model="plain"
+        :placeholder="plainPlaceholder"
         @input="encrypt"
-      ></textarea>
+      />
     </div>
 
     <div class="mb-6 rounded bg-gray-200 pt-3">
       <label for="secret">Secret</label>
       <textarea
         id="secret"
-        :placeholder="secretPlaceholder"
         v-model="secret"
+        :placeholder="secretPlaceholder"
         @input="decrypt"
-      ></textarea>
+      />
     </div>
 
-    <div class="flex justify-center"></div>
+    <div class="flex justify-center" />
   </section>
 </template>
 
