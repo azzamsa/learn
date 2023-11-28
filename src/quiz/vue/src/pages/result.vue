@@ -12,13 +12,12 @@ difficultyLevel = quizStore.getDifficultyLevel
 
 const resultLevel = computed(() => {
   const middle = Math.ceil((totalQuestions + 1) / 2)
-  if (correctAnswer > middle) {
+  if (correctAnswer > middle)
     return 'great'
-  } else if (correctAnswer === middle) {
+  else if (correctAnswer === middle)
     return 'soso'
-  } else {
+  else
     return 'bad'
-  }
 })
 
 watch(quizStore, () => {
@@ -29,21 +28,21 @@ watch(quizStore, () => {
 </script>
 
 <template>
-  <div class="hero mt-20">
-    <div class="hero-content text-center">
+  <div class="mt-20 hero">
+    <div class="text-center hero-content">
       <div class="max-w-md">
         <div />
         <h1 class="text-5xl font-bold">
           {{ correctAnswer }}/{{ totalQuestions }}
           <i-noto:party-popper
             v-if="resultLevel === 'great'"
-            class="inline-block h-10 w-10"
+            class="inline-block w-10 h-10"
           />
           <i-noto:mechanical-arm
             v-else-if="resultLevel === 'soso'"
-            class="inline-block h-10 w-10"
+            class="inline-block w-10 h-10"
           />
-          <i-noto:sad-but-relieved-face v-else class="inline-block h-10 w-10" />
+          <i-noto:sad-but-relieved-face v-else class="inline-block w-10 h-10" />
         </h1>
 
         <div class="mt-2">

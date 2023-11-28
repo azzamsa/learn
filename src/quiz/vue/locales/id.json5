@@ -1,45 +1,45 @@
 {
-  nav: {
-    home: 'Utama',
-    about: 'Tentang',
+  "nav": {
+    "home": "Utama",
+    "about": "Tentang"
   },
-  index: {
-    hi: 'Hai',
-    start: 'Mulai',
-    intro: 'Uji pengetahuanmu pertanyaan yang menantang',
-    customize: 'Atur',
-    difficultyLevel: 'Tingkat kesulitan',
-    questionLimit: 'Jumlah soal',
-    level: {
-      easy: 'Mudah',
-      medium: 'Menengah',
-      hard: 'Sulit',
-    },
+  "index": {
+    "hi": "Hai",
+    "start": "Mulai",
+    "intro": "Uji pengetahuanmu pertanyaan yang menantang",
+    "customize": "Atur",
+    "difficultyLevel": "Tingkat kesulitan",
+    "questionLimit": "Jumlah soal",
+    "level": {
+      "easy": "Mudah",
+      "medium": "Menengah",
+      "hard": "Sulit"
+    }
   },
-  quiz: {
-    fetching: 'Mengunyah data kuis terbaru untukmu. Pegangan yang kuat...',
+  "quiz": {
+    "fetching": "Mengunyah data kuis terbaru untukmu. Pegangan yang kuat..."
   },
-  box: {
-    submit: 'Simpan',
-    finish: 'Selesai',
-    showAnswer: 'Menampilkan Jawaban Benar',
+  "box": {
+    "submit": "Simpan",
+    "finish": "Selesai",
+    "showAnswer": "Menampilkan Jawaban Benar"
   },
-  status: {
-    correct: 'Jawaban benar',
-    current: 'Soal',
+  "status": {
+    "correct": "Jawaban benar",
+    "current": "Soal"
   },
-  result: {
-    retake: 'Ulangi Qüiz',
+  "result": {
+    "retake": "Ulangi Qüiz",
 
-    totalQuestion: 'Total Questions',
-    desc: {
-      great: 'Selamat! anda pustawakan',
-      soso: 'Sedikit lagi. Yuk bisa yuk',
-      bad: 'Ouh ouh. Anda perlu banyak membaca lagi',
-    },
+    "totalQuestion": "Total Questions",
+    "desc": {
+      "great": "Selamat! anda pustawakan",
+      "soso": "Sedikit lagi. Yuk bisa yuk",
+      "bad": "Ouh ouh. Anda perlu banyak membaca lagi"
+    }
   },
-  about: {
-    intro: "<p>Hai .</p> <br> <p>Terima kasih telah menggunakan aplikasi saya. Jangan ragu untuk <a href='https://github.com/azzamsa/quiz-vue'>memberi bintang</a> pada repository ini jika anda menyukainya.</p> <br> <p>Jika anda memiliki masalah atau permintaan fitur, jangan ragu untuk <a href='https://github.com/ azzamsa/quiz-vue/issues'>memberi tahu saya</a>.</p> <br><br> <p>Dibuat 💖 dengan  oleh <a href='https://github.com/azzamsa/'> Azzam S.A</a></p>",
+  "about": {
+    "intro": "<p>Hai .</p> <br> <p>Terima kasih telah menggunakan aplikasi saya. Jangan ragu untuk <a href='https://github.com/azzamsa/quiz-vue'>memberi bintang</a> pada repository ini jika anda menyukainya.</p> <br> <p>Jika anda memiliki masalah atau permintaan fitur, jangan ragu untuk <a href='https://github.com/ azzamsa/quiz-vue/issues'>memberi tahu saya</a>.</p> <br><br> <p>Dibuat 💖 dengan  oleh <a href='https://github.com/azzamsa/'> Azzam S.A</a></p>"
   },
-  'not-found': 'Page not found',
+  "not-found": "Page not found"
 }

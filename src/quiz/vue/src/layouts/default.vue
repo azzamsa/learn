@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="mx-4 pt-4">
+  <div class="pt-4 mx-4">
     <NavBar />
   </div>
   <RouterView />

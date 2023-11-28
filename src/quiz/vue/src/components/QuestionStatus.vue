@@ -18,7 +18,7 @@ watch(quizStore, () => {
 
 <template>
   <div
-    class="mx-4 mt-4 rounded-lg border border-4 border-primary bg-base-100 py-2 text-center font-bold shadow-xl"
+    class="py-2 mx-4 mt-4 font-bold text-center rounded-lg border-4 border shadow-xl border-primary bg-base-100"
   >
     <h1>
       {{ $t('status.current') }}: {{ currentQuestionIndex }} /

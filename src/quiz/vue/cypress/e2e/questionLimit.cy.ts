@@ -4,11 +4,11 @@ describe('Question Limit', () => {
     cy.get('.btn-primary').click()
     cy.contains(
       '#app > :nth-child(2) > :nth-child(1) > :nth-child(1)',
-      '0 / 10'
+      '0 / 10',
     )
     cy.contains(
       '#app > :nth-child(2) > :nth-child(1) > :nth-child(2)',
-      '0 / 10'
+      '0 / 10',
     )
 
     // visits the result page

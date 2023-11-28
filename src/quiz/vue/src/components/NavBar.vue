@@ -5,7 +5,7 @@ const { availableLocales, locale } = useI18n()
 const showMenu = ref(false)
 
 // Locale
-const toggleLocales = () => {
+function toggleLocales() {
   const locales = availableLocales
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
 }
@@ -13,21 +13,21 @@ const toggleLocales = () => {
 
 <template>
   <header>
-    <div class="navbar rounded-box mb-2 bg-primary shadow-lg">
+    <div class="mb-2 shadow-lg navbar rounded-box bg-primary">
       <div class="md:hidden">
         <button class="btn-ghost btn-square btn" @click="showMenu = !showMenu">
-          <i-tabler:menu-2 v-if="!showMenu" class="h-8 w-8" />
-          <i-tabler:x v-else class="h-8 w-8" />
+          <i-tabler:menu-2 v-if="!showMenu" class="w-8 h-8" />
+          <i-tabler:x v-else class="w-8 h-8" />
         </button>
       </div>
 
-      <div class="navbar-start mx-2 px-2">
+      <div class="px-2 mx-2 navbar-start">
         <span class="text-lg font-bold">
           <RouterLink class="nav-btn" to="/"> Qüiz </RouterLink>
         </span>
       </div>
 
-      <div class="navbar-center mx-2 px-2">
+      <div class="px-2 mx-2 navbar-center">
         <div class="hidden items-stretch md:flex">
           <RouterLink class="nav-btn" to="/">
             {{ $t('nav.home') }}
@@ -40,21 +40,21 @@ const toggleLocales = () => {
 
       <div class="navbar-end">
         <button class="btn-ghost btn-square btn" @click="toggleLocales">
-          <i-tabler:language class="h-8 w-8" />
+          <i-tabler:language class="w-8 h-8" />
         </button>
       </div>
     </div>
 
     <ul
       v-if="showMenu"
-      class="menu rounded-box bg-primary py-3 font-bold md:hidden"
+      class="py-3 font-bold md:hidden menu rounded-box bg-primary"
     >
       <li>
         <RouterLink class="nav-btn" to="/" @click="showMenu = !showMenu">
           {{ $t('nav.home') }}
         </RouterLink>
       </li>
-      <div class="divider mb-0 mt-0" />
+      <div class="mt-0 mb-0 divider" />
       <li>
         <RouterLink class="nav-btn" to="/about" @click="showMenu = !showMenu">
           {{ $t('nav.about') }}

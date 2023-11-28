@@ -19,12 +19,12 @@ function setLimit(event: any) {
 </script>
 
 <template>
-  <div class="hero mt-20">
-    <div class="hero-content text-center">
+  <div class="mt-20 hero">
+    <div class="text-center hero-content">
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">
           {{ $t('index.hi') }}
-          <i-ph:hand-waving class="inline-block h-10 w-10 animate-bounce" />
+          <i-ph:hand-waving class="inline-block w-10 h-10 animate-bounce" />
         </h1>
         <p class="py-6">
           {{ $t('index.intro') }}
@@ -44,9 +44,9 @@ function setLimit(event: any) {
         </div>
 
         <div v-if="showCustomize">
-          <div class="divider mb-2 mt-2" />
+          <div class="mt-2 mb-2 divider" />
 
-          <div class="mt-4 flex flex-col items-center space-x-4 space-y-4">
+          <div class="flex flex-col items-center mt-4 space-y-4 space-x-4">
             <select class="select-secondary select" @change="setDifficulty">
               <option disabled selected>
                 {{ $t('index.difficultyLevel') }}:

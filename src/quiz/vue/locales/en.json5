@@ -1,43 +1,43 @@
 {
-  nav: {
-    home: 'Home',
-    about: 'About',
+  "nav": {
+    "home": "Home",
+    "about": "About"
   },
-  index: {
-    hi: 'Hi',
-    start: 'Start',
-    intro: 'Test your general knowledge with challanging questions',
-    customize: 'Customize',
-    difficultyLevel: 'Difficulty Level',
-    questionLimit: 'Number of questions',
-    level: {
-      easy: 'Easy',
-      medium: 'Medium',
-      hard: 'Hard',
-    },
+  "index": {
+    "hi": "Hi",
+    "start": "Start",
+    "intro": "Test your general knowledge with challanging questions",
+    "customize": "Customize",
+    "difficultyLevel": "Difficulty Level",
+    "questionLimit": "Number of questions",
+    "level": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    }
   },
-  quiz: {
-    fetching: 'Crunching the qüiz data, just for you. Hang tight...',
+  "quiz": {
+    "fetching": "Crunching the qüiz data, just for you. Hang tight..."
   },
-  box: {
-    submit: 'Submit',
-    showAnswer: 'Showing Corret Aswer',
-    finish: 'Finish',
+  "box": {
+    "submit": "Submit",
+    "showAnswer": "Showing Corret Aswer",
+    "finish": "Finish"
   },
-  status: {
-    current: 'Questions',
-    correct: 'Correct answer',
+  "status": {
+    "current": "Questions",
+    "correct": "Correct answer"
   },
-  result: {
-    retake: 'Retake Qüiz',
-    totalQuestion: 'Total Questions',
-    desc: {
-      great: 'Congratulations! You are a librarian',
-      soso: 'You need to push little bit harder',
-      bad: 'Ouh ouh. You need to read more',
-    },
+  "result": {
+    "retake": "Retake Qüiz",
+    "totalQuestion": "Total Questions",
+    "desc": {
+      "great": "Congratulations! You are a librarian",
+      "soso": "You need to push little bit harder",
+      "bad": "Ouh ouh. You need to read more"
+    }
   },
-  about: {
+  "about": {
     // Hi 👋.
 
     // Thank you for using my application.
@@ -47,7 +47,7 @@
 
     // Made with 💖 by [Azzam S.A](https://github.com/azzamsa/)
 
-    intro: "<p>Hi 👋.</p> <br> <p>Thank you for using my application. Feel free to <a href='https://github.com/azzamsa/quiz-vue'>star</a> the repository if you like this application.</p> <br> <p>If you have any issue or feature request, don&#39;t hesitate to <a href='https://github.com/azzamsa/quiz-vue/issues'>tell me</a>.</p> <br><br> <p>Made with 💖 by <a href='https://github.com/azzamsa/'>Azzam S.A</a></p>",
+    "intro": "<p>Hi 👋.</p> <br> <p>Thank you for using my application. Feel free to <a href='https://github.com/azzamsa/quiz-vue'>star</a> the repository if you like this application.</p> <br> <p>If you have any issue or feature request, don&#39;t hesitate to <a href='https://github.com/azzamsa/quiz-vue/issues'>tell me</a>.</p> <br><br> <p>Made with 💖 by <a href='https://github.com/azzamsa/'>Azzam S.A</a></p>"
   },
-  'not-found': 'Page not found',
+  "not-found": "Page not found"
 }

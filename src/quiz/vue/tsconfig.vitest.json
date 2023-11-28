@@ -1,10 +1,10 @@
 {
   "extends": "./tsconfig.app.json",
-  "exclude": [],
   "compilerOptions": {
-    "allowJs": true,
     "composite": true,
     "lib": [],
-    "types": ["node", "jsdom", "vite-plugin-vue-layouts/client"]
-  }
+    "types": ["node", "jsdom"],
+    "allowJs": true
+  },
+  "exclude": []
 }

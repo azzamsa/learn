@@ -11,6 +11,12 @@ _default:
 setup:
     pnpm i
 
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test build
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint _test-ci build
+
 # Run app in development mode.
 dev:
     pnpm dev
@@ -43,12 +49,6 @@ _test-ci:
     # pnpm run test:e2e:ci
     # all the test passed in 'open' mode, but buggy in 'run' mode
 
-# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
-comply: fmt lint test build
-
-# Check if the repository comply with the rules. Mostly used in CI.
-check: fmt-check lint _test-ci build
-
 # Create a new release. Example `just release v2.2.0`
 release version:
     bash scripts/release.sh {{ version }}
@@ -57,4 +57,4 @@ release version:
 [unix]
 up arg="":
     #!/usr/bin/env bash
-    taze major --interactiv
+    taze major --interactive

@@ -30,11 +30,10 @@ export const useQuizStore = defineStore({
       return state.currentQuestionIndex
     },
     isFinalQuestion(state) {
-      if (state.currentQuestionIndex === state.questions.length - 1) {
+      if (state.currentQuestionIndex === state.questions.length - 1)
         return true
-      } else {
+      else
         return false
-      }
     },
     getDifficultyLevel(state) {
       const level = state.difficultyLevel
