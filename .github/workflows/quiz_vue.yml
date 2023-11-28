@@ -19,20 +19,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@dprint
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          package_json_file: src/quiz/vue/package.json
 
-      - name: Install latest dprint release
-        uses: taiki-e/install-action@dprint
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Install
+      - name: Install dependencies
         run: pnpm install
 
       - name: Lint
@@ -50,12 +44,10 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          package_json_file: src/quiz/vue/package.json
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -72,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/cache@v3
         with:
@@ -80,10 +72,9 @@ jobs:
             ~/.cache
           key: cypress-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          package_json_file: src/quiz/vue/package.json
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
