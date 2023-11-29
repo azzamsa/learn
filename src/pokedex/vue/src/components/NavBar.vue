@@ -53,12 +53,12 @@ function toggleLocales() {
         >
       </div>
       <button
-        class="btn btn-ghost btn-square"
+        class="btn btn-primary btn-square"
         @click="showSearchBar = !showSearchBar"
       >
         <i-tabler:search class="w-8 h-8" />
       </button>
-      <button class="btn btn-ghost btn-square" @click="toggleLocales">
+      <button class="btn btn-primary btn-square" @click="toggleLocales">
         <i-tabler:language class="w-8 h-8" />
       </button>
     </div>
@@ -83,6 +83,6 @@ function toggleLocales() {
 
 <style scoped>
 .nav-btn {
-  @apply btn btn-ghost btn-sm rounded-btn;
+  @apply btn-primary rounded-btn btn-sm btn;
 }
 </style>

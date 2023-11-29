@@ -123,7 +123,7 @@ function buttonContent(pageNumber: number) {
   <main v-if="pokemonsStore.isLoading">
     <div class="mt-40 text-center">
       <i-eos-icons:bubble-loading
-        class="block p-5 mx-auto w-20 h-20 rounded-full bg-secondary"
+        class="block p-5 mx-auto w-20 h-20 rounded-full bg-ghost text-primary"
       />
       <h1 class="mt-4 font-semibold">
         Crunching the Pokémons data, just for you. Hang tight...
@@ -153,7 +153,7 @@ function buttonContent(pageNumber: number) {
       class="btn btn-primary"
       :class="[
         isDisabledButton(pageNumber) ? 'hidden' : '',
-        pagination.currentPage === pageNumber ? 'btn-secondary' : '',
+        pagination.currentPage === pageNumber ? 'btn-accent' : '',
       ]"
       @click="pagination.currentPage = pageNumber"
     >
