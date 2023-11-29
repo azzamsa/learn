@@ -4,7 +4,7 @@ describe('custom Level', () => {
     cy.get('.btn-secondary').click()
     cy.get('.mt-4 > :nth-child(1)').select('Medium')
 
-    cy.get('.btn-primary').click()
+    cy.get('.flex > .btn-primary').click()
 
     // doing the quiz
     for (let n = 0; n < 10; n++) {

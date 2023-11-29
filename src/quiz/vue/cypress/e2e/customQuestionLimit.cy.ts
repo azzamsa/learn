@@ -5,7 +5,7 @@ describe('Question Limit', () => {
     cy.get('.btn-secondary').click()
     cy.get('.mt-4 > :nth-child(2)').select('20')
 
-    cy.get('.btn-primary').click()
+    cy.get('.flex > .btn-primary').click()
     // check `Questions`
     cy.contains(
       '#app > :nth-child(2) > :nth-child(1) > :nth-child(1)',

@@ -48,6 +48,9 @@ test-all:
 test-unit:
     pnpm run test:unit
 
+test-configure:
+    pnpx cypress open
+
 # Create a new release. Example `just release v2.2.0`
 release version:
     bash scripts/release.sh {{ version }}

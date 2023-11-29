@@ -1,7 +1,8 @@
 describe('Question Limit', () => {
   it('test the question limit', () => {
     cy.visit('/')
-    cy.get('.btn-primary').click()
+    cy.get('.flex > .btn-primary').click()
+
     // check `Questions`
     cy.contains(
       '#app > :nth-child(2) > :nth-child(1) > :nth-child(1)',
