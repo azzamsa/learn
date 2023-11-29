@@ -9,7 +9,7 @@ describe('custom Level', () => {
     // doing the quiz
     for (let n = 0; n < 10; n++) {
       // need hard `wait`, `{ timeout: n }` doesn't work
-      cy.wait(1000).get('.card-actions > .btn').click()
+      cy.get('.card-actions > .btn').click()
     }
 
     cy.contains('.mt-2 > :nth-child(1)', 'Medium')

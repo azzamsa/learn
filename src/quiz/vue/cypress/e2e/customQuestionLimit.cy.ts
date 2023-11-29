@@ -19,7 +19,7 @@ describe('Question Limit', () => {
 
     // doing the quiz
     for (let n = 0; n < 20; n++)
-      cy.wait(1000).get('.card-actions > .btn').click()
+      cy.get('.card-actions > .btn').click()
 
     // check the result page
     cy.contains('.mt-2 > :nth-child(2)', '20')

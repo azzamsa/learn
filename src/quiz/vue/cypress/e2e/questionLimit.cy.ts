@@ -17,7 +17,7 @@ describe('Question Limit', () => {
     // doing the quiz
     for (let n = 0; n < 10; n++) {
       // need hard `wait`, `{ timeout: n }` doesn't work
-      cy.wait(1000).get('.card-actions > .btn').click()
+      cy.get('.card-actions > .btn').click()
     }
 
     // in the result page
