@@ -12,8 +12,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0(vue@3.3.9)
   daisyui:
-    specifier: ^4.4.13
-    version: 4.4.13(postcss@8.4.31)
+    specifier: ^4.4.14
+    version: 4.4.14(postcss@8.4.31)
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^12.0.0
     version: 12.0.0(eslint-plugin-vue@9.18.1)(eslint@8.54.0)(typescript@5.2.2)
   '@vue/test-utils':
-    specifier: ^2.4.2
-    version: 2.4.2(vue@3.3.9)
+    specifier: ^2.4.3
+    version: 2.4.3(vue@3.3.9)
   '@vue/tsconfig':
     specifier: ^0.4.0
     version: 0.4.0
@@ -1462,8 +1462,8 @@ packages:
   /@vue/shared@3.3.9:
     resolution: {integrity: sha512-ZE0VTIR0LmYgeyhurPTpy4KzKsuDyQbMSdM49eKkMnT5X4VfFBLysMzjIZhLEFQYjjOVVfbvUDHckwjDFiO2eA==}
 
-  /@vue/test-utils@2.4.2(vue@3.3.9):
-    resolution: {integrity: sha512-07lLjpG1o9tEBoWQfVOFhDT7+WFCdDeECoeSdzOuVgIi6nxb2JDLGNNOV6+3crPpyg/jMlIocj96UROcgomiGg==}
+  /@vue/test-utils@2.4.3(vue@3.3.9):
+    resolution: {integrity: sha512-F4K7mF+ad++VlTrxMJVRnenKSJmO6fkQt2wpRDiKDesQMkfpniGWsqEi/JevxGBo2qEkwwjvTUAoiGJLNx++CA==}
     peerDependencies:
       '@vue/server-renderer': ^3.0.1
       vue: ^3.0.1
@@ -2171,8 +2171,8 @@ packages:
       yauzl: 2.10.0
     dev: true
 
-  /daisyui@4.4.13(postcss@8.4.31):
-    resolution: {integrity: sha512-hk2xykBSTpCdSFx2LbF4WJb9cePE86+dF2q5abhsEVYOIAWRJRPglczZ5gskFmCvYlBFmZ02io7uxBovnUAG/w==}
+  /daisyui@4.4.14(postcss@8.4.31):
+    resolution: {integrity: sha512-1g37QzzDFM0QLQe+qRBswkGKyaGijk84t01UMg1ytkFhQxru3zeMh5nWcpC9KnqzKgnITkpSebpGqq4gP8zRrg==}
     engines: {node: '>=16.9.0'}
     dependencies:
       css-selector-tokenizer: 0.8.0

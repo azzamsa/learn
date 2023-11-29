@@ -1,8 +1,7 @@
 #!/usr/bin/env -S just --justfile
 
-shebang := if os() == 'windows' { 'powershell.exe' } else { '/usr/bin/sh' }
-
-alias r := run
+alias d := dev
+alias l := lint
 alias t := test
 
 # List available commands.
@@ -13,13 +12,15 @@ _default:
 setup:
     pnpm i
 
-# Develop the app.
-run:
-    pnpm dev
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test-all build
 
-# Preview the app.
-preview:
-    pnpm preview
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint test-unit build
+
+# Run app in development mode.
+dev:
+    pnpm dev
 
 # Build the app.
 build:
@@ -31,32 +32,31 @@ lint:
 
 # Format the codebase.
 fmt:
-    pnpm fun fmt
+    pnpm run fmt
     dprint fmt --config configs/dprint.json
 
 # Check is the codebase properly formatted.
-fmt-check: lint
+fmt-check:
     dprint check --config configs/dprint.json
 
 # Test the codebase.
-test:
+test: test-unit
+
+test-all:
     pnpm run test
 
-# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
-comply: fmt lint test
+test-unit:
+    pnpm run test:unit
 
-# Check if the repository comply with the rules. Mostly used in CI.
-check: fmt-check lint test
+test-configure:
+    pnpx cypress open
 
 # Create a new release. Example `just release v2.2.0`
 release version:
     bash scripts/release.sh {{ version }}
 
-# Check dependencies health. Pass `--write` to uppgrade dependencies.
+# Check dependencies health.
+[unix]
 up arg="":
-    #!{{ shebang }}
-    if [ "{{ arg }}" = "--write" ]; then
-        taze --write
-    else
-        taze
-    fi;
+    #!/usr/bin/env bash
+    taze major --interactive
