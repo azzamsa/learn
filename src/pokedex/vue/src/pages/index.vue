@@ -92,10 +92,10 @@ function isDisabledButton(pageNumber: number) {
   // Current active page
   if (distance === 0)
     isDisabled = false
-    // On the right side
+  // On the right side
   else if (distance === 1)
     isDisabled = false
-    // On the left side
+  // On the left side
   else if (distance === -1)
     isDisabled = false
   else if (distance > step)
@@ -138,34 +138,36 @@ function buttonContent(pageNumber: number) {
   </main>
 
   <!-- pagination -->
-  <div v-if="!pokemonsStore.isLoading" class="justify-center my-8 btn-group">
-    <button
-      class="btn btn-primary"
-      :disabled="isFirstPage"
-      @click="pagination.prev"
-    >
-      prev
-    </button>
+  <div class="flex justify-center">
+    <div v-if="!pokemonsStore.isLoading" class="my-8 btn-group">
+      <button
+        class="btn btn-primary"
+        :disabled="isFirstPage"
+        @click="pagination.prev"
+      >
+        prev
+      </button>
 
-    <button
-      v-for="pageNumber in pagination.pageCount"
-      :key="pageNumber"
-      class="btn btn-primary"
-      :class="[
-        isDisabledButton(pageNumber) ? 'hidden' : '',
-        pagination.currentPage === pageNumber ? 'btn-accent' : '',
-      ]"
-      @click="pagination.currentPage = pageNumber"
-    >
-      {{ buttonContent(pageNumber) }}
-    </button>
+      <button
+        v-for="pageNumber in pagination.pageCount"
+        :key="pageNumber"
+        class="btn btn-primary"
+        :class="[
+          isDisabledButton(pageNumber) ? 'hidden' : '',
+          pagination.currentPage === pageNumber ? 'btn-accent' : '',
+        ]"
+        @click="pagination.currentPage = pageNumber"
+      >
+        {{ buttonContent(pageNumber) }}
+      </button>
 
-    <button
-      class="btn btn-primary"
-      :disabled="isLastPage"
-      @click="pagination.next"
-    >
-      next
-    </button>
+      <button
+        class="btn btn-primary"
+        :disabled="isLastPage"
+        @click="pagination.next"
+      >
+        next
+      </button>
+    </div>
   </div>
 </template>
