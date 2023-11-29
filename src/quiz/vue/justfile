@@ -13,7 +13,7 @@ setup:
     pnpm i
 
 # Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
-comply: fmt lint test build
+comply: fmt lint test-all build
 
 # Check if the repository comply with the rules. Mostly used in CI.
 check: fmt-check lint test-unit build
