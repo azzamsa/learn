@@ -1,5 +1,5 @@
 import { URL, fileURLToPath } from 'node:url'
-import path from 'path'
+import path from 'node:path'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import type { Pokemon } from '../types/Pokemon'
 
 // Using `onMounted` and `getPokemons` here
@@ -12,16 +14,17 @@ const filteredPokemons = computed(() => {
   const searchTerm = searchStore.getSearchTerm
   const pokemons: [] | Pokemon[] = pokemonsStore.getPokemons
   if (searchStore.isSearching) {
-    return pokemons.filter((pokemon) =>
-      pokemon.name.includes(searchTerm.toLowerCase())
+    return pokemons.filter(pokemon =>
+      pokemon.name.includes(searchTerm.toLowerCase()),
     )
-  } else {
+  }
+  else {
     return [...pokemons]
   }
 })
 
 // Pagination
-let paginatedPokemons: Pokemon[] = $ref([])
+const paginatedPokemons: Pokemon[] = ref([])
 const page = ref(1)
 const pageSize = ref(4)
 
@@ -48,15 +51,15 @@ function paginateData({
   currentPageSize: number
 }) {
   paginate(currentPage, currentPageSize).then((responseData) => {
-    paginatedPokemons = responseData as Pokemon[]
+    paginatedPokemons.value = responseData as Pokemon[]
   })
 }
 
-let pagination: any = $ref(null)
-const isFirstPage = computed(() => unref(pagination.isFirstPage))
-const isLastPage = computed(() => unref(pagination.isLastPage))
+const pagination: any = ref(null)
+const isFirstPage = computed(() => unref(pagination.value.isFirstPage))
+const isLastPage = computed(() => unref(pagination.value.isLastPage))
 watch(filteredPokemons, () => {
-  pagination = useOffsetPagination({
+  pagination.value = useOffsetPagination({
     // Total number of items
     total: filteredPokemons.value.length,
     // Current page number
@@ -79,41 +82,39 @@ watch(filteredPokemons, () => {
 // disable if button is more than n step from
 // current item
 function isDisabledButton(pageNumber: number) {
-  const distance = pageNumber - pagination.currentPage
+  const distance = pageNumber - pagination.value.currentPage
   // Starting number which button to hide
   // Indexing from zero
   const step = 2
 
   let isDisabled = false
   // Current active page
-  if (distance === 0) {
+  if (distance === 0)
     isDisabled = false
     // On the right side
-  } else if (distance === 1) {
+  else if (distance === 1)
     isDisabled = false
     // On the left side
-  } else if (distance === -1) {
+  else if (distance === -1)
     isDisabled = false
-  } else if (distance > step) {
+  else if (distance > step)
     isDisabled = true
-  } else if (distance < step) {
+  else if (distance < step)
     isDisabled = true
-  }
 
   return isDisabled
 }
 
 // Return elipsis if the button is the neightbors
 function buttonContent(pageNumber: number) {
-  const distance = pageNumber - pagination.currentPage
+  const distance = pageNumber - pagination.value.currentPage
 
-  if (distance === 2) {
+  if (distance === 2)
     return '...'
-  } else if (distance === -2) {
+  else if (distance === -2)
     return '...'
-  } else {
+  else
     return pageNumber
-  }
 }
 </script>
 
@@ -121,7 +122,7 @@ function buttonContent(pageNumber: number) {
   <main v-if="pokemonsStore.isLoading">
     <div class="mt-40 text-center">
       <i-eos-icons:bubble-loading
-        class="mx-auto block h-20 w-20 rounded-full bg-secondary p-5"
+        class="block p-5 mx-auto w-20 h-20 rounded-full bg-secondary"
       />
       <h1 class="mt-4 font-semibold">
         Crunching the Pokémons data, just for you. Hang tight...
@@ -136,7 +137,7 @@ function buttonContent(pageNumber: number) {
   </main>
 
   <!-- pagination -->
-  <div v-if="!pokemonsStore.isLoading" class="btn-group my-8 justify-center">
+  <div v-if="!pokemonsStore.isLoading" class="justify-center my-8 btn-group">
     <button
       class="btn btn-primary"
       :disabled="isFirstPage"

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import type { Pokemon } from '../../types/Pokemon'
 
 // Auto register for types is WIP
@@ -8,7 +10,7 @@ import type { Pokemon } from '../../types/Pokemon'
 // props passed has `string` type
 const props = defineProps<{ id: string }>()
 
-let pokemon_: Pokemon = $ref({
+const pokemon_: Pokemon = ref({
   id: 0,
   name: '',
   image: '',
@@ -31,7 +33,7 @@ onMounted(async () => {
     height: pokemonItem.height,
     weight: pokemonItem.weight,
   }
-  pokemon_ = pokemonResult
+  pokemon_.value = pokemonResult
 })
 </script>
 

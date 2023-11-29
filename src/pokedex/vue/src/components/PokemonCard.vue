@@ -16,15 +16,15 @@ function toCapitalCase(word: string) {
     <title>Pokédex - {{ toCapitalCase(pokemon.name) }}</title>
   </Head>
 
-  <div class="card text-center shadow-2xl">
+  <div class="text-center shadow-2xl card">
     <figure class="px-10 pt-10">
       <img
         loading="lazy"
         :src="pokemon.image"
         :alt="toCapitalCase(pokemon.name)"
-      />
+      >
     </figure>
-    <div class="card-body items-center text-center">
+    <div class="items-center text-center card-body">
       <h2 class="card-title">
         {{ toCapitalCase(pokemon.name) }}
       </h2>

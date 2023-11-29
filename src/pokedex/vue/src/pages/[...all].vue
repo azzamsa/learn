@@ -5,7 +5,7 @@ const { t } = useI18n()
 <template>
   <div class="mt-40 text-center">
     <i-tabler:mood-sad
-      class="mx-auto block h-20 w-20 rounded-full bg-secondary p-5"
+      class="block p-5 mx-auto w-20 h-20 rounded-full bg-secondary"
     />
     <h1 class="mt-4 font-semibold">
       {{ t('not-found') }}

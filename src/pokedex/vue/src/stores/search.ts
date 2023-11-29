@@ -10,11 +10,10 @@ export const useSearchStore = defineStore({
       return state.searchTerm
     },
     isSearching(state) {
-      if (state.searchTerm === '') {
+      if (state.searchTerm === '')
         return false
-      } else {
+      else
         return true
-      }
     },
   },
   actions: {
