@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Ref } from 'vue'
 
 import type { Pokemon } from '../types/Pokemon'
 
@@ -24,7 +25,7 @@ const filteredPokemons = computed(() => {
 })
 
 // Pagination
-const paginatedPokemons: Pokemon[] = ref([])
+const paginatedPokemons: Ref<Pokemon[]> = ref([])
 const page = ref(1)
 const pageSize = ref(4)
 

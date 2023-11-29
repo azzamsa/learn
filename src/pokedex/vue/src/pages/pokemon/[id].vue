@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Ref } from 'vue'
 
 import type { Pokemon } from '../../types/Pokemon'
 
@@ -10,7 +11,7 @@ import type { Pokemon } from '../../types/Pokemon'
 // props passed has `string` type
 const props = defineProps<{ id: string }>()
 
-const pokemon_: Pokemon = ref({
+const pokemon_: Ref<Pokemon> = ref({
   id: 0,
   name: '',
   image: '',
