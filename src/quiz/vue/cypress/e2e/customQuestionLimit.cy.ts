@@ -6,10 +6,12 @@ describe('Question Limit', () => {
     cy.get('.mt-4 > :nth-child(2)').select('20')
 
     cy.get('.btn-primary').click()
+    // check `Questions`
     cy.contains(
       '#app > :nth-child(2) > :nth-child(1) > :nth-child(1)',
       '0 / 20',
     )
+    // check `Correct Answer`
     cy.contains(
       '#app > :nth-child(2) > :nth-child(1) > :nth-child(2)',
       '0 / 20',
@@ -17,7 +19,7 @@ describe('Question Limit', () => {
 
     // doing the quiz
     for (let n = 0; n < 20; n++)
-      cy.wait(3000).get('.card-actions > .btn').click()
+      cy.wait(1000).get('.card-actions > .btn').click()
 
     // check the result page
     cy.contains('.mt-2 > :nth-child(2)', '20')

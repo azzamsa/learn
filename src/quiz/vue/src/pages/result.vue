@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 
 const quizStore = useQuizStore()
-quizStore.fetchQuestions()
 
 const totalQuestions = ref(0)
 const correctAnswer = ref(0)

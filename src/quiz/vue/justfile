@@ -16,7 +16,7 @@ setup:
 comply: fmt lint test build
 
 # Check if the repository comply with the rules. Mostly used in CI.
-check: fmt-check lint _test-ci build
+check: fmt-check lint test-unit build
 
 # Run app in development mode.
 dev:
@@ -40,15 +40,13 @@ fmt-check:
     dprint check --config configs/dprint.json
 
 # Test the codebase.
-test:
-    pnpm run test:unit
+test: test-unit
 
-# Test the codebase in CI environment.
-_test-ci:
+test-all:
+    pnpm run test
+
+test-unit:
     pnpm run test:unit
-    # pnpm run test
-    # TODO
-    # all the test passed in 'open' mode, but buggy in 'run' mode
 
 # Create a new release. Example `just release v2.2.0`
 release version:

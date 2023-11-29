@@ -27,7 +27,7 @@ jobs:
           package_json_file: src/quiz/vue/package.json
 
       - name: Install dependencies
-        run: pnpm install
+        run: just setup
 
       - name: Lint
         run: |
@@ -45,6 +45,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
+
       - uses: pnpm/action-setup@v2
         with:
           package_json_file: src/quiz/vue/package.json
@@ -57,14 +59,15 @@ jobs:
           cache: pnpm
           cache-dependency-path: src/quiz/vue/pnpm-lock.yaml
 
-      - run: pnpm install
-      - run: pnpm run test:unit
+      - run: just setup
+      - run: just test-unit
 
   test-e2e:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
 
       - uses: actions/cache@v3
         with:
@@ -84,7 +87,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: src/quiz/vue/pnpm-lock.yaml
 
-      - run: pnpm install
+      - run: just setup
 
       - name: Cypress PNPM Patch
         run: cp pnpm-lock.yaml package-lock.json
