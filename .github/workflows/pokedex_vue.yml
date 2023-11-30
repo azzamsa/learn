@@ -18,20 +18,15 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@dprint
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          package_json_file: src/pokedex/vue/package.json
 
-      - name: Install latest dprint release
-        uses: taiki-e/install-action@dprint
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-      - name: Install
-        run: pnpm install
+      - name: Install dependencies
+        run: just setup
 
       - name: Lint
         run: |
@@ -47,12 +42,12 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          package_json_file: src/pokedex/vue/package.json
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -62,24 +57,25 @@ jobs:
           cache: pnpm
           cache-dependency-path: src/pokedex/vue/pnpm-lock.yaml
 
-      - run: pnpm install
-      - run: pnpm run test:unit
+      - run: just setup
+      - run: just test-unit
 
   test-e2e:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@just
+
       - uses: actions/cache@v3
         with:
           path: |
             ~/.cache
           key: cypress-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          package_json_file: src/pokedex/vue/package.json
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -89,7 +85,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: src/pokedex/vue/pnpm-lock.yaml
 
-      - run: pnpm install
+      - run: just setup
 
       - name: Cypress PNPM Patch
         run: cp pnpm-lock.yaml package-lock.json
@@ -97,7 +93,7 @@ jobs:
       - name: Cypress
         uses: cypress-io/github-action@v4
         with:
-          working-directory: src/pokedex-vue
+          working-directory: src/pokedex/vue
           install-command: echo
           build: pnpm run build
           start: npx vite --port 4173
