@@ -1,0 +1,62 @@
+#!/usr/bin/env -S just --justfile
+
+alias d := dev
+alias l := lint
+alias t := test
+
+# List available commands.
+_default:
+    just --list --unsorted
+
+# Setup the repository.
+setup:
+    pnpm i
+
+# Tasks to make the code-base comply with the rules. Mostly used locally or in git hooks.
+comply: fmt lint test-all build
+
+# Check if the repository comply with the rules. Mostly used in CI.
+check: fmt-check lint test-unit build
+
+# Run app in development mode.
+dev:
+    pnpm dev
+
+# Build the app.
+build:
+    pnpm run build
+
+# Lint the codebase.
+lint:
+    pnpm run lint
+
+# Format the codebase.
+fmt:
+    pnpm run format
+    dprint fmt --config configs/dprint.json
+
+# Check is the codebase properly formatted.
+fmt-check:
+    dprint check --config configs/dprint.json
+
+# Test the codebase.
+test: test-unit
+
+test-all:
+    pnpm run test
+
+test-unit:
+    pnpm run test:unit
+
+test-configure:
+    pnpx cypress open
+
+# Create a new release. Example `just release v2.2.0`
+release version:
+    bash scripts/release.sh {{ version }}
+
+# Check dependencies health.
+[unix]
+up arg="":
+    #!/usr/bin/env bash
+    taze major --interactive
