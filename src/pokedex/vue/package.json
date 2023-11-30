@@ -7,18 +7,18 @@
   "scripts": {
     "dev": "vite --port 3333 --open",
     "preview": "vite preview",
-    "fmt:tailwind": "rustywind --write .",
+    "fmt:tailwind": "rustywind --write . --quiet",
     "fmt:style": "eslint . --fix",
     "fmt": "run-s fmt:tailwind fmt:style",
+    "lint:tailwind": "rustywind --check-formatted .",
     "lint:style": "eslint .",
     "lint:type": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "run-s lint:style lint:type",
+    "lint": "run-s lint:tailwind lint:style lint:type",
     "test:unit": "vitest --run",
-    "test:e2e": "start-server-and-test preview http://localhost:3333/ 'cypress open --e2e'",
-    "test:e2e:ci": "start-server-and-test preview http://localhost:3333/ 'cypress run --e2e'",
-    "test": "run-p test:unit test:e2e:ci",
+    "test:e2e": "start-server-and-test preview http://localhost:3333/ 'cypress run --e2e'",
+    "test": "run-p test:unit test:e2e",
     "build:vite": "vite build",
-    "build": "run-p lint build:vite"
+    "build": "run-p build:*"
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^1.5.0",
@@ -28,16 +28,16 @@
     "lodash-es": "^4.17.21",
     "pinia": "^2.1.7",
     "vue": "^3.3.9",
-    "vue-i18n": "9.2.2",
+    "vue-i18n": "^9.8.0",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.1.1",
-    "@iconify/json": "^2.2.149",
+    "@antfu/eslint-config": "^2.1.2",
+    "@iconify/json": "^2.2.150",
     "@rushstack/eslint-patch": "^1.6.0",
     "@types/jsdom": "^21.1.6",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^20.10.0",
+    "@types/node": "^20.10.1",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
@@ -47,7 +47,7 @@
     "cypress": "^13.6.0",
     "eslint": "^8.54.0",
     "eslint-plugin-cypress": "^2.15.1",
-    "eslint-plugin-vue": "^9.18.1",
+    "eslint-plugin-vue": "^9.19.2",
     "jsdom": "^23.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.31",
@@ -55,12 +55,12 @@
     "tailwindcss": "^3.3.5",
     "typescript": "~5.3.2",
     "unplugin-auto-import": "^0.17.1",
-    "unplugin-icons": "^0.17.4",
+    "unplugin-icons": "^0.18.0",
     "unplugin-vue-components": "^0.25.2",
-    "vite": "^5.0.3",
+    "vite": "^5.0.4",
     "vite-plugin-pages": "^0.32.0",
     "vite-plugin-vue-layouts": "^0.8.0",
     "vitest": "^0.34.6",
-    "vue-tsc": "^1.8.22"
+    "vue-tsc": "^1.8.24"
   }
 }

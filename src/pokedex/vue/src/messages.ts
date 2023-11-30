@@ -1,5 +1,5 @@
-import en from '../locales/en.yaml'
-import id from '../locales/id.yaml'
+import en from '../locales/en.yml'
+import id from '../locales/id.yml'
 
 export const messages = {
   en,

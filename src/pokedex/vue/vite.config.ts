@@ -63,9 +63,11 @@ export default () => {
 
       // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
       VueI18nPlugin({
+        defaultSFCLang: 'yml',
         runtimeOnly: true,
         compositionOnly: true,
         include: [path.resolve(__dirname, 'locales/**')],
+        strictMessage: false,
       }),
     ],
 
