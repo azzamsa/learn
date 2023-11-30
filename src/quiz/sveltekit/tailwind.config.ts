@@ -1,9 +1,7 @@
 import { join } from 'path';
 import type { Config } from 'tailwindcss';
-
 import typography from '@tailwindcss/typography';
 import { skeleton } from '@skeletonlabs/tw-plugin';
-import { foxTheme } from './src/fox';
 
 export default {
 	darkMode: 'class',
@@ -18,7 +16,12 @@ export default {
 		typography,
 		skeleton({
 			themes: {
-				custom: [foxTheme]
+				preset: [
+					{
+						name: 'skeleton',
+						enhancements: true
+					}
+				]
 			}
 		})
 	]

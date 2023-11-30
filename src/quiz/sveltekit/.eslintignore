@@ -11,3 +11,6 @@ node_modules
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+# [svelte parsing error in template literals](https://github.com/sveltejs/svelte-eslint-parser/issues/346)
++layout.svelte

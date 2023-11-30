@@ -3,17 +3,19 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --port 3333 --open",
 		"build": "vite build",
 		"preview": "vite preview",
-		"test": "pnpm run test:integration && npm run test:unit",
+		"format": "pnpm run format:style && pnpm run lint:fix",
 		"lint": "pnpm run lint:style && pnpm run lint:type",
+		"test": "pnpm run test:integration && npm run test:unit",
+		"format:style": "prettier --write . --log-level silent",
+		"lint:fix": "eslint . --fix",
+		"lint:style": "prettier --check . && eslint .",
 		"lint:type": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"lint:type:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint:style": "prettier --check . && eslint .",
-		"format": "prettier --write . --log-level silent",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest --run"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.40.1",
@@ -22,7 +24,7 @@
 		"@sveltejs/adapter-auto": "^2.1.1",
 		"@sveltejs/kit": "^1.27.6",
 		"@tailwindcss/typography": "0.5.10",
-		"@types/node": "20.10.1",
+		"@types/node": "18.19.0",
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
 		"@typescript-eslint/parser": "^6.13.1",
 		"autoprefixer": "10.4.16",
