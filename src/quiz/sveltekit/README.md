@@ -1,5 +1,5 @@
 <div align="center">
-<h1>Qüiz.</h1><img src='docs/logo.png' width=150px/>
+<h1>Qwiz.</h1><img src='static/logo.png' width=150px/>
 
 Test your general knowledge 🎲.
 
@@ -13,16 +13,16 @@ Test your general knowledge 🎲.
 
 ---
 
-Simple Qüiz application.
+Simple Qwiz application.
 
 ## 🔥 Features
 
 - ⚡️ [Sveltekit 4](https://github.com/sveltejs/kit), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/) - born with fastness
 - 😃 [Use icons from any iconify sets](https://github.com/antfu/unplugin-icons)
   - [tailwindlabs/heroicons](https://github.com/tailwindlabs/heroicons)
-- 🌍 [I18n ready](./locales)
+- 🌍 [I18n ready](./messages)
 - ☁️ Deploy on Netlify, zero-config
-- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest), E2E Testing with [Cypress](https://cypress.io/).
+- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest), E2E Testing with [Playwright](https://github.com/microsoft/playwright.
 - 🦾 TypeScript, of course
 - 🍃 TailwindCSS + 👻 Skeleton
   - Sort TailwindCSS class automatically.
@@ -39,7 +39,7 @@ Simple Qüiz application.
 
 ### Plugins
 
-- [Vue I18n](https://github.com/intlify/vue-i18n-next) - Internationalization
+- [inlang/paraglide](https://github.com/inlang/monorepo) - Internationalization.
 
 ### Coding Style
 
@@ -49,10 +49,10 @@ Simple Qüiz application.
 ### Dev tools
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Vitest](https://github.com/vitest-dev/vitest) - Unit testing powered by Vite
-- [Playwright](https://github.com/microsoft/playwright) - - E2E testing
-- [pnpm](https://pnpm.js.org/) - fast, disk space efficient package manager
-- [Netlify](https://www.netlify.com/) - zero-config deployment
+- [Vitest](https://github.com/vitest-dev/vitest) - Unit testing powered by Vite.
+- [Playwright](https://github.com/microsoft/playwright) - E2E testing.
+- [pnpm](https://pnpm.js.org/) - fast, disk space efficient package manager.
+- [Netlify](https://www.netlify.com/) - zero-config deployment.
 - Emacs Modes
   - [lsp-mode](https://github.com/emacs-lsp/lsp-mode) - Emacs client/library for the Language Server Protocol.
   - [web-mode](https://github.com/fxbois/web-mode) - Web template editing mode for emacs.

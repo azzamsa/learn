@@ -30,7 +30,9 @@ jobs:
         run: just setup
 
       - name: Lint
+        # Build is required to generate types.
         run: |
+          just build
           just fmt-check
           just lint
 

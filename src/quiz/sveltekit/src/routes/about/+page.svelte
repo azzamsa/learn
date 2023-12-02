@@ -4,7 +4,7 @@
   <title>Qüiz - About</title>
 </svelte:head>
 
-<div class="mt-4 text-center">
+<div class="mt-4 text-center text-lg">
   <p>Hi 👋.</p>
   <br />
   <p>
@@ -21,3 +21,9 @@
   <br /><br />
   <p>Made with 💖 by <a href="https://github.com/azzamsa/">Azzam S.A</a></p>
 </div>
+
+<style>
+ a {
+     @apply underline;
+ }
+</style>
