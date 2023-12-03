@@ -23,7 +23,7 @@
 </div>
 
 <style>
- a {
-     @apply underline;
- }
+  a {
+    @apply underline;
+  }
 </style>

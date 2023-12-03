@@ -1,3 +1,4 @@
+import path from "path"
 import adapter from "@sveltejs/adapter-auto"
 import { vitePreprocess } from "@sveltejs/kit/vite"
 
@@ -15,8 +16,10 @@ const config = {
     adapter: adapter(),
 
     alias: {
-      //You can call this whatever you want
-      $paraglide: "./src/paraglide"
+      $root: path.resolve("./src"),
+      $stores: path.resolve("./src/stores"),
+      $components: path.resolve("./src/components"),
+      $paraglide: path.resolve("./src/paraglide")
     }
   }
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../app.postcss"
   import { autoModeWatcher } from "@skeletonlabs/skeleton"
-  import NavBar from "../components/NavBar.svelte"
+  import NavBar from "$components/NavBar.svelte"
 </script>
 
 <svelte:head>

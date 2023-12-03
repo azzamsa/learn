@@ -3,7 +3,7 @@
   import LanguageSolid from "virtual:icons/heroicons/language-solid"
   import * as m from "$paraglide/messages"
   import { setLanguageTag, availableLanguageTags, languageTag } from "$paraglide/runtime"
-  import { currentLocale as currentLocaleStore } from "../stores/locale"
+  import { currentLocale as currentLocaleStore } from "$stores/locale"
 
   // Locale
   function toggleLocale() {
