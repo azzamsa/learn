@@ -1,28 +1,24 @@
 <script></script>
 
 <svelte:head>
-  <title>Qüiz - About</title>
+  <title>Qwiz - About</title>
 </svelte:head>
 
-<div class="mt-4 text-center text-lg">
-  <p>Hi 👋.</p>
-  <br />
+<div class="mt-4 p-20 text-lg space-y-2">
+  <p>Hi! 👋</p>
   <p>
-    Thank you for using my application. Feel free to <a href="https://github.com/azzamsa/quiz-vue">
-      star</a
+    Thanks for using my application. If you enjoy it, feel free to start the <a
+      href="https://github.com/azzamsa/learn/">repository</a
     >
-    the repository if you like this application.
   </p>
-  <br />
   <p>
-    If you have any issue or feature request, don't hesitate to
-    <a href="https://github.com/azzamsa/quiz-vue/issues">tell me</a>.
+    Should you encounter any issues or have feature requests, please don't hesitate to
+    <a href="https://github.com/azzamsa/learn/issues">reach out</a>.
   </p>
-  <br /><br />
-  <p>Made with 💖 by <a href="https://github.com/azzamsa/">Azzam S.A</a></p>
+  <p>Crafted with 💖 by <a href="https://github.com/azzamsa/">Azzam S.A</a></p>
 </div>
 
-<style>
+<style lang="postcss">
   a {
     @apply underline;
   }

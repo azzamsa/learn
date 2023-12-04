@@ -12,7 +12,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["Cinzel Decorative", "sans-serif"]
+        serif: ["Alice", "sans-serif"],
+        sans: ["Nunito", "sans"]
       }
     }
   },

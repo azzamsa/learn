@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@8.11.0",
   "scripts": {
-    "dev": "vite dev --port 3333 --open",
+    "dev": "vite dev --port 3333",
     "build": "paraglide-js compile --project ./project.inlang && vite build",
     "preview": "vite preview",
     "format": "pnpm run format:style && pnpm run lint:fix",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@iconify-json/heroicons": "^1.1.15",
+    "@iconify-json/ph": "^1.1.6",
     "@inlang/paraglide-js": "1.0.0-prerelease.15",
     "@inlang/paraglide-js-adapter-vite": "^1.0.1",
     "@playwright/test": "^1.40.1",

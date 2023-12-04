@@ -1,26 +1,35 @@
 <script lang="ts">
-  import { RadioGroup, RadioItem } from "@skeletonlabs/skeleton"
-  import { LightSwitch } from "@skeletonlabs/skeleton"
-
-  let value: number = 0
+  import SwingingDoodle from "$components/icons/SwingingDoodle.svelte"
+  import Arrow from "virtual:icons/heroicons/arrow-small-right-20-solid"
 </script>
 
-<section class="px-2 pt-12 pb-6 min-h-screen md:px-5 md:pt-20">
-  <main class="p-8 my-10 mx-auto max-w-5xl rounded-lg shadow-2xl md:p-12">
-    <LightSwitch class="mt-10" />
+<svelte:head>
+  <title>Qwiz - Home</title>
+</svelte:head>
 
-    <h1 class="mt-10 h1">Hello world!</h1>
-    <p class="text-primary-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-    <section>
-      <RadioGroup
-        active="variant-filled-secondary"
-        hover="hover:variant-soft-primary hover:text-primary"
-      >
-        <RadioItem bind:group={value} name="justify" value={0}>One</RadioItem>
-        <RadioItem bind:group={value} name="justify" value={1}>Two</RadioItem>
-        <RadioItem bind:group={value} name="justify" value={2}>Three</RadioItem>
-      </RadioGroup>
-    </section>
-  </main>
+<section class="flex flex-col gap-8 justify-center items-center font-sans">
+  <!-- Hero -->
+  <div class="flex flex-col gap-2 pt-20">
+    <!-- `duration-*` doesn't work, custom attribute does -->
+    <img
+      src="logo.png"
+      alt="Qwiz logo"
+      class="w-10 h-10 animate-[bounce_4s_ease-in-out_infinite]"
+    />
+    <h2 class="h2">
+      <span class="font-serif font-bold">Qwiz: Where Learning Meets Play.</span>
+    </h2>
+    <p class="pt-2 font-sans text-xl">Navigate your knowledge journey with interactive quizzes.</p>
+  </div>
+  <!-- butons -->
+  <div class="flex gap-4">
+    <a href="/quiz" class="btn variant-filled-primary">
+      <span>Start</span>
+      <i><Arrow /></i>
+    </a>
+    <a href="/settings" class="btn variant-soft-primary">Configure</a>
+  </div>
+  <div class="p-5 w-80 h-80">
+    <SwingingDoodle />
+  </div>
 </section>

@@ -8,6 +8,9 @@ devDependencies:
   '@iconify-json/heroicons':
     specifier: ^1.1.15
     version: 1.1.15
+  '@iconify-json/ph':
+    specifier: ^1.1.6
+    version: 1.1.6
   '@inlang/paraglide-js':
     specifier: 1.0.0-prerelease.15
     version: 1.0.0-prerelease.15
@@ -398,6 +401,12 @@ packages:
 
   /@iconify-json/heroicons@1.1.15:
     resolution: {integrity: sha512-UUBdRuU23MZ5PL5t8EZwHeId4Usdc+FrsukzdAW9xe/0wYLr25+MuqZcIGJZbSxJVukvy3Jgc0sPzBOG1EC7YQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/ph@1.1.6:
+    resolution: {integrity: sha512-dexzEndlXQX/sbQhnEpA94Pby6JCGV2tZToSGcPPQpbilDGyk5VMd0ymusYoocRAn6+qLpGRvMoz5XFKGqP+VA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
