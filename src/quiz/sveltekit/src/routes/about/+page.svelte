@@ -4,7 +4,7 @@
   <title>Qwiz - About</title>
 </svelte:head>
 
-<div class="mt-4 p-20 text-lg space-y-2">
+<div class="mt-4 p-4 text-lg space-y-4">
   <p>Hi! 👋</p>
   <p>
     Thanks for using my application. If you enjoy it, feel free to start the <a

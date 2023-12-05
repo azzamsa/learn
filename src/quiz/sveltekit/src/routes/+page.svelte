@@ -7,7 +7,7 @@
   <title>Qwiz - Home</title>
 </svelte:head>
 
-<section class="flex flex-col gap-8 justify-center items-center font-sans">
+<section class="flex flex-col gap-8 justify-center items-center font-sans px-4">
   <!-- Hero -->
   <div class="flex flex-col gap-2 pt-20">
     <!-- `duration-*` doesn't work, custom attribute does -->
