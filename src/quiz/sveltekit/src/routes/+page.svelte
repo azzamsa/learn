@@ -29,7 +29,7 @@
     </a>
     <a href="/settings" class="btn variant-soft-primary">Configure</a>
   </div>
-  <div class="p-5 w-80 h-80">
+  <div class="p-5 w-80">
     <SwingingDoodle />
   </div>
 </section>
