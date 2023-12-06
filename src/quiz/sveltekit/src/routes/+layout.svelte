@@ -1,49 +1,65 @@
 <script lang="ts">
-  import { Drawer } from "@skeletonlabs/skeleton"
-  import { autoModeWatcher } from "@skeletonlabs/skeleton"
-  import { AppBar, LightSwitch } from "@skeletonlabs/skeleton"
-  import { initializeStores } from "@skeletonlabs/skeleton"
-  import "../app.postcss"
+    import {
+        Drawer,
+        autoModeWatcher,
+        getDrawerStore,
+        initializeStores
+    } from "@skeletonlabs/skeleton"
+    import "../app.postcss"
+    import { setInitialClassState } from "@skeletonlabs/skeleton"
 
-  import * as m from "$paraglide/messages"
-  import { page } from "$app/stores"
-  import { setLanguageTag } from "$paraglide/runtime"
-  import { currentLocale } from "$stores/locale"
+    import * as m from "$paraglide/messages"
+    import { setLanguageTag } from "$paraglide/runtime"
+    import { locale } from "$stores/settings"
 
-  import NavBar from "$components/NavBar.svelte"
+    import NavBar from "$components/NavBar.svelte"
 
-  // Drawer
-  initializeStores()
+    // Drawer
+    initializeStores()
+    const drawerStore = getDrawerStore()
 
-  // Locale
-  $: {
-    setLanguageTag($currentLocale)
-  }
+    // Locale
+    $: {
+        setLanguageTag($locale as (() => "en" | "id") | "en" | "id")
+    }
+
+    let menuItems = [
+        { label: m.home(), href: "/" },
+        { label: m.settings(), href: "/settings" },
+        { label: m.about(), href: "/about" }
+    ]
 </script>
 
 <svelte:head>
-  {@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
+    {@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}
+    {@html `<script>(${setInitialClassState.toString()})();</script>`}
 </svelte:head>
 
-{#key $currentLocale}
-  <Drawer class="w-3/4 h-1/2 sm:hidden">
-    <div class="p-4">
-      <!-- Menu -->
-      <h2 class="h2 font-serif">Menu</h2>
-      <ul class="list font-serif">
-        <li><a href="/" class="text-xl btn hover:variant-filled-primary">{m.home()}</a></li>
-        <li><a href="/about" class="text-xl btn hover:variant-filled-primary">{m.about()}</a></li>
-      </ul>
-      <!-- Settings -->
-      <h2 class="h2 pt-2 font-serif">Settings</h2>
-      <ul class="list font-serif mt-4">
-        <li class="px-4"><LightSwitch class="hover:variant-filled-primary" /></li>
-      </ul>
-    </div>
-  </Drawer>
+{#key $locale}
+    <!-- Drawer -->
+    <Drawer class="w-3/4 h-1/2 sm:hidden">
+        <div class="p-4">
+            <!-- Menu -->
+            <h2 class="font-serif h2">Menu</h2>
 
-  <div>
-    <NavBar />
-    <slot />
-  </div>
+            <ul class="p-2 font-serif text-xl list">
+                {#each menuItems as { label, href }}
+                    <li class="text-lg">
+                        <a
+                            {href}
+                            on:click={drawerStore.close}
+                            class="text-lg btn btn-sm w-full hover:variant-filled-primary"
+                            >{label}</a
+                        >
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    </Drawer>
+
+    <!-- App -->
+    <div>
+        <NavBar />
+        <slot />
+    </div>
 {/key}

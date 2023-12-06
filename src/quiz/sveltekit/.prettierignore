@@ -12,3 +12,7 @@ src/paraglide/*
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+# Markdown formatted with dprint
+*.md
+*.MD

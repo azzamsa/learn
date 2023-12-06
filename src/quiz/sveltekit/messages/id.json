@@ -1,5 +1,8 @@
 {
-  "$schema": "https://inlang.com/schema/inlang-message-format",
-  "home": "Beranda",
-  "about": "Tentang"
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "home": "Beranda",
+    "about": "Tentang",
+    "settings": "Pengaturan",
+    "language": "Bahasa",
+    "theme": "Tema"
 }
