@@ -1,11 +1,12 @@
 <script lang="ts">
   import { getDrawerStore } from "@skeletonlabs/skeleton"
+  import { AppBar, LightSwitch } from "@skeletonlabs/skeleton"
 
   import * as m from "$paraglide/messages"
-  import { availableLanguageTags, languageTag, setLanguageTag } from "$paraglide/runtime"
-  import Hamburger from "$root/components/icons/Hamburger.svelte"
+  import { availableLanguageTags, languageTag } from "$paraglide/runtime"
+
   import { currentLocale } from "$stores/locale"
-  import { AppBar, LightSwitch } from "@skeletonlabs/skeleton"
+  import Hamburger from "$root/components/icons/Hamburger.svelte"
   import LanguageSolid from "virtual:icons/heroicons/language-solid"
 
   // Drawer
@@ -23,14 +24,6 @@
     const locales = availableLanguageTags
     $currentLocale = locales[(locales.indexOf(languageTag()) + 1) % locales.length]
   }
-
-  let home = m.home()
-  let about = m.about()
-  $: {
-    setLanguageTag($currentLocale)
-    home = m.home()
-    about = m.about()
-  }
 </script>
 
 <AppBar
@@ -47,13 +40,13 @@
   </svelte:fragment>
 
   <nav class="hidden gap-8 font-bold sm:flex">
-    <a href="/" class="text-xl btn hover:variant-filled-primary">{home}</a>
-    <a href="/about" class="text-xl btn hover:variant-filled-primary">{about}</a>
+    <a href="/" class="text-xl btn hover:variant-filled-primary">{m.home()}</a>
+    <a href="/about" class="text-xl btn hover:variant-filled-primary">{m.about()}</a>
   </nav>
 
   <svelte:fragment slot="trail">
     <!-- big screen  -->
-    <div class="hidden sm:inline-flex items-center">
+    <div class="hidden sm:inline-flex items-center space-x-2">
       <button on:click={toggleLocale} class="rounded-full btn-icon hover:variant-filled-primary">
         <LanguageSolid class="w-6 h-6 hover:stroke-2" />
       </button>
