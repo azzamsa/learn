@@ -5,6 +5,7 @@ use axum::{
 };
 use backend::routes::app;
 use cynic::QueryBuilder;
+use http_body_util::BodyExt; // for `collect
 use serde_json::{from_slice, to_string};
 use tower::util::ServiceExt;
 
@@ -31,8 +32,8 @@ async fn encrypt() -> Result<()> {
     let response = app.oneshot(request).await?;
     assert_eq!(response.status(), StatusCode::OK);
 
-    let resp_byte = hyper::body::to_bytes(response.into_body()).await?;
-    let encrypt_response: EncryptResponse = from_slice(&resp_byte)?;
+    let body = response.into_body().collect().await?.to_bytes();
+    let encrypt_response: EncryptResponse = from_slice(&body)?;
     assert_eq!(encrypt_response.data.encrypt.secret, "n");
 
     Ok(())
@@ -56,8 +57,8 @@ async fn decrypt() -> Result<()> {
     let response = app.oneshot(request).await?;
     assert_eq!(response.status(), StatusCode::OK);
 
-    let resp_byte = hyper::body::to_bytes(response.into_body()).await?;
-    let decrypt_response: DecryptResponse = from_slice(&resp_byte)?;
+    let body = response.into_body().collect().await?.to_bytes();
+    let decrypt_response: DecryptResponse = from_slice(&body)?;
     assert_eq!(decrypt_response.data.decrypt.plain, "a");
 
     Ok(())

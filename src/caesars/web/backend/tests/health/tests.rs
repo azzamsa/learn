@@ -5,6 +5,7 @@ use axum::{
 };
 use backend::routes::app;
 use cynic::QueryBuilder;
+use http_body_util::BodyExt; // for `collect
 use serde_json::{from_slice, json, to_string, Value};
 use tower::util::ServiceExt;
 
@@ -24,8 +25,8 @@ async fn health() -> Result<()> {
     let response = app.oneshot(request).await?;
     assert_eq!(response.status(), StatusCode::OK);
 
-    let resp_byte = hyper::body::to_bytes(response.into_body()).await?;
-    let health_response: HealthResponse = from_slice(&resp_byte)?;
+    let body = response.into_body().collect().await?.to_bytes();
+    let health_response: HealthResponse = from_slice(&body)?;
     assert_eq!(health_response.data.health.status, "running");
 
     Ok(())
@@ -40,7 +41,7 @@ async fn health_restapi() -> Result<()> {
     let response = app.oneshot(request).await?;
     assert_eq!(response.status(), StatusCode::OK);
 
-    let body = hyper::body::to_bytes(response.into_body()).await?;
+    let body = response.into_body().collect().await?.to_bytes();
     let body: Value = serde_json::from_slice(&body)?;
     assert_eq!(body, json!({ "data": { "status": "running" } }));
     Ok(())
