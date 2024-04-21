@@ -2,36 +2,36 @@ use dioxus::{events::*, prelude::*};
 
 use crate::rot;
 
-pub fn dashboard(cx: Scope) -> Element {
-    let plain = use_state(cx, || "".to_string());
-    let secret = use_state(cx, || "".to_string());
+pub fn dashboard() -> Element {
+    let mut plain = use_signal(|| "".to_string());
+    let mut secret = use_signal(|| "".to_string());
 
     let on_input_plain = move |e: FormEvent| {
-        plain.set(e.value.clone());
-        cx.spawn({
+        plain.set(e.value());
+        spawn({
             // You will enter the ownership hell
             // without the magic of `to_owned()`
             let secret = secret.to_owned();
 
             async move {
-                let resp = rot::encrypt(e.value.clone()).await;
+                let resp = rot::encrypt(e.value()).await;
                 secret.clone().set(resp);
             }
         });
     };
     let on_input_secret = move |e: FormEvent| {
-        secret.set(e.value.clone());
-        cx.spawn({
+        secret.set(e.value());
+        spawn({
             let plain = plain.to_owned();
 
             async move {
-                let resp = rot::decrypt(e.value.clone()).await;
+                let resp = rot::decrypt(e.value()).await;
                 plain.clone().set(resp);
             }
         });
     };
 
-    cx.render(rsx!(
+    rsx!(
         section { class: "flex flex-col mt-10 ",
                   div { class: "mb-6 pt-3 rounded bg-gray-200",
                         label { class: "input-label",
@@ -57,5 +57,5 @@ pub fn dashboard(cx: Scope) -> Element {
                         }
                   }
         }
-    ))
+    )
 }

@@ -2,8 +2,8 @@ use dioxus::prelude::*;
 
 use super::icons;
 
-pub fn footer(cx: Scope) -> Element {
-    cx.render(rsx!(
+pub fn footer() -> Element {
+    rsx!(
         section { class: "max-w-lg mx-auto flex justify-center text-white font-medium",
               a { class: "duration-500 transform hover:-translate-y-1 hover:scale-125 hover:underline",
                   href: "https://azzamsa.com/support/",
@@ -23,5 +23,5 @@ pub fn footer(cx: Scope) -> Element {
                   "Meta"
               }
         }
-    ))
+    )
 }

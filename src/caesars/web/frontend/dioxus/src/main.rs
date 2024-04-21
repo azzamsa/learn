@@ -9,11 +9,11 @@ pub mod rot;
 use dioxus::prelude::*;
 
 fn main() {
-    dioxus_web::launch(app);
+    launch(app);
 }
 
-fn app(cx: Scope) -> Element {
-    cx.render(rsx! (
+fn app() -> Element {
+    rsx! (
         section { class: "bg-main pt-12 md:pt-20 pb-6 px-2 md:px-5 min-h-screen",
             header { class: "max-w-lg mx-auto",
                 h1 { class: "font-bold text-white text-center",
@@ -26,5 +26,5 @@ fn app(cx: Scope) -> Element {
             }
             components::footer::footer{}
         }
-    ))
+    )
 }
