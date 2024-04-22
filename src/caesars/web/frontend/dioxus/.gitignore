@@ -1,5 +1,5 @@
-/target
-
-dist
-node_modules
-styles/compiled.scss
+target/
+.dioxus/
+dist/
+node_modules/
+public/

@@ -4,9 +4,14 @@ version = "1.0.8"
 edition = "2021"
 
 [dependencies]
-dioxus = "0.5.1"
-dioxus-web = "0.5.1"
+dioxus = { version = "0.5", features = ["web"] }
 
 cynic = "3.6"
 reqwest = { version = "0.12", features = ["json"] }
 serde = "1.0"
+manganis = "0.2.2"
+
+# Debug
+log = "0.4.19"
+dioxus-logger = "0.4.1"
+console_error_panic_hook = "0.1.7"

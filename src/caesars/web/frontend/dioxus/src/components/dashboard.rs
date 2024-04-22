@@ -2,7 +2,8 @@ use dioxus::{events::*, prelude::*};
 
 use crate::rot;
 
-pub fn dashboard() -> Element {
+#[component]
+pub fn Dashboard() -> Element {
     let mut plain = use_signal(|| "".to_string());
     let mut secret = use_signal(|| "".to_string());
 
@@ -33,29 +34,27 @@ pub fn dashboard() -> Element {
 
     rsx!(
         section { class: "flex flex-col mt-10 ",
-                  div { class: "mb-6 pt-3 rounded bg-gray-200",
-                        label { class: "input-label",
-                                "Plain",
-                        },
-                        // plain textarea
-                        textarea { class: "input",
-                                   placeholder: "me@casar.tld",
-                                   value: "{plain}",
-                                   oninput: on_input_plain
-                        }
-                  }
-                  div { class: "flex justify-center" }
-                  div { class: "mb-6 pt-3 rounded bg-gray-200",
-                        label { class: "input-label",
-                                "Plain",
-                        },
-                        // secret textarea
-                        textarea { class: "input",
-                                   placeholder: "me@casar.tld",
-                                   value: "{secret}",
-                                   oninput: on_input_secret
-                        }
-                  }
+            div { class: "mb-6 pt-3 rounded bg-gray-200",
+                label { class: "input-label", "Plain" }
+                // plain textarea
+                textarea {
+                    class: "input",
+                    placeholder: "me@casar.tld",
+                    value: "{plain}",
+                    oninput: on_input_plain
+                }
+            }
+            div { class: "flex justify-center" }
+            div { class: "mb-6 pt-3 rounded bg-gray-200",
+                label { class: "input-label", "Plain" }
+                // secret textarea
+                textarea {
+                    class: "input",
+                    placeholder: "me@casar.tld",
+                    value: "{secret}",
+                    oninput: on_input_secret
+                }
+            }
         }
     )
 }

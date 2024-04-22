@@ -1,7 +1,6 @@
 target/
-
 dist/
-**/compiled.scss
+public/tailwind.css
 *.yaml
 *.md
 *.toml

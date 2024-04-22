@@ -11,7 +11,7 @@ _default:
 # Setup the repository.
 setup: _areyousure
     rustup target add wasm32-unknown-unknown
-    npm install
+    pnpm install
 
     just _cargo-install 'trunk microserver bacon'
 
@@ -27,13 +27,13 @@ dev:
 
 # Run the app.
 run:
-    pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss  --output styles/compiled.scss
-    trunk serve
+    pnpx tailwindcss --input styles/main.css  --output public/tailwind.css
+    dx serve
 
 # Build the app.
 build:
-    NODE_ENV=production pnpx tailwindcss --config configs/tailwind.config.js --input styles/main.scss --output styles/compiled.scss
-    trunk build --release
+    NODE_ENV=production pnpx tailwindcss --input styles/main.css --output public/tailwind.css
+    dx build --release
 
 # Preview the build output.
 preview-build:
@@ -42,12 +42,12 @@ preview-build:
 # Format the codebase.
 fmt:
     cargo fmt --all
-    pnpx prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --write .
+    pnpx prettier --write .
 
 # Check is the codebase properly formatted.
 fmt-check:
     cargo fmt --check
-    pnpx prettier --config configs/prettier.config.js --ignore-path configs/prettierignore --check .
+    pnpx prettier --check .
 
 # Lint the codebase.
 lint:

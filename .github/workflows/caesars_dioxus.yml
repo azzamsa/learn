@@ -1,7 +1,7 @@
 name: Caesar Dioxus (CI)
 
 env:
-  MIN_SUPPORTED_RUST_VERSION: "1.73.0"
+  MIN_SUPPORTED_RUST_VERSION: "1.77.0"
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -34,18 +34,15 @@ jobs:
           components: clippy, rustfmt
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9
 
-      - name: Install latest dprint release
-        uses: taiki-e/install-action@dprint
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Ensure MSRV is set in `clippy.toml`
-        run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@dprint
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: dioxus-cli
 
       - name: Run check
         run: just check
@@ -57,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install rust toolchain (v${{ env.MIN_SUPPORTED_RUST_VERSION }})
         uses: dtolnay/rust-toolchain@master
@@ -65,12 +62,12 @@ jobs:
           toolchain: ${{ env.MIN_SUPPORTED_RUST_VERSION }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9
 
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@dprint
 
       - name: Run test
         run:  just test
@@ -87,42 +84,32 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
           target: ${{ matrix.job.target }}
 
-      - name: Install latest dprint release
-        uses: taiki-e/install-action@v2
-        with:
-          tool: trunk
-
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9
 
       - name: Install JS dependencies
         run: |
           pnpm i
 
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: dioxus-cli
 
       - name: Show version information
         shell: bash
         run: |
-          gcc --version || true
-          rustup -V
-          rustup toolchain list
-          rustup default
           cargo -V
           rustc -V
-
-          pnpx prettier --version
-          trunk --version
 
       - name: Run build
         run:  just build
