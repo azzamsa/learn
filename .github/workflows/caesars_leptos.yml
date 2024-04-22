@@ -1,10 +1,5 @@
 name: Caesar Leptos (CI)
 
-env:
-  MIN_SUPPORTED_RUST_VERSION: "1.73.0"
-  # https://github.com/oxalica/rust-overlay/tree/master/manifests/nightly
-  RUST_TOOLCHAIN: "nightly-2023-10-06"
-
 on:
   push:
     paths:
@@ -28,30 +23,22 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install rust toolchain
-        uses: dtolnay/rust-toolchain@master
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          # https://github.com/oxalica/rust-overlay/tree/master/manifests/nightly
-          toolchain: ${{ env.RUST_TOOLCHAIN }}
           components: clippy, rustfmt
+
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@dprint
+      - uses: taiki-e/install-action@nextest
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
 
       - name: Install JS dependencies
         run: |
-          npm install
-
-      - name: Install latest dprint release
-        uses: taiki-e/install-action@dprint
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Install latest nextest release
-        uses: taiki-e/install-action@nextest
-
-      - name: Ensure MSRV is set in `clippy.toml`
-        run: grep "^msrv = \"${{ env.MIN_SUPPORTED_RUST_VERSION }}\"\$" clippy.toml
+          pnpm install
 
       - name: Run check
         run: just check
@@ -63,19 +50,12 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install rust toolchain
-        uses: dtolnay/rust-toolchain@nightly
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
 
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Install latest nextest release
-        uses: taiki-e/install-action@nextest
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@nextest
 
       - name: Run test
         run:  just test
@@ -92,41 +72,37 @@ jobs:
 
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@master
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          toolchain: ${{ env.RUST_TOOLCHAIN }}
-          target: ${{ matrix.job.target }}
+          target: ${{ matrix.target }}
 
       - name: Install JS dependencies
         run: |
           npm install
 
-      - name: Install latest trunk release
-        uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@just
+      - uses: taiki-e/install-action@nextest
+      - uses: taiki-e/install-action@v2
         with:
           tool: trunk
-
-      - name: Install latest just release
-        uses: taiki-e/install-action@just
-
-      - name: Install latest nextest release
-        uses: taiki-e/install-action@nextest
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
 
       - name: Show version information
         shell: bash
         run: |
-          gcc --version || true
-          rustup -V
-          rustup toolchain list
-          rustup default
           cargo -V
           rustc -V
 
-          npx rustywind --version
+          pnpx rustywind --version
           trunk --version
+
+      - name: Install JS dependencies
+        run: |
+          pnpm install
 
       - name: Run build
         run:  trunk build

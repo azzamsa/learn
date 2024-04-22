@@ -23,7 +23,6 @@ pub mod queries {
     #[derive(cynic::QueryFragment, Debug)]
     pub struct Encrypt {
         pub secret: String,
-        pub rotation: i32,
     }
 
     #[derive(cynic::QueryFragment, Debug)]
@@ -42,6 +41,5 @@ pub mod queries {
     #[derive(cynic::QueryFragment, Debug)]
     pub struct Decrypt {
         pub plain: String,
-        pub rotation: i32,
     }
 }

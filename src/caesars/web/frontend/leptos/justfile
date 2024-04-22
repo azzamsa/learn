@@ -11,7 +11,7 @@ _default:
 # Setup the repository.
 setup: _areyousure
     rustup target add wasm32-unknown-unknown
-    npm install
+    pnpm install
 
     just _cargo-install 'cargo-generate trunk microserver leptosfmt bacon'
 
