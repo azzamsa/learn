@@ -49,6 +49,10 @@ async fn run() -> miette::Result<ExitCode> {
             let description = todo.unmark(*id).await?;
             println!("- [] {id}: {description}");
         }
+        Some(Command::Remove { id }) => {
+            let description = todo.unmark(*id).await?;
+            println!("- {id}: {description}.  removed");
+        }
         None => {
             todo.list().await?;
         }

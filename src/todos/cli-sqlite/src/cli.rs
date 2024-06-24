@@ -29,4 +29,9 @@ pub enum Command {
         #[arg(short, long)]
         id: i64,
     },
+    /// Remove todo
+    Remove {
+        #[arg(short, long)]
+        id: i64,
+    },
 }

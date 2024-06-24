@@ -53,6 +53,21 @@ RETURNING description
 
         Ok(description)
     }
+    pub async fn remove(&self, id: i64) -> Result<String, crate::Error> {
+        let description = sqlx::query!(
+            r#"
+DELETE FROM todos
+WHERE id = ?
+RETURNING description
+        "#,
+            id
+        )
+        .fetch_one(&self.pool)
+        .await?
+        .description;
+
+        Ok(description)
+    }
     pub async fn list(&self) -> Result<(), crate::Error> {
         let recs = sqlx::query!(
             r#"
