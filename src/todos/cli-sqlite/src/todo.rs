@@ -1,4 +1,4 @@
-use sqlx::{pool::PoolConnection, Sqlite, SqlitePool};
+use sqlx::SqlitePool;
 
 pub struct Todo {
     pool: SqlitePool,
@@ -9,7 +9,6 @@ impl Todo {
         Self { pool }
     }
     pub async fn add(&self, description: &str) -> Result<i64, crate::Error> {
-        let mut conn = self.conn().await?;
         // Insert the task, then obtain the ID of this row
         let id = sqlx::query!(
             r#"
@@ -18,7 +17,7 @@ VALUES ( ?1 )
         "#,
             description
         )
-        .execute(&mut *conn)
+        .execute(&self.pool)
         .await?
         .last_insert_rowid();
 
@@ -75,8 +74,5 @@ ORDER BY id
         }
 
         Ok(())
-    }
-    async fn conn(&self) -> Result<PoolConnection<Sqlite>, crate::Error> {
-        Ok(self.pool.acquire().await?)
     }
 }
