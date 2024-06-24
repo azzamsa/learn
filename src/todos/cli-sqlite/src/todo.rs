@@ -8,9 +8,8 @@ impl Todo {
     pub fn new(pool: SqlitePool) -> Self {
         Self { pool }
     }
-    pub async fn add(&self, description: &str) -> Result<i64, crate::Error> {
-        // Insert the task, then obtain the ID of this row
-        let id = sqlx::query!(
+    pub async fn add(&self, description: &str) -> Result<(), crate::Error> {
+        sqlx::query!(
             r#"
 INSERT INTO todos ( description )
 VALUES ( ?1 )
@@ -18,40 +17,41 @@ VALUES ( ?1 )
             description
         )
         .execute(&self.pool)
-        .await?
-        .last_insert_rowid();
+        .await?;
 
-        Ok(id)
+        Ok(())
     }
-    pub async fn mark(&self, id: i64) -> Result<bool, crate::Error> {
-        let rows_affected = sqlx::query!(
+    pub async fn mark(&self, id: i64) -> Result<String, crate::Error> {
+        let description = sqlx::query!(
             r#"
 UPDATE todos
 SET done = TRUE
 WHERE id = ?1
+RETURNING description
         "#,
             id
         )
-        .execute(&self.pool)
+        .fetch_one(&self.pool)
         .await?
-        .rows_affected();
+        .description;
 
-        Ok(rows_affected > 0)
+        Ok(description)
     }
-    pub async fn unmark(&self, id: i64) -> Result<bool, crate::Error> {
-        let rows_affected = sqlx::query!(
+    pub async fn unmark(&self, id: i64) -> Result<String, crate::Error> {
+        let description = sqlx::query!(
             r#"
 UPDATE todos
 SET done = FALSE
 WHERE id = ?1
+RETURNING description
         "#,
             id
         )
-        .execute(&self.pool)
+        .fetch_one(&self.pool)
         .await?
-        .rows_affected();
+        .description;
 
-        Ok(rows_affected > 0)
+        Ok(description)
     }
     pub async fn list(&self) -> Result<(), crate::Error> {
         let recs = sqlx::query!(

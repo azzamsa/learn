@@ -42,12 +42,12 @@ async fn run() -> miette::Result<ExitCode> {
             println!("- [] {description}");
         }
         Some(Command::Mark { id }) => {
-            todo.mark(*id).await?;
-            // println!("- [] {description}");
+            let description = todo.mark(*id).await?;
+            println!("- [X] {id}: {description}");
         }
         Some(Command::Unmark { id }) => {
-            todo.unmark(*id).await?;
-            // println!("Marking todo {id} as done");
+            let description = todo.unmark(*id).await?;
+            println!("- [] {id}: {description}");
         }
         None => {
             todo.list().await?;
