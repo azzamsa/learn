@@ -17,12 +17,21 @@ lto = true
 panic = 'abort'
 
 [dependencies]
+tokio = { version = "1.38.0", features = ["macros", "rt-multi-thread"] }
+
 # cli
 clap = { version = "4.5.7", features = ["derive"] }
 
 # error
 miette = { version = "7.2", features = ["fancy"] }
 thiserror = "1.0"
+
+# Database
+sqlx = { version = "0.7.4", features = ["runtime-tokio-rustls", "sqlite", "migrate"] }
+
+# Logging
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
 
 [dev-dependencies]
 assert_cmd = "2.0.14"

@@ -3,10 +3,11 @@ use std::{process, sync::Arc};
 
 use clap::Parser;
 
-use todos::{cli::Opts, config::Config, exit_codes::ExitCode, output, Error};
+use todos::{cli::Opts, config::Config, db, exit_codes::ExitCode, output, Error};
 
-fn main() {
-    let result = run();
+#[tokio::main]
+async fn main() {
+    let result = run().await;
     match result {
         Ok(exit_code) => {
             process::exit(exit_code.into());
@@ -18,10 +19,13 @@ fn main() {
     }
 }
 
-fn run() -> miette::Result<ExitCode> {
+async fn run() -> miette::Result<ExitCode> {
     let opts = Arc::new(Opts::parse());
 
     let _config = construct_config(Arc::clone(&opts))?;
+
+    let db = db::connect().await?;
+    db::migrate(db).await?;
     Ok(ExitCode::Success)
 }
 
