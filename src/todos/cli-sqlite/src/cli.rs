@@ -22,11 +22,11 @@ pub enum Command {
     /// Mark a task as completed
     Mark {
         #[arg(short, long)]
-        id: i32,
+        id: i64,
     },
     /// Mark a task as todo
     Unmark {
         #[arg(short, long)]
-        id: i32,
+        id: i64,
     },
 }

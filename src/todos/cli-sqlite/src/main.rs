@@ -8,7 +8,9 @@ use todos::{
     config::Config,
     db,
     exit_codes::ExitCode,
-    output, todo, Error,
+    output,
+    todo::Todo,
+    Error,
 };
 
 #[tokio::main]
@@ -33,20 +35,22 @@ async fn run() -> miette::Result<ExitCode> {
     let pool = db::connect().await?;
     db::migrate(&pool).await?;
 
+    let todo = Todo::new(pool);
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
-            println!("Adding new todo with description '{description}'");
-            let todo_id = todo::add(&pool, description).await?;
-            println!("Added new todo with id {todo_id}");
+            todo.add(description).await?;
+            println!("- [] {description}");
         }
         Some(Command::Mark { id }) => {
-            println!("Marking todo {id} as done");
+            todo.mark(*id).await?;
+            // println!("- [] {description}");
         }
         Some(Command::Unmark { id }) => {
-            println!("Marking todo {id} as done");
+            todo.unmark(*id).await?;
+            // println!("Marking todo {id} as done");
         }
         None => {
-            println!("Printing list of all todos");
+            todo.list().await?;
         }
     }
     Ok(ExitCode::Success)
