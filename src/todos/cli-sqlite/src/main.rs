@@ -3,7 +3,13 @@ use std::{process, sync::Arc};
 
 use clap::Parser;
 
-use todos::{cli::Opts, config::Config, db, exit_codes::ExitCode, output, Error};
+use todos::{
+    cli::{Command, Opts},
+    config::Config,
+    db,
+    exit_codes::ExitCode,
+    output, todo, Error,
+};
 
 #[tokio::main]
 async fn main() {
@@ -24,8 +30,25 @@ async fn run() -> miette::Result<ExitCode> {
 
     let _config = construct_config(Arc::clone(&opts))?;
 
-    let db = db::connect().await?;
-    db::migrate(db).await?;
+    let pool = db::connect().await?;
+    db::migrate(&pool).await?;
+
+    match opts.cmd.as_ref() {
+        Some(Command::Add { description }) => {
+            println!("Adding new todo with description '{description}'");
+            let todo_id = todo::add(&pool, description).await?;
+            println!("Added new todo with id {todo_id}");
+        }
+        Some(Command::Mark { id }) => {
+            println!("Marking todo {id} as done");
+        }
+        Some(Command::Unmark { id }) => {
+            println!("Marking todo {id} as done");
+        }
+        None => {
+            println!("Printing list of all todos");
+        }
+    }
     Ok(ExitCode::Success)
 }
 

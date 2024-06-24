@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(
@@ -7,4 +7,26 @@ use clap::Parser;
     about = "todos 📋 \nManage your TODOS.",
     after_long_help = "Bugs can be reported on GitHub: https://github.com/azzamsa/"
 )]
-pub struct Opts {}
+pub struct Opts {
+    #[command(subcommand)]
+    pub cmd: Option<Command>,
+}
+
+#[derive(Subcommand)]
+pub enum Command {
+    /// Add a new todo task
+    Add {
+        #[arg(short, long)]
+        description: String,
+    },
+    /// Mark a task as completed
+    Mark {
+        #[arg(short, long)]
+        id: i32,
+    },
+    /// Mark a task as todo
+    Unmark {
+        #[arg(short, long)]
+        id: i32,
+    },
+}
