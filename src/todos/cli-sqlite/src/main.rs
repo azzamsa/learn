@@ -38,20 +38,28 @@ async fn run() -> miette::Result<ExitCode> {
     let todo = Todo::new(pool);
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
-            todo.add(description).await?;
-            println!("- [] {description}");
+            let id = todo.add(description).await?;
+            println!("- [] {id}: {description}");
         }
         Some(Command::Mark { id }) => {
-            let description = todo.mark(*id).await?;
+            todo.mark(*id).await?;
+            let description = todo.description(*id).await?;
             println!("- [X] {id}: {description}");
         }
         Some(Command::Unmark { id }) => {
-            let description = todo.unmark(*id).await?;
+            todo.unmark(*id).await?;
+            let description = todo.description(*id).await?;
             println!("- [] {id}: {description}");
         }
         Some(Command::Remove { id }) => {
-            let description = todo.unmark(*id).await?;
-            println!("- {id}: {description}.  removed");
+            let description = todo.description(*id).await?;
+            let status = todo.status(*id).await?;
+            todo.remove(*id).await?;
+            let status = match status {
+                true => "X",
+                false => "",
+            };
+            println!("- [{status}] {id}: {description}.  removed");
         }
         None => {
             todo.list().await?;

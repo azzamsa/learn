@@ -8,5 +8,5 @@ pub async fn connect() -> Result<SqlitePool, crate::Error> {
 
 pub async fn migrate(pool: &SqlitePool) -> Result<(), crate::Error> {
     let mut conn = pool.acquire().await?;
-    Ok(sqlx::migrate!("db/migrations").run(&mut conn).await?)
+    Ok(sqlx::migrate!().run(&mut conn).await?)
 }
