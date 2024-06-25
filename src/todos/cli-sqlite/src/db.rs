@@ -1,9 +1,9 @@
-use std::env;
-
 use sqlx::SqlitePool;
 
-pub async fn connect() -> Result<SqlitePool, crate::Error> {
-    Ok(SqlitePool::connect(&env::var("DATABASE_URL")?).await?)
+use crate::config;
+
+pub async fn connect(db: &config::Database) -> Result<SqlitePool, crate::Error> {
+    Ok(SqlitePool::connect(&db.url).await?)
 }
 
 pub async fn migrate(pool: &SqlitePool) -> Result<(), crate::Error> {

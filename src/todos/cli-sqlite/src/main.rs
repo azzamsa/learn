@@ -10,7 +10,6 @@ use todos::{
     exit_codes::ExitCode,
     output,
     todo::Todo,
-    Error,
 };
 
 #[tokio::main]
@@ -29,10 +28,9 @@ async fn main() {
 
 async fn run() -> miette::Result<ExitCode> {
     let opts = Arc::new(Opts::parse());
+    let config = Arc::new(Config::load()?);
 
-    let _config = construct_config(Arc::clone(&opts))?;
-
-    let pool = db::connect().await?;
+    let pool = db::connect(&config.database).await?;
     db::migrate(&pool).await?;
 
     let todo = Todo::new(pool);
@@ -66,8 +64,4 @@ async fn run() -> miette::Result<ExitCode> {
         }
     }
     Ok(ExitCode::Success)
-}
-
-fn construct_config(_opts: Arc<Opts>) -> Result<Config, crate::Error> {
-    Ok(Config {})
 }
