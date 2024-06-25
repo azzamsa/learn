@@ -37,17 +37,17 @@ async fn run() -> miette::Result<ExitCode> {
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
             let id = todo.add(description).await?;
-            println!("- [] {id}: {description}");
+            output::stdout(&format!("- [] {id}: {description}"));
         }
         Some(Command::Mark { id }) => {
             todo.mark(*id).await?;
             let description = todo.description(*id).await?;
-            println!("- [X] {id}: {description}");
+            output::stdout(&format!("- [X] {id}: {description}"));
         }
         Some(Command::Unmark { id }) => {
             todo.unmark(*id).await?;
             let description = todo.description(*id).await?;
-            println!("- [] {id}: {description}");
+            output::stdout(&format!("- [] {id}: {description}"));
         }
         Some(Command::Remove { id }) => {
             let description = todo.description(*id).await?;
@@ -57,17 +57,17 @@ async fn run() -> miette::Result<ExitCode> {
                 true => "X",
                 false => "",
             };
-            println!("- [{status}] {id}: {description}.  removed");
+            output::stdout(&format!("- [{status}] {id}: {description}.  removed"));
         }
         None => {
             let todos = todo.list().await?;
             for todo in todos {
-                println!(
+                output::stdout(&format!(
                     "- [{}] {}: {}",
                     if todo.done { "X" } else { "" },
                     todo.id,
                     &todo.description,
-                );
+                ));
             }
         }
     }
