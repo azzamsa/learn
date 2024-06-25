@@ -1,0 +1,58 @@
+[package]
+name = "todos"
+version = "0.0.0"
+authors = ["azzamsa <vcs@azzamsa.com>"]
+categories = ["command-line-utilities"]
+edition = "2021"
+exclude = ["/README.md"]
+keywords = ["cli", "todo"]
+license = "MIT"
+rust-version = "1.79.0"
+description = "Todos"
+
+[profile.release]
+opt-level = 'z' # Optimize for size.
+codegen-units = 1
+lto = true
+panic = 'abort'
+
+[dependencies]
+tokio = { version = "1.38.0", features = ["macros", "rt-multi-thread"] }
+
+# cli
+clap = { version = "4.5.7", features = ["derive"] }
+
+# error
+miette = { version = "7.2", features = ["fancy"] }
+thiserror = "1.0"
+
+# Database
+iroh = "0.18.0"
+
+# Logging
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+
+bytes = "1.6.0"
+dotenvy = "0.15.7"
+rand = "0.8.5"
+serde = { version = "1.0.203", features = ["derive"] }
+serde_json = "1.0.117"
+anyhow = "1.0.86"
+
+[dev-dependencies]
+assert_cmd = "2.0.14"
+assert_fs = "1.1.1"
+predicates = "3.1"
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/{ name }-{ version}-{ target }.tar.gz"
+bin-dir = "{ bin }{ binary-ext }"
+pkg-fmt = "tgz"
+
+[package.metadata.release]
+sign-commit = true
+sign-tag = true
+tag-message = "v{{version}}"
+pre-release-commit-message = "v{{version}}"
+pre-release-hook = ["just", "_release-prepare", "{{version}}"]
