@@ -65,6 +65,7 @@ async fn init_repo() -> Result<Repo, crate::Error> {
     // Initialize node
     let node = Node::persistent(&storage_path).await?.spawn().await?;
     let author_id = get_author(&node).await?;
+    dbg!("author id: {}", &author_id);
 
     // Check if the previous document_id exists
     let document = match config_path.exists() {
@@ -88,6 +89,7 @@ async fn init_repo() -> Result<Repo, crate::Error> {
         }
     };
 
+    dbg!("document: {}", &document.id().to_string());
     Ok(Repo {
         document,
         author_id,

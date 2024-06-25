@@ -38,7 +38,7 @@ impl Repo {
             todos.push(todo);
         }
 
-        // dbg!("todos: {:?}", &todos);
+        dbg!("todos: {:?}", &todos);
         Ok(todos)
     }
     pub async fn add(&self, description: &str) -> Result<i32, crate::Error> {
