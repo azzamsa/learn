@@ -9,7 +9,7 @@ use todos::{
     db,
     exit_codes::ExitCode,
     output,
-    todo::Todo,
+    todo::Repo,
 };
 
 #[tokio::main]
@@ -33,7 +33,7 @@ async fn run() -> miette::Result<ExitCode> {
     let pool = db::connect(&config.database).await?;
     db::migrate(&pool).await?;
 
-    let todo = Todo::new(pool);
+    let todo = Repo::new(pool);
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
             let id = todo.add(description).await?;
@@ -60,7 +60,15 @@ async fn run() -> miette::Result<ExitCode> {
             println!("- [{status}] {id}: {description}.  removed");
         }
         None => {
-            todo.list().await?;
+            let todos = todo.list().await?;
+            for todo in todos {
+                println!(
+                    "- [{}] {}: {}",
+                    if todo.done { "X" } else { "" },
+                    todo.id,
+                    &todo.description,
+                );
+            }
         }
     }
     Ok(ExitCode::Success)

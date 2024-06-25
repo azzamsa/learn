@@ -10,8 +10,6 @@ pub struct Database {
 }
 
 impl Config {
-    /// Load the configuration from the environment.
-    /// If an error is found while parsing the values, or validating the data, an error is returned.
     pub fn load() -> Result<Self, crate::Error> {
         dotenvy::dotenv().ok();
         let database = {
@@ -21,7 +19,6 @@ impl Config {
             Database { url }
         };
         let config = Self { database };
-
         Ok(config)
     }
 }

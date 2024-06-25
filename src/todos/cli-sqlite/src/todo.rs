@@ -1,10 +1,16 @@
 use sqlx::SqlitePool;
 
 pub struct Todo {
+    pub id: i64,
+    pub description: String,
+    pub done: bool,
+}
+
+pub struct Repo {
     pool: SqlitePool,
 }
 
-impl Todo {
+impl Repo {
     pub fn new(pool: SqlitePool) -> Self {
         Self { pool }
     }
@@ -63,7 +69,7 @@ WHERE id = $1
 
         Ok(())
     }
-    pub async fn list(&self) -> Result<(), crate::Error> {
+    pub async fn list(&self) -> Result<Vec<Todo>, crate::Error> {
         let recs = sqlx::query!(
             r#"
 SELECT id, description, done
@@ -74,16 +80,16 @@ ORDER BY id
         .fetch_all(&self.pool)
         .await?;
 
-        for rec in recs {
-            println!(
-                "- [{}] {}: {}",
-                if rec.done { "X" } else { "" },
-                rec.id,
-                &rec.description,
-            );
-        }
+        let todos: Vec<Todo> = recs
+            .into_iter()
+            .map(|rec| Todo {
+                id: rec.id,
+                description: rec.description,
+                done: rec.done,
+            })
+            .collect();
 
-        Ok(())
+        Ok(todos)
     }
     pub async fn description(&self, id: i64) -> Result<String, crate::Error> {
         let description = sqlx::query!(
