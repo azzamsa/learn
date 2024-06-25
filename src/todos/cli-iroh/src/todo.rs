@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 use serde_json as json;
 use tokio_stream::StreamExt;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Todo {
     pub id: i32,
     pub description: String,
@@ -38,6 +38,7 @@ impl Repo {
             todos.push(todo);
         }
 
+        // dbg!("todos: {:?}", &todos);
         Ok(todos)
     }
     pub async fn add(&self, description: &str) -> Result<i32, crate::Error> {
@@ -47,7 +48,7 @@ impl Repo {
             description: description.to_string(),
             done: false,
         };
-        self.insert_bytes(id, todo.as_bytes()?).await?;
+        self.insert_bytes(id.to_string(), todo.as_bytes()?).await?;
         Ok(id)
     }
     async fn todo_from_entry(&self, entry: &Entry) -> Result<Todo, crate::Error> {
@@ -59,10 +60,9 @@ impl Repo {
         let mut rng = rand::thread_rng();
         rng.gen_range(1..=90)
     }
-    async fn insert_bytes(&self, key: i32, content: Bytes) -> Result<(), crate::Error> {
-        let key: Bytes = Bytes::copy_from_slice(&key.to_le_bytes());
+    async fn insert_bytes(&self, key: String, content: Bytes) -> Result<(), crate::Error> {
         self.document
-            .set_bytes(self.author_id, key, content)
+            .set_bytes(self.author_id, key.as_bytes().to_vec(), content)
             .await?;
         Ok(())
     }
