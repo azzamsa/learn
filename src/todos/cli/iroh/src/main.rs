@@ -55,15 +55,21 @@ async fn run_inner<D: Store>(node: &Node<D>) -> Result<(), crate::Error> {
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
             repo.add(description).await?;
-            output::stdout(&format!("- [] {description}"));
+            output::stdout(&format!("- [ ]: {description}"));
+        }
+        Some(Command::Toggle { id }) => {
+            repo.toggle(id.to_owned()).await?;
+            let todo = repo.get(id.to_owned()).await?;
+            output::stdout(&format!("- [{}] {}", todo.done_icon(), todo.description));
         }
         None => {
             let todos = repo.list().await?;
             for todo in todos {
                 output::stdout(&format!(
-                    "- [{}] {}",
-                    if todo.done { "X" } else { "" },
-                    &todo.description,
+                    "- ({}) [{}]: {}",
+                    todo.id,
+                    todo.done_icon(),
+                    &todo.description
                 ));
             }
         }

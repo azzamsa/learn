@@ -29,11 +29,11 @@ impl Repo {
             .as_secs();
         let todo = Todo {
             created,
-            id,
+            id: id.clone(),
             description: description.to_string(),
             done: false,
         };
-        self.insert(id.to_string(), todo.to_string()).await?;
+        self.insert(id, todo.to_string()).await?;
         Ok(())
     }
     pub async fn list(&self) -> Result<Vec<Todo>, crate::Error> {
@@ -51,12 +51,12 @@ impl Repo {
         todos.sort_by_key(|t| t.created);
         Ok(todos)
     }
-    pub async fn toggle_done(&mut self, id: String) -> Result<(), crate::Error> {
-        let mut todo = self.get_todo(id.clone()).await?;
+    pub async fn toggle(&self, id: String) -> Result<(), crate::Error> {
+        let mut todo = self.get(id.clone()).await?;
         todo.done = !todo.done;
         self.insert(id, todo.to_string()).await
     }
-    async fn get_todo(&self, id: String) -> Result<Todo, crate::Error> {
+    pub async fn get(&self, id: String) -> Result<Todo, crate::Error> {
         let entry = self
             .document
             .get_many(Query::single_latest_per_key().key_exact(id))
@@ -70,11 +70,17 @@ impl Repo {
     async fn todo_from_entry(&self, entry: &Entry) -> Result<Todo, crate::Error> {
         let content = entry.content_bytes(&self.document).await?;
         let content = std::str::from_utf8(&content)?;
-        dbg!(&content);
         Todo::from_str(content)
     }
-    fn gen_id() -> Uuid {
-        Uuid::new_v4()
+    fn gen_id() -> String {
+        // Uuid is too long to type
+        let uuid = Uuid::new_v4();
+        // Get the first 8 characters (32 bits) of the UUID as a hexadecimal string
+        uuid.as_simple()
+            .to_string()
+            .chars()
+            .take(8)
+            .collect::<String>()
     }
     async fn insert(&self, key: String, content: String) -> Result<(), crate::Error> {
         self.document
@@ -115,7 +121,7 @@ pub struct Todo {
     /// Record creation timestamp. Counted as micros since the Unix epoch.
     pub created: u64,
     /// ID of the todo
-    pub id: Uuid,
+    pub id: String,
     /// Description of the todo
     pub description: String,
     /// Whether or not the todo has been completed.
@@ -136,5 +142,12 @@ impl Todo {
     fn from_str(str: &str) -> Result<Self, crate::Error> {
         let todo = json::from_str(str)?;
         Ok(todo)
+    }
+    pub fn done_icon(&self) -> String {
+        if self.done {
+            "X".to_string()
+        } else {
+            " ".to_string()
+        }
     }
 }

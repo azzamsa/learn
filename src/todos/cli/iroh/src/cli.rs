@@ -19,4 +19,9 @@ pub enum Command {
         #[arg(short, long)]
         description: String,
     },
+    /// Toggle the completion status of a todo item
+    Toggle {
+        #[arg(short, long)]
+        id: String,
+    },
 }
