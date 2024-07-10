@@ -24,9 +24,3 @@ impl std::convert::From<anyhow::Error> for Error {
         Error::Internal(err.to_string())
     }
 }
-
-impl std::convert::From<toml::ser::Error> for Error {
-    fn from(err: toml::ser::Error) -> Self {
-        Error::Internal(err.to_string())
-    }
-}

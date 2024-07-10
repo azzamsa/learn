@@ -1,18 +1,15 @@
-use std::{fmt, str::FromStr};
+use std::str::FromStr;
 
+use indicatif::HumanBytes;
+use iroh::docs::store::Query;
 use iroh::{
     base::base32,
-    blobs::store::fs::Store,
-    client::{docs::Entry, MemDoc as Doc},
-    docs::{AuthorId, NamespaceId},
-    node::Node,
+    client::{docs::Entry, Doc, Iroh},
+    docs::{AuthorId, NamespaceSecret},
 };
 use rand::Rng;
 use serde::{Deserialize, Serialize};
-use serde_json as json;
 use tokio_stream::StreamExt;
-
-use crate::config::Config;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Todo {
@@ -33,39 +30,37 @@ impl Repo {
             author_id,
         }
     }
-    // pub async fn list(&self) -> Result<Vec<Todo>, crate::Error> {
-    //     let mut entries = self.document.get_many(Query::all()).await?;
-    //
-    //     let mut todos = Vec::new();
-    //     while let Some(entry) = entries.next().await {
-    //         let entry = entry?;
-    //         let todo = self.todo_from_entry(&entry).await?;
-    //         todos.push(todo);
-    //     }
-    //
-    //     dbg!("todos: {:?}", &todos);
-    //     Ok(todos)
-    // }
     pub async fn add(&self, description: &str) -> Result<i32, crate::Error> {
-        let id = self.id();
-        let todo = Todo {
-            id,
-            description: description.to_string(),
-            done: false,
-        };
-        self.write(id.to_string(), todo.to_string()).await?;
+        let id = Self::gen_id();
+        self.insert(id.to_string(), description.to_owned()).await?;
         Ok(id)
     }
-    async fn todo_from_entry(&self, entry: &Entry) -> Result<Todo, crate::Error> {
-        let hash = entry.content_hash();
-        let hash = base32::fmt_short(hash.as_bytes());
-        Todo::from_str(&hash)
+    pub async fn list(&self) -> Result<(), crate::Error> {
+        let mut stream = self.document.get_many(Query::all()).await.unwrap();
+        while let Some(entry) = stream.try_next().await.unwrap() {
+            println!("\nentry {}", Self::fmt_entry(&entry));
+            println!("  document id: {}", self.document.id());
+            println!("  author id: {}", entry.author());
+            let content = entry.content_bytes(&self.document).await.unwrap();
+            println!("  content {}", std::str::from_utf8(&content).unwrap())
+        }
+        Ok(())
     }
-    fn id(&self) -> i32 {
+    fn fmt_entry(entry: &Entry) -> String {
+        let id = entry.id();
+        let key = std::str::from_utf8(id.key()).unwrap_or("<bad key>");
+        let author = id.author().fmt_short();
+        let hash = entry.content_hash();
+        println!("hash: {hash}");
+        let hash = base32::fmt_short(hash.as_bytes());
+        let len = HumanBytes(entry.content_len());
+        format!("@{author}: {key} = {hash} ({len})",)
+    }
+    fn gen_id() -> i32 {
         let mut rng = rand::thread_rng();
         rng.gen_range(1..=90)
     }
-    async fn write(&self, key: String, content: String) -> Result<(), crate::Error> {
+    async fn insert(&self, key: String, content: String) -> Result<(), crate::Error> {
         self.document
             .set_bytes(self.author_id, key, content)
             .await?;
@@ -73,71 +68,30 @@ impl Repo {
     }
 }
 
-impl Todo {
-    fn from_str(str: &str) -> Result<Self, crate::Error> {
-        let todo = json::from_str(str)?;
-        Ok(todo)
-    }
-}
-
-impl fmt::Display for Todo {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let json = json::to_string(self).map_err(|_| fmt::Error)?;
-        write!(f, "{}", json)
-    }
-}
-
 impl Repo {
-    pub async fn read(node: &Node<Store>, config: Config) -> Result<Repo, crate::Error> {
-        let author_id = Self::get_author(node).await?;
-        let document = node
-            .client()
-            .docs()
-            .open(NamespaceId::from_str(&config.document_id)?)
-            .await?;
-        let document = document.expect("can't find document");
-        let document_id = &document.id().to_string();
+    pub async fn read(client: &Iroh, namespace_id: &str) -> Result<Repo, crate::Error> {
+        let author_id = client.authors().default().await?;
+        let document = Self::load_document(client, namespace_id).await?;
 
-        println!(
+        tracing::debug!(
             r#"Loaded.
 document id: {}
 author   id: {}"#,
-            document_id, author_id
+            document.id(),
+            author_id,
         );
         Ok(Repo {
             document,
             author_id,
         })
     }
-    pub async fn init(node: &Node<Store>) -> Result<Repo, crate::Error> {
-        let author_id = Self::get_author(node).await?;
-
-        tokio::fs::create_dir_all(Config::storage_path()).await?;
-        let document = node.client().docs().create().await?;
-        let document_id = &document.id().to_string();
-        let config = Config::new(document_id, &author_id.to_string());
-        config.write()?;
-
-        println!(
-            r#"Initialized.
-document id: {}
-author   id: {}"#,
-            document_id, author_id
-        );
-        Ok(Repo {
-            document,
-            author_id,
-        })
-    }
-    async fn get_author(
-        node: &Node<iroh::blobs::store::fs::Store>,
-    ) -> Result<AuthorId, crate::Error> {
-        let mut stream = node.client().authors().list().await?;
-        if let Some(author_id) = stream.next().await {
-            let author_id = author_id?;
-            return Ok(author_id);
-        }
-        let author_id = node.client().authors().create().await?;
-        Ok(author_id)
+    async fn load_document(client: &Iroh, namespace_id: &str) -> Result<Doc, crate::Error> {
+        let document = client
+            .docs()
+            .import_namespace(iroh::docs::Capability::Write(NamespaceSecret::from_str(
+                namespace_id,
+            )?))
+            .await?;
+        Ok(document)
     }
 }
