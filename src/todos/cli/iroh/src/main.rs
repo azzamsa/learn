@@ -27,7 +27,7 @@ async fn main() {
 }
 
 async fn run() -> miette::Result<ExitCode> {
-    let storage_path = std::env::current_dir().unwrap().join("data");
+    let storage_path = std::env::current_dir().unwrap().join("cdata");
     tokio::fs::create_dir_all(&storage_path).await.unwrap();
 
     // Initialize node
@@ -54,11 +54,18 @@ async fn run_inner<D: Store>(node: &Node<D>) -> Result<(), crate::Error> {
     let repo = Repo::read(client, namespace_id).await?;
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
-            let id = repo.add(description).await?;
-            output::stdout(&format!("- [] {id}: {description}"));
+            repo.add(description).await?;
+            output::stdout(&format!("- [] {description}"));
         }
         None => {
-            repo.list().await?;
+            let todos = repo.list().await?;
+            for todo in todos {
+                output::stdout(&format!(
+                    "- [{}] {}",
+                    if todo.done { "X" } else { "" },
+                    &todo.description,
+                ));
+            }
         }
     }
     Ok(())

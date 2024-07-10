@@ -1,22 +1,14 @@
+use std::fmt;
 use std::str::FromStr;
 
-use indicatif::HumanBytes;
-use iroh::docs::store::Query;
 use iroh::{
-    base::base32,
     client::{docs::Entry, Doc, Iroh},
-    docs::{AuthorId, NamespaceSecret},
+    docs::{store::Query, AuthorId, Capability, NamespaceSecret},
 };
-use rand::Rng;
 use serde::{Deserialize, Serialize};
+use serde_json as json;
 use tokio_stream::StreamExt;
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Todo {
-    pub id: i32,
-    pub description: String,
-    pub done: bool,
-}
+use uuid::Uuid;
 
 pub struct Repo {
     pub document: Doc,
@@ -30,35 +22,59 @@ impl Repo {
             author_id,
         }
     }
-    pub async fn add(&self, description: &str) -> Result<i32, crate::Error> {
+    pub async fn add(&self, description: &str) -> Result<(), crate::Error> {
         let id = Self::gen_id();
-        self.insert(id.to_string(), description.to_owned()).await?;
-        Ok(id)
-    }
-    pub async fn list(&self) -> Result<(), crate::Error> {
-        let mut stream = self.document.get_many(Query::all()).await.unwrap();
-        while let Some(entry) = stream.try_next().await.unwrap() {
-            println!("\nentry {}", Self::fmt_entry(&entry));
-            println!("  document id: {}", self.document.id());
-            println!("  author id: {}", entry.author());
-            let content = entry.content_bytes(&self.document).await.unwrap();
-            println!("  content {}", std::str::from_utf8(&content).unwrap())
-        }
+        let created = std::time::SystemTime::now()
+            .duration_since(std::time::SystemTime::UNIX_EPOCH)?
+            .as_secs();
+        let todo = Todo {
+            created,
+            id,
+            description: description.to_string(),
+            done: false,
+        };
+        self.insert(id.to_string(), todo.to_string()).await?;
         Ok(())
     }
-    fn fmt_entry(entry: &Entry) -> String {
-        let id = entry.id();
-        let key = std::str::from_utf8(id.key()).unwrap_or("<bad key>");
-        let author = id.author().fmt_short();
-        let hash = entry.content_hash();
-        println!("hash: {hash}");
-        let hash = base32::fmt_short(hash.as_bytes());
-        let len = HumanBytes(entry.content_len());
-        format!("@{author}: {key} = {hash} ({len})",)
+    pub async fn list(&self) -> Result<Vec<Todo>, crate::Error> {
+        let mut entries = self
+            .document
+            .get_many(Query::single_latest_per_key())
+            .await?;
+
+        let mut todos = Vec::new();
+        while let Some(entry) = entries.next().await {
+            let entry = entry?;
+            let todo = self.todo_from_entry(&entry).await?;
+            todos.push(todo);
+        }
+        todos.sort_by_key(|t| t.created);
+        Ok(todos)
     }
-    fn gen_id() -> i32 {
-        let mut rng = rand::thread_rng();
-        rng.gen_range(1..=90)
+    pub async fn toggle_done(&mut self, id: String) -> Result<(), crate::Error> {
+        let mut todo = self.get_todo(id.clone()).await?;
+        todo.done = !todo.done;
+        self.insert(id, todo.to_string()).await
+    }
+    async fn get_todo(&self, id: String) -> Result<Todo, crate::Error> {
+        let entry = self
+            .document
+            .get_many(Query::single_latest_per_key().key_exact(id))
+            .await?
+            .next()
+            .await
+            .ok_or_else(|| crate::Error::Internal("Task not found".into()))??;
+
+        self.todo_from_entry(&entry).await
+    }
+    async fn todo_from_entry(&self, entry: &Entry) -> Result<Todo, crate::Error> {
+        let content = entry.content_bytes(&self.document).await?;
+        let content = std::str::from_utf8(&content)?;
+        dbg!(&content);
+        Todo::from_str(content)
+    }
+    fn gen_id() -> Uuid {
+        Uuid::new_v4()
     }
     async fn insert(&self, key: String, content: String) -> Result<(), crate::Error> {
         self.document
@@ -88,10 +104,37 @@ author   id: {}"#,
     async fn load_document(client: &Iroh, namespace_id: &str) -> Result<Doc, crate::Error> {
         let document = client
             .docs()
-            .import_namespace(iroh::docs::Capability::Write(NamespaceSecret::from_str(
-                namespace_id,
-            )?))
+            .import_namespace(Capability::Write(NamespaceSecret::from_str(namespace_id)?))
             .await?;
         Ok(document)
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Todo {
+    /// Record creation timestamp. Counted as micros since the Unix epoch.
+    pub created: u64,
+    /// ID of the todo
+    pub id: Uuid,
+    /// Description of the todo
+    pub description: String,
+    /// Whether or not the todo has been completed.
+    pub done: bool,
+}
+
+impl fmt::Display for Todo {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let json = serde_json::to_string(self).map_err(|_| fmt::Error)?;
+        write!(f, "{}", json)
+    }
+}
+
+impl Todo {
+    // pub fn to_string(&self) -> String {
+    //     serde_json::to_string(self).unwrap()
+    // }
+    fn from_str(str: &str) -> Result<Self, crate::Error> {
+        let todo = json::from_str(str)?;
+        Ok(todo)
     }
 }

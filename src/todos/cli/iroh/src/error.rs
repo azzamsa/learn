@@ -24,3 +24,15 @@ impl std::convert::From<anyhow::Error> for Error {
         Error::Internal(err.to_string())
     }
 }
+
+impl std::convert::From<std::time::SystemTimeError> for Error {
+    fn from(err: std::time::SystemTimeError) -> Self {
+        Error::Internal(err.to_string())
+    }
+}
+
+impl std::convert::From<std::str::Utf8Error> for Error {
+    fn from(err: std::str::Utf8Error) -> Self {
+        Error::Internal(err.to_string())
+    }
+}
