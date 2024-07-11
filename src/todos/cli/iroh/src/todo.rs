@@ -22,7 +22,7 @@ impl Repo {
             author_id,
         }
     }
-    pub async fn add(&self, description: &str) -> Result<(), crate::Error> {
+    pub async fn add(&self, description: &str) -> Result<Todo, crate::Error> {
         let id = Self::gen_id();
         let created = std::time::SystemTime::now()
             .duration_since(std::time::SystemTime::UNIX_EPOCH)?
@@ -33,8 +33,9 @@ impl Repo {
             description: description.to_string(),
             done: false,
         };
-        self.insert(id, todo.to_string()).await?;
-        Ok(())
+        self.insert(id.clone(), todo.to_string()).await?;
+
+        self.get(id).await
     }
     pub async fn list(&self) -> Result<Vec<Todo>, crate::Error> {
         let mut entries = self
@@ -51,15 +52,19 @@ impl Repo {
         todos.sort_by_key(|t| t.created);
         Ok(todos)
     }
-    pub async fn toggle(&self, id: String) -> Result<(), crate::Error> {
+    pub async fn toggle(&self, id: String) -> Result<Todo, crate::Error> {
         let mut todo = self.get(id.clone()).await?;
         todo.done = !todo.done;
-        self.insert(id, todo.to_string()).await
+        self.insert(id.clone(), todo.to_string()).await?;
+
+        self.get(id).await
     }
-    pub async fn remove(self, id: String) -> Result<(), crate::Error> {
-        self.delete(id).await
+    pub async fn remove(self, id: String) -> Result<Todo, crate::Error> {
+        let todo = self.get(id.clone()).await?;
+        self.delete(id).await?;
+        Ok(todo)
     }
-    pub async fn get(&self, id: String) -> Result<Todo, crate::Error> {
+    async fn get(&self, id: String) -> Result<Todo, crate::Error> {
         let entry = self
             .document
             .get_many(Query::single_latest_per_key().key_exact(id))
