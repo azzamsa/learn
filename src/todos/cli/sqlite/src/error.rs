@@ -37,3 +37,17 @@ impl std::convert::From<sqlx::migrate::MigrateError> for Error {
         Error::Internal(err.to_string())
     }
 }
+
+#[derive(Debug)]
+pub enum AppError {
+    TodoNotFound,
+}
+
+impl std::convert::From<AppError> for crate::Error {
+    fn from(err: AppError) -> Self {
+        match err {
+            // Other
+            AppError::TodoNotFound => crate::Error::NotFound("Todo not found".into()),
+        }
+    }
+}

@@ -1,9 +1,23 @@
 use sqlx::SqlitePool;
 
+#[derive(Debug, sqlx::FromRow)]
 pub struct Todo {
+    /// ID of the todo
     pub id: i64,
+    /// Description of the todo
     pub description: String,
+    /// Whether or not the todo has been completed.
     pub done: bool,
+}
+
+impl Todo {
+    pub fn done_icon(&self) -> String {
+        if self.done {
+            "X".to_string()
+        } else {
+            " ".to_string()
+        }
+    }
 }
 
 pub struct Repo {
@@ -14,111 +28,87 @@ impl Repo {
     pub fn new(pool: SqlitePool) -> Self {
         Self { pool }
     }
-    pub async fn add(&self, description: &str) -> Result<i64, crate::Error> {
-        let id = sqlx::query!(
-            r#"
-INSERT INTO todos ( description )
-VALUES ( ?1 )
-        "#,
-            description
-        )
-        .execute(&self.pool)
-        .await?
-        .last_insert_rowid();
+    pub async fn add(&self, description: &str) -> Result<Todo, crate::Error> {
+        const QUERY: &str = "insert into todos (description) values ($1) returning *";
 
-        Ok(id)
-    }
-    pub async fn mark(&self, id: i64) -> Result<(), crate::Error> {
-        sqlx::query!(
-            r#"
-        UPDATE todos
-        SET done = TRUE
-        WHERE id = $1
-        "#,
-            id
-        )
-        .execute(&self.pool)
-        .await?;
-
-        Ok(())
-    }
-    pub async fn unmark(&self, id: i64) -> Result<(), crate::Error> {
-        sqlx::query!(
-            r#"
-        UPDATE todos
-        SET done = FALSE
-        WHERE id = $1
-        "#,
-            id
-        )
-        .execute(&self.pool)
-        .await?;
-
-        Ok(())
-    }
-    pub async fn remove(&self, id: i64) -> Result<(), crate::Error> {
-        sqlx::query!(
-            r#"
-DELETE FROM todos
-WHERE id = $1
-        "#,
-            id
-        )
-        .execute(&self.pool)
-        .await?;
-
-        Ok(())
+        match sqlx::query_as::<_, Todo>(QUERY)
+            .bind(description)
+            .fetch_one(&self.pool)
+            .await
+        {
+            Err(err) => {
+                tracing::error!("{}", &err);
+                Err(err.into())
+            }
+            Ok(todo) => Ok(todo),
+        }
     }
     pub async fn list(&self) -> Result<Vec<Todo>, crate::Error> {
-        let recs = sqlx::query!(
-            r#"
-SELECT id, description, done
-FROM todos
-ORDER BY id
-        "#
-        )
-        .fetch_all(&self.pool)
-        .await?;
+        const QUERY: &str = "select * from todos order by id";
 
-        let todos: Vec<Todo> = recs
-            .into_iter()
-            .map(|rec| Todo {
-                id: rec.id,
-                description: rec.description,
-                done: rec.done,
-            })
-            .collect();
-
-        Ok(todos)
+        match sqlx::query_as::<_, Todo>(QUERY).fetch_all(&self.pool).await {
+            Err(err) => {
+                tracing::error!("{}", &err);
+                Err(err.into())
+            }
+            Ok(todo) => Ok(todo),
+        }
     }
-    pub async fn description(&self, id: i64) -> Result<String, crate::Error> {
-        let description = sqlx::query!(
-            r#"
-        SELECT description
-        FROM todos
-        WHERE id = $1
-        "#,
-            id
-        )
-        .fetch_one(&self.pool)
-        .await?
-        .description;
-
-        Ok(description)
+    pub async fn toggle(&self, id: i64) -> Result<Todo, crate::Error> {
+        let mut todo = self.get(id).await?;
+        todo.done = !todo.done;
+        self.update(todo).await
     }
-    pub async fn status(&self, id: i64) -> Result<bool, crate::Error> {
-        let done = sqlx::query!(
-            r#"
-        SELECT done
-        FROM todos
-        WHERE id = $1
-        "#,
-            id
-        )
-        .fetch_one(&self.pool)
-        .await?
-        .done;
+    pub async fn remove(&self, id: i64) -> Result<Todo, crate::Error> {
+        const QUERY: &str = "delete * from todos where id = $1 returning *";
 
-        Ok(done)
+        match sqlx::query_as::<_, Todo>(QUERY)
+            .bind(id)
+            .fetch_one(&self.pool)
+            .await
+        {
+            Err(err) => {
+                tracing::error!("{}", &err);
+                Err(err.into())
+            }
+            Ok(todo) => Ok(todo),
+        }
+    }
+    pub async fn get(&self, id: i64) -> Result<Todo, crate::Error> {
+        const QUERY: &str = "SELECT * FROM todos WHERE id = $1";
+
+        match sqlx::query_as::<_, Todo>(QUERY)
+            .bind(id)
+            .fetch_optional(&self.pool)
+            .await
+        {
+            Err(err) => {
+                tracing::error!("{}", &err);
+                Err(err.into())
+            }
+            Ok(None) => Err(crate::error::AppError::TodoNotFound.into()),
+            Ok(Some(res)) => Ok(res),
+        }
+    }
+    async fn update(&self, todo: Todo) -> Result<Todo, crate::Error> {
+        const QUERY: &str = "update todos set
+              description = $2,
+              done = $3,
+           where id = $1 returning *";
+
+        match sqlx::query_as::<_, Todo>(QUERY)
+            .bind(todo.id)
+            .bind(todo.description)
+            .bind(todo.done)
+            .fetch_optional(&self.pool)
+            .await
+        {
+            Err(err) => {
+                tracing::error!("{}", &err);
+                Err(err.into())
+            }
+            Ok(None) => Err(crate::error::AppError::TodoNotFound.into()),
+            Ok(Some(res)) => Ok(res),
+        }
     }
 }

@@ -19,17 +19,12 @@ pub enum Command {
         #[arg(short, long)]
         description: String,
     },
-    /// Mark a task as completed
-    Mark {
+    /// Toggle the completion status of a todo item
+    Toggle {
         #[arg(short, long)]
         id: i64,
     },
-    /// Mark a task as todo
-    Unmark {
-        #[arg(short, long)]
-        id: i64,
-    },
-    /// Remove todo
+    // Remove a todo
     Remove {
         #[arg(short, long)]
         id: i64,

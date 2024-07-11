@@ -1,4 +1,3 @@
-#![deny(unsafe_code)]
 use std::{process, sync::Arc};
 
 use clap::Parser;
@@ -33,35 +32,32 @@ async fn run() -> miette::Result<ExitCode> {
     let pool = db::connect(&config.database).await?;
     db::migrate(&pool).await?;
 
-    let todo = Repo::new(pool);
+    let repo = Repo::new(pool);
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
-            let id = todo.add(description).await?;
+            repo.add(description).await?;
             output::stdout(&format!("- [ ]: {description}"));
         }
         Some(Command::Toggle { id }) => {
-            todo.mark(*id).await?;
-            let description = todo.description(*id).await?;
-            output::stdout(&format!("- [X] {id}: {description}"));
+            let todo = repo.toggle(*id).await?;
+            output::stdout(&format!("- [{}] {}", todo.done_icon(), todo.description));
         }
         Some(Command::Remove { id }) => {
-            let description = todo.description(*id).await?;
-            let status = todo.status(*id).await?;
-            todo.remove(*id).await?;
-            let status = match status {
-                true => "X",
-                false => "",
-            };
-            output::stdout(&format!("- [{status}] {id}: {description}.  removed"));
+            let todo = repo.remove(id.to_owned()).await?;
+            output::stdout(&format!(
+                "- [{}] {}. removed",
+                todo.done_icon(),
+                todo.description
+            ));
         }
         None => {
-            let todos = todo.list().await?;
+            let todos = repo.list().await?;
             for todo in todos {
                 output::stdout(&format!(
-                    "- [{}] {}: {}",
-                    if todo.done { "X" } else { "" },
+                    "- ({}) [{}]: {}",
                     todo.id,
-                    &todo.description,
+                    todo.done_icon(),
+                    &todo.description
                 ));
             }
         }
