@@ -1,8 +1,8 @@
-#![deny(unsafe_code)]
 use std::{process, sync::Arc};
 
 use clap::Parser;
 use iroh::{blobs::store::Store, node::Node};
+use miette::miette;
 
 use todos::{
     cli::{Command, Opts},
@@ -27,16 +27,20 @@ async fn main() {
 }
 
 async fn run() -> miette::Result<ExitCode> {
-    let storage_path = std::env::current_dir().unwrap().join("cdata");
-    tokio::fs::create_dir_all(&storage_path).await.unwrap();
+    let storage_path = std::env::current_dir()
+        .map_err(|_| miette!("Failed to get pwd"))?
+        .join("cdata");
+    tokio::fs::create_dir_all(&storage_path)
+        .await
+        .map_err(|_| miette!("Failed create storage directory"))?;
 
     // Initialize node
     let node = Node::persistent(&storage_path)
         .await
-        .unwrap()
+        .map_err(|_| miette!("Failed to configure persistence Node"))?
         .spawn()
         .await
-        .unwrap();
+        .map_err(|_| miette!("Failed to spawn a Node"))?;
     run_inner(&node).await?;
     // Shutdown the node to make sure all writes are flushed.
     if let Err(err) = node.shutdown().await {

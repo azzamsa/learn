@@ -143,9 +143,6 @@ impl fmt::Display for Todo {
 }
 
 impl Todo {
-    // pub fn to_string(&self) -> String {
-    //     serde_json::to_string(self).unwrap()
-    // }
     fn from_str(str: &str) -> Result<Self, crate::Error> {
         let todo = json::from_str(str)?;
         Ok(todo)
