@@ -37,17 +37,12 @@ async fn run() -> miette::Result<ExitCode> {
     match opts.cmd.as_ref() {
         Some(Command::Add { description }) => {
             let id = todo.add(description).await?;
-            output::stdout(&format!("- [] {id}: {description}"));
+            output::stdout(&format!("- [ ]: {description}"));
         }
-        Some(Command::Mark { id }) => {
+        Some(Command::Toggle { id }) => {
             todo.mark(*id).await?;
             let description = todo.description(*id).await?;
             output::stdout(&format!("- [X] {id}: {description}"));
-        }
-        Some(Command::Unmark { id }) => {
-            todo.unmark(*id).await?;
-            let description = todo.description(*id).await?;
-            output::stdout(&format!("- [] {id}: {description}"));
         }
         Some(Command::Remove { id }) => {
             let description = todo.description(*id).await?;

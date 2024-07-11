@@ -56,6 +56,9 @@ impl Repo {
         todo.done = !todo.done;
         self.insert(id, todo.to_string()).await
     }
+    pub async fn remove(self, id: String) -> Result<(), crate::Error> {
+        self.delete(id).await
+    }
     pub async fn get(&self, id: String) -> Result<Todo, crate::Error> {
         let entry = self
             .document
@@ -86,6 +89,10 @@ impl Repo {
         self.document
             .set_bytes(self.author_id, key, content)
             .await?;
+        Ok(())
+    }
+    async fn delete(&self, key: String) -> Result<(), crate::Error> {
+        self.document.del(self.author_id, key).await?;
         Ok(())
     }
 }

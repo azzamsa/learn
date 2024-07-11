@@ -62,6 +62,15 @@ async fn run_inner<D: Store>(node: &Node<D>) -> Result<(), crate::Error> {
             let todo = repo.get(id.to_owned()).await?;
             output::stdout(&format!("- [{}] {}", todo.done_icon(), todo.description));
         }
+        Some(Command::Remove { id }) => {
+            let todo = repo.get(id.to_owned()).await?;
+            repo.remove(id.to_owned()).await?;
+            output::stdout(&format!(
+                "- [{}] {}. removed",
+                todo.done_icon(),
+                todo.description
+            ));
+        }
         None => {
             let todos = repo.list().await?;
             for todo in todos {

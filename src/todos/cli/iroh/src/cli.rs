@@ -24,4 +24,9 @@ pub enum Command {
         #[arg(short, long)]
         id: String,
     },
+    // Remove a todo
+    Remove {
+        #[arg(short, long)]
+        id: String,
+    },
 }
