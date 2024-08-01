@@ -3,7 +3,10 @@ use jiff::{civil::date, Zoned};
 
 fn main() {
     let now = Zoned::now();
-    let birthday = date(1990, 11, 28).intz("Asia/Jakarta").unwrap();
+    let birthday = date(1990, 11, 28)
+        .at(07, 0, 0, 0)
+        .intz("Asia/Jakarta")
+        .unwrap();
     let age = now.since(&birthday).unwrap();
 
     println!("You were born at: {}", birthday.strftime("%A, %d %B %Y"));
