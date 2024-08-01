@@ -3,4 +3,5 @@ resolver = "2"
 members = [
   "chrono-demo",
   "time-demo",
+  "jiff-demo"
 ]
