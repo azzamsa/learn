@@ -11,11 +11,11 @@ pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-        <Stylesheet id="leptos" href="/pkg/tailwind.css"/>
-        <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
+        <Stylesheet id="leptos" href="/pkg/tailwind.css" />
+        <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico" />
         <Router>
             <Routes>
-                <Route path="" view=|| view! { <Home/> }/>
+                <Route path="" view=|| view! { <Home /> } />
             </Routes>
         </Router>
     }
@@ -29,10 +29,10 @@ fn Home() -> impl IntoView {
                 <h1 class="font-bold text-center text-white"></h1>
             </header>
             <main class="p-8 my-10 mx-auto max-w-5xl bg-white rounded-lg shadow-2xl md:p-12">
-                <Banner/>
-                <Dashboard/>
+                <Banner />
+                <Dashboard />
             </main>
-            <Footer/>
+            <Footer />
         </div>
     }
 }

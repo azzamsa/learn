@@ -13,7 +13,7 @@ pub fn Footer() -> impl IntoView {
             >
                 "Support Me"
                 <i class="inline-block pt-0.5 mx-1 w-4 h-4">
-                    <Heart/>
+                    <Heart />
                 </i>
             </a>
             <span class="mx-3">"\u{2022}"</span>

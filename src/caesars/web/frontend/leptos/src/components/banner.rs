@@ -8,7 +8,7 @@ pub fn Banner() -> impl IntoView {
         <section>
             <p class="pt-0 text-lg text-center text-gray-600">
                 "Keep your secret safe" <i class="inline-block pt-1 mx-1 w-6 h-6">
-                    <Padlock/>
+                    <Padlock />
                 </i>
             </p>
         </section>

@@ -24,8 +24,7 @@ pub fn Dashboard() -> impl IntoView {
                             set_secret.set(secret_result);
                         });
                     }
-                >
-                </textarea>
+                ></textarea>
             </div>
             <div class="pt-3 mb-6 bg-gray-200 rounded">
                 <label class="input-label">"Secret"</label>
@@ -41,8 +40,7 @@ pub fn Dashboard() -> impl IntoView {
                             set_plain.set(plain_result);
                         });
                     }
-                >
-                </textarea>
+                ></textarea>
             </div>
             <div class="flex justify-center"></div>
         </section>
