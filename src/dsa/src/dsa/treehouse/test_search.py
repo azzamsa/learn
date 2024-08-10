@@ -1,4 +1,4 @@
-from treehouse.search import binary_search, binary_search_recursion, linear_search
+from dsa.treehouse.search import binary_search, binary_search_recursion, linear_search
 
 numbers = [0, 5, 7, 10, 15]
 
