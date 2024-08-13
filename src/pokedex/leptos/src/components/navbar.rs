@@ -14,16 +14,16 @@ pub fn NavBar() -> impl IntoView {
 
             <div class="navbar-start mx-2 px-2">
                 <span class="text-lg font-bold">
-                    <a href="{base}/">Pokedex</a>
+                    <a href="/">Pokedex</a>
                 </span>
             </div>
 
             <div class="navbar-center mx-2 px-2">
-                <div class="flex hidden items-stretch md:flex">
-                    <a class="nav-btn" href="{base}/">
+                <div class="space-x-2 flex hidden items-stretch md:flex">
+                    <a class="nav-btn" href="/">
                         Home
                     </a>
-                    <a class="nav-btn" href="{base}/about">
+                    <a class="nav-btn" href="/about">
                         About
                     </a>
                 </div>

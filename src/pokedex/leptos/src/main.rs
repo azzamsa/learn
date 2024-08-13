@@ -1,13 +1,22 @@
 use leptos::*;
+use leptos_router::*;
 
 use pokedex::components::NavBar;
+use pokedex::routes::About;
 
 fn main() {
     mount_to_body(|| {
         view! {
-            <div class="mx-auto my-5 max-w-6xl p-2">
-                <NavBar />
-            </div>
+            <Router>
+                <nav class="mx-auto my-5 max-w-6xl p-2">
+                    <NavBar />
+                </nav>
+                <main>
+                    <Routes>
+                        <Route path="/about" view=About></Route>
+                    </Routes>
+                </main>
+            </Router>
         }
     })
 }
