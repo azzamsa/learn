@@ -1,10 +1,13 @@
 use leptos::*;
 
+use pokedex::components::NavBar;
+
 fn main() {
     mount_to_body(|| {
         view! {
-            <p class="text-red-900">"Hello, world!"</p>
-            <button class="btn btn-primary">Button</button>
+            <div class="mx-auto my-5 max-w-6xl p-2">
+                <NavBar />
+            </div>
         }
     })
 }
