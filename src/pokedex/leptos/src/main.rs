@@ -13,8 +13,8 @@ fn main() {
                 </nav>
                 <main>
                     <Routes>
-                        <Route path="/" view=Index/>
-                        <Route path="/about" view=About/>
+                        <Route path="/" view=Index />
+                        <Route path="/about" view=About />
                     </Routes>
                 </main>
             </Router>
