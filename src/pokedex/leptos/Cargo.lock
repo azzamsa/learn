@@ -589,6 +589,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "leptos_meta"
+version = "0.6.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "206825db2cb802a9b06c1f33c08569086706a7fa4d8acb86e5ed6892a8dd2cec"
+dependencies = [
+ "cfg-if",
+ "indexmap",
+ "leptos",
+ "tracing",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
 name = "leptos_reactive"
 version = "0.6.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -834,6 +848,7 @@ name = "pokedex"
 version = "0.1.0"
 dependencies = [
  "leptos",
+ "leptos_meta",
  "leptos_router",
 ]
 

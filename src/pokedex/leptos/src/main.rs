@@ -2,7 +2,7 @@ use leptos::*;
 use leptos_router::*;
 
 use pokedex::components::NavBar;
-use pokedex::routes::About;
+use pokedex::routes::{About, Index};
 
 fn main() {
     mount_to_body(|| {
@@ -13,7 +13,8 @@ fn main() {
                 </nav>
                 <main>
                     <Routes>
-                        <Route path="/about" view=About></Route>
+                        <Route path="/" view=Index/>
+                        <Route path="/about" view=About/>
                     </Routes>
                 </main>
             </Router>
