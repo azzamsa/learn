@@ -1,0 +1,28 @@
+{
+  "authors": [
+    "DavyJ0nes",
+    "kahgoh"
+  ],
+  "contributors": [
+    "tehsphinx",
+    "andrerfcsantos"
+  ],
+  "files": {
+    "solution": [
+      "cars_assemble.go"
+    ],
+    "test": [
+      "cars_assemble_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "blurb": "Learn about numbers and type conversion by analyzing an assembly line in a car factory.",
+  "custom": {
+    "taskIdsEnabled": true
+  }
+}
