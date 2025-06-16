@@ -1,0 +1,31 @@
+{
+  "authors": [
+    "tehsphinx"
+  ],
+  "contributors": [
+    "ekingery",
+    "andrerfcsantos",
+    "bobtfish"
+  ],
+  "files": {
+    "solution": [
+      "lasagna.go"
+    ],
+    "test": [
+      "lasagna_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "forked_from": [
+    "csharp/lucians-luscious-lasagna"
+  ],
+  "blurb": "Learn about packages, functions, and variables by helping Gopher cook lasagna.",
+  "custom": {
+    "taskIdsEnabled": true
+  }
+}
