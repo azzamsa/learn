@@ -32,17 +32,20 @@ func ParseCard(card string) int {
 // player and one card of the dealer.
 func FirstTurn(card1, card2, dealerCard string) string {
 	sum := ParseCard(card1) + ParseCard(card2)
+	card1Num := ParseCard(card1)
+	card2Num := ParseCard(card2)
+	dealerCardNum := ParseCard(dealerCard)
 	switch {
-	case card1 == "ace" && card2 == "ace":
+	case card1Num == 11 && card2Num == 11:
 		return "P"
-	case sum == 21 && (dealerCard != "ace" && dealerCard != "jack" && dealerCard != "quen" && dealerCard != "king" && ParseCard(dealerCard) != 10):
+	case sum == 21 && (dealerCardNum != 11 && dealerCardNum != 10):
 		return "W"
 	case sum == 21:
 		return "S"
 	case sum >= 17 && sum <= 20:
 		return "S"
 		// The order of the case matters.
-	case sum >= 12 && sum <= 16 && ParseCard(dealerCard) >= 7:
+	case sum >= 12 && sum <= 16 && dealerCardNum >= 7:
 		return "H"
 	case sum >= 12 && sum <= 16:
 		return "S"
