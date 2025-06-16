@@ -1,0 +1,24 @@
+{
+  "authors": [
+    "nikimanoledaki",
+    "micuffaro"
+  ],
+  "files": {
+    "solution": [
+      "weather_forecast.go"
+    ],
+    "test": [
+      "weather_forecast_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "blurb": "Learn about comments by helping a weather station manage their weather forecasting program.",
+  "custom": {
+    "taskIdsEnabled": false
+  }
+}
