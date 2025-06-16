@@ -1,0 +1,28 @@
+{
+  "authors": [
+    "andres-zartab"
+  ],
+  "contributors": [
+    "tehsphinx",
+    "andrerfcsantos",
+    "norbs57"
+  ],
+  "files": {
+    "solution": [
+      "blackjack.go"
+    ],
+    "test": [
+      "blackjack_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "blurb": "Learn about conditionals by playing Blackjack.",
+  "custom": {
+    "taskIdsEnabled": true
+  }
+}
