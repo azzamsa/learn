@@ -14,18 +14,17 @@ func PreparationTime(layers []string, avgPreparationTime int) int {
 //	...
 func Quantities(layers []string) (noodles int, sauce float64) {
 	totalNoodles := 0
-	for _, layer := range layers {
-		if layer == "noodles" {
-			totalNoodles++
-		}
-	}
-
 	totalSauce := 0
+
 	for _, layer := range layers {
-		if layer == "sauce" {
+		switch layer {
+		case "noodles":
+			totalNoodles++
+		case "sauce":
 			totalSauce++
 		}
 	}
+
 	noodles = 50 * totalNoodles
 	sauce = 0.2 * float64(totalSauce)
 	return
@@ -35,7 +34,7 @@ func Quantities(layers []string) (noodles int, sauce float64) {
 //
 //	...
 func AddSecretIngredient(friendList []string, myList []string) {
-	myList = append(myList[:len(myList)-1], friendList[len(friendList)-1])
+	myList[len(myList)-1] = friendList[len(friendList)-1]
 }
 
 // TODO: define the 'ScaleRecipe()' function
