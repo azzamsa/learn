@@ -29,9 +29,7 @@ func IsAfternoonAppointment(date string) bool {
 func Description(date string) string {
 	layout := "1/2/2006 15:04:05"
 	t := parseTime(layout, date)
-	return fmt.Sprintf("You have an appointment on %s, %s %d, %d, at %02d:%02d.",
-		t.Weekday(), t.Month(), t.Day(), t.Year(), t.Hour(), t.Minute())
-
+	return fmt.Sprintf("You have an appointment on %s", t.Format("Monday, January 2, 2006, at 15:04."))
 }
 
 // AnniversaryDate returns a Time with this year's anniversary.
