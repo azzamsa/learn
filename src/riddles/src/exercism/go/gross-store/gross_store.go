@@ -42,23 +42,21 @@ func RemoveItem(bill, units map[string]int, item, unit string) bool {
 		return false
 	}
 
-	_, ok = units[unit]
+	score, ok := units[unit]
 	if !ok {
 		return false
 	}
 
-	// use `<=` to make sure finalQty < 0
-	if qty <= 0 {
+	finalQty := qty - score
+	if finalQty < 0 {
 		return false
-	}
-
-	// will be zero if `1 - 1`
-	if qty == 1 {
+	} else if finalQty == 0 {
 		delete(bill, item)
+		return true
 	} else {
-		bill[item] = qty - 1
+		bill[item] = finalQty
+		return true
 	}
-	return true
 }
 
 // GetItem returns the quantity of an item that the customer has in his/her bill.
