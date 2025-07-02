@@ -1,0 +1,26 @@
+{
+  "authors": [
+    "andrerfcsantos"
+  ],
+  "files": {
+    "solution": [
+      "election_day.go"
+    ],
+    "test": [
+      "election_day_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "editor": [
+      "election_result.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "blurb": "Learn about pointers by creating a simple voting system.",
+  "custom": {
+    "taskIdsEnabled": true
+  }
+}
