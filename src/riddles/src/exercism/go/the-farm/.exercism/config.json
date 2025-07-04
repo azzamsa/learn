@@ -1,0 +1,29 @@
+{
+  "authors": [
+    "brugnara",
+    "jmrunkle",
+    "junedev"
+  ],
+  "contributors": [],
+  "files": {
+    "solution": [
+      "the_farm.go"
+    ],
+    "test": [
+      "the_farm_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "editor": [
+      "types.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "blurb": "Learn about error handling in Go while feeding cows on the farm.",
+  "custom": {
+    "taskIdsEnabled": true
+  }
+}
