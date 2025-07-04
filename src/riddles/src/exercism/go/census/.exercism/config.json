@@ -1,0 +1,28 @@
+{
+  "authors": [
+    "jamessouth",
+    "sudomateo"
+  ],
+  "contributors": [
+    "tehsphinx",
+    "eklatzer"
+  ],
+  "files": {
+    "solution": [
+      "census.go"
+    ],
+    "test": [
+      "census_test.go"
+    ],
+    "exemplar": [
+      ".meta/exemplar.go"
+    ],
+    "invalidator": [
+      "go.mod"
+    ]
+  },
+  "blurb": "Learn about zero values.",
+  "custom": {
+    "taskIdsEnabled": true
+  }
+}
