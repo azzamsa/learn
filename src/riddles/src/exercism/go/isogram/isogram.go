@@ -2,26 +2,17 @@ package isogram
 
 import (
 	"strings"
+	"unicode"
 )
 
 func IsIsogram(word string) bool {
-	current := ""
 	word = strings.ToLower(word)
-	for k := range word {
-		char := string(word[k])
-		// spaces and hyphens are okay
-		if char == " " || char == "-" {
-			continue
-		}
-		current = char
-		for i, v := range word {
-			// don't compare with itself.
-			if i == k {
-				continue
-			}
-			if current == string(v) {
-				return false
-			}
+
+	for i, v := range word {
+		// `isLetter` skips checking non-letters
+		// i+1 to avoid checking itself
+		if unicode.IsLetter(v) && strings.ContainsAny(word[i+1:], string(v)) {
+			return false
 		}
 	}
 	return true
